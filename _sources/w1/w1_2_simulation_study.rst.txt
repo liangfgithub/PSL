@@ -1,0 +1,69 @@
+Simulation Study
+===================================
+
+
+Next, we're going to apply kNN and linear regression for two simulated binary classification examples from Chapter 2 of "Elements of Statistical Learning."
+
+*  Rcode [`Link <https://liangfgithub.github.io/Rcode_W1_SimulationStudy.html>`_]
+
+*  Python [`Link <https://liangfgithub.github.io/Python_W1_SimulationStudy.html>`_]
+
+
+Data Generation
+------------------------
+
+**Example 1**
+
+* Data consists of binary classification with two classes, labeled as 0 and 1.
+* Features are two-dimensional (2D).
+* Class 1 data points are generated from a Gaussian distribution with a specific mean.
+* Class 0 data points are also generated from a Gaussian distribution with a different mean but the same variance.
+
+
+* Generate 200 training samples (100 for each class) using Gaussian distributions.
+* Assign labels to the training data (100 class 1 and 100 class 0).
+* Generate 10,000 test samples similarly.
+
+
+**Example 2**
+
+Similar to Example 1, but with a more complex data generation process.
+
+* Each class is generated from a mixture of 10 Gaussian distributions.
+* Class 1 data points randomly select one of 10 centers and then generate data from a Gaussian distribution with that center's mean.
+* Class 0 data points follow a similar process.
+
+
+In Example 2, within each class, X is generated from a mixture distribution. A **mixture distribution** is a probabilistic model that represents various subgroups within a larger group. The probability density functions (PDF) of a mixture distribution can be expressed as a weighted sum of k PDFs, where each PDF corresponds to a different component or subpopulation.
+
+.. math:: 
+	f(x) = w_1 f_1(x) + \cdots + w_k f_k(x) = \sum_{j=1}^k w_j f_j(x).
+
+* w_j: These are the weights for each component, and they represent the probability that a randomly selected observation comes from the k-th component. These weights must sum to 1, i.e., :math:`\sum_j w_j = 1`.
+* f_k: These are the individual PDFs for each component. They could be normal distributions with specific means and variances, or any other distribution.
+
+
+To simulate data from the mixture distribution, you do not average samples from the k components. Instead, the process typically goes like this: 1) First, determine which component the data will come from based on the weights w_j; 2) Given a chosen component, generate the data x from the PDF of that component. 
+
+Essentially, this sampling approach treats the mixture PDF f(x) as the marginal of a joint PDF f(x,z), where Z ranges from 1 to k with probability w_k and the conditional PDF of X given Z=j is f_j(x). 
+
+
+
+K-Nearest Neighbors (kNN)
+------------------------------------------------
+
+1.  Define a set of k values for KNN (usually obtained from the textbook).
+2.  Initialize vectors to store training and test errors for each k.
+
+
+
+Linear Regression 
+------------------------------------------------
+
+1. Convert categorical labels (0 and 1) to numerical values (0 and 1). Note that in R, kNN requires categorical labels (i.e., Y is treated as factor in R), but linear regression needs numerical outcome. 
+2. Fit a linear regression model.
+3. Threshold the predictions at 0.5 to obtain class predictions.
+4. Calculate training and test errors.
+
+
+Next, let's compute the  **Bayes Rule**. 

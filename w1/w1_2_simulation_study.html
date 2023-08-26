@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1.2.2. Simulation Study &mdash; PSL_Book 0.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=2709fde1"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="1.2.3. Compute Bayes rule" href="w1_2_bayes_rule.html" />
+    <link rel="prev" title="1.2.1. Introduction to LS and kNN" href="w1_2_intro_LS_kNN.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PSL_Book
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="w1_index.html">1. Introduction</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="w1_1_index.html">1.1. Introduction to statistical learning</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="w1_2_index.html">1.2. Least squares vs. nearest neighbors</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="w1_2_intro_LS_kNN.html">1.2.1. Introduction to LS and kNN</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">1.2.2. Simulation Study</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#data-generation">Data Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#k-nearest-neighbors-knn">K-Nearest Neighbors (kNN)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#linear-regression">Linear Regression</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="w1_2_bayes_rule.html">1.2.3. Compute Bayes rule</a></li>
+<li class="toctree-l3"><a class="reference internal" href="w1_2_discussion.html">1.2.4. Discussion</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../w2/w2_index.html">2. Linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w3/w3_index.html">3. Variable Selection and Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w4/w4_index.html">4. Regression Trees and Ensemble</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w5/w5_index.html">5. Nonlinear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w6/w6_index.html">6. Clustering Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w7/w7_index.html">7. Latent Structure Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w8/w8_index.html">8. TBA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w9/w9_index.html">9. Discriminant Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w10/w10_index.html">10. Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w11/w11_index.html">11. Support Vector Machine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w12/w12_index.html">12. Classification Trees and Boosting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w13/w13_index.html">13. Recommender System</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PSL_Book</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="w1_index.html"><span class="section-number">1. </span>Introduction</a></li>
+          <li class="breadcrumb-item"><a href="w1_2_index.html"><span class="section-number">1.2. </span>Least squares vs. nearest neighbors</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">1.2.2. </span>Simulation Study</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/w1/w1_2_simulation_study.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="simulation-study">
+<h1><span class="section-number">1.2.2. </span>Simulation Study<a class="headerlink" href="#simulation-study" title="Link to this heading"></a></h1>
+<p>Next, we’re going to apply kNN and linear regression for two simulated binary classification examples from Chapter 2 of “Elements of Statistical Learning.”</p>
+<ul class="simple">
+<li><p>Rcode [<a class="reference external" href="https://liangfgithub.github.io/Rcode_W1_SimulationStudy.html">Link</a>]</p></li>
+<li><p>Python [<a class="reference external" href="https://liangfgithub.github.io/Python_W1_SimulationStudy.html">Link</a>]</p></li>
+</ul>
+<section id="data-generation">
+<h2>Data Generation<a class="headerlink" href="#data-generation" title="Link to this heading"></a></h2>
+<p><strong>Example 1</strong></p>
+<ul class="simple">
+<li><p>Data consists of binary classification with two classes, labeled as 0 and 1.</p></li>
+<li><p>Features are two-dimensional (2D).</p></li>
+<li><p>Class 1 data points are generated from a Gaussian distribution with a specific mean.</p></li>
+<li><p>Class 0 data points are also generated from a Gaussian distribution with a different mean but the same variance.</p></li>
+<li><p>Generate 200 training samples (100 for each class) using Gaussian distributions.</p></li>
+<li><p>Assign labels to the training data (100 class 1 and 100 class 0).</p></li>
+<li><p>Generate 10,000 test samples similarly.</p></li>
+</ul>
+<p><strong>Example 2</strong></p>
+<p>Similar to Example 1, but with a more complex data generation process.</p>
+<ul class="simple">
+<li><p>Each class is generated from a mixture of 10 Gaussian distributions.</p></li>
+<li><p>Class 1 data points randomly select one of 10 centers and then generate data from a Gaussian distribution with that center’s mean.</p></li>
+<li><p>Class 0 data points follow a similar process.</p></li>
+</ul>
+<p>In Example 2, within each class, X is generated from a mixture distribution. A <strong>mixture distribution</strong> is a probabilistic model that represents various subgroups within a larger group. The probability density functions (PDF) of a mixture distribution can be expressed as a weighted sum of k PDFs, where each PDF corresponds to a different component or subpopulation.</p>
+<div class="math notranslate nohighlight">
+\[f(x) = w_1 f_1(x) + \cdots + w_k f_k(x) = \sum_{j=1}^k w_j f_j(x).\]</div>
+<ul class="simple">
+<li><p>w_j: These are the weights for each component, and they represent the probability that a randomly selected observation comes from the k-th component. These weights must sum to 1, i.e., <span class="math notranslate nohighlight">\(\sum_j w_j = 1\)</span>.</p></li>
+<li><p>f_k: These are the individual PDFs for each component. They could be normal distributions with specific means and variances, or any other distribution.</p></li>
+</ul>
+<p>To simulate data from the mixture distribution, you do not average samples from the k components. Instead, the process typically goes like this: 1) First, determine which component the data will come from based on the weights w_j; 2) Given a chosen component, generate the data x from the PDF of that component.</p>
+<p>Essentially, this sampling approach treats the mixture PDF f(x) as the marginal of a joint PDF f(x,z), where Z ranges from 1 to k with probability w_k and the conditional PDF of X given Z=j is f_j(x).</p>
+</section>
+<section id="k-nearest-neighbors-knn">
+<h2>K-Nearest Neighbors (kNN)<a class="headerlink" href="#k-nearest-neighbors-knn" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Define a set of k values for KNN (usually obtained from the textbook).</p></li>
+<li><p>Initialize vectors to store training and test errors for each k.</p></li>
+</ol>
+</section>
+<section id="linear-regression">
+<h2>Linear Regression<a class="headerlink" href="#linear-regression" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Convert categorical labels (0 and 1) to numerical values (0 and 1). Note that in R, kNN requires categorical labels (i.e., Y is treated as factor in R), but linear regression needs numerical outcome.</p></li>
+<li><p>Fit a linear regression model.</p></li>
+<li><p>Threshold the predictions at 0.5 to obtain class predictions.</p></li>
+<li><p>Calculate training and test errors.</p></li>
+</ol>
+<p>Next, let’s compute the  <strong>Bayes Rule</strong>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="w1_2_intro_LS_kNN.html" class="btn btn-neutral float-left" title="1.2.1. Introduction to LS and kNN" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="w1_2_bayes_rule.html" class="btn btn-neutral float-right" title="1.2.3. Compute Bayes rule" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Feng Liang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

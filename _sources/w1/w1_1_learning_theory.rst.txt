@@ -1,0 +1,5 @@
+A Glimpse of Learning Theory 
+--------------------------------------
+
+Check slides: `lec_W1.3_Introduction_LearningTheory.pdf <https://liangfgithub.github.io/Notes/lec_W1.3_Introduction_LearningTheory.pdf>`_
+

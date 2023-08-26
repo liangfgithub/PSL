@@ -1,0 +1,35 @@
+.. PSL_Book documentation master file, created by
+   sphinx-quickstart on Mon Jul 31 17:10:35 2023.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+
+Practical Statistical Learning (PSL)
+====================================
+
+
+These notes are based on a course in statistical learning developed by **John Marden** (jimarden AT illinois DOT edu) and **Feng Liang** (liangf AT illinois DOT edu) at UIUC using the text `The Elements of 
+Statistical Learning <https://hastie.su.domains/ElemStatLearn/>`_ by 
+Hastie, Tibshirani and Friedman.
+
+ .. note::
+
+   This project is under active development.
+
+.. toctree::
+   :maxdepth: 2
+   :numbered: 3
+
+   w1/w1_index
+   w2/w2_index
+   w3/w3_index
+   w4/w4_index
+   w5/w5_index
+   w6/w6_index
+   w7/w7_index
+   w8/w8_index
+   w9/w9_index
+   w10/w10_index
+   w11/w11_index
+   w12/w12_index
+   w13/w13_index

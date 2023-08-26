@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2.2. Geometric interpretation &mdash; PSL_Book 0.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=2709fde1"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="2.3. Practical issues" href="w2_3.html" />
+    <link rel="prev" title="2.1. Multiple linear regression" href="w2_1.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PSL_Book
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../w1/w1_index.html">1. Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="w2_index.html">2. Linear Regression</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="w2_1.html">2.1. Multiple linear regression</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2.2. Geometric interpretation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#basic-concepts-in-vector-spaces">2.2.1. Basic Concepts in Vector Spaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ls-and-projection">2.2.2. LS and Projection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#r-square-the-coefficient-of-determination">2.2.3. R-square: The Coefficient of Determination</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#definition-of-r-square">Definition of R-square</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Geometric Interpretation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#invariance-properties-of-r-square">Invariance Properties of R-square</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#interpretation-and-limitations">Interpretation and Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#linear-transformation-of-x">2.2.4. Linear Transformation of X</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rank-deficiency">2.2.5. Rank Deficiency</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="w2_3.html">2.3. Practical issues</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../w3/w3_index.html">3. Variable Selection and Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w4/w4_index.html">4. Regression Trees and Ensemble</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w5/w5_index.html">5. Nonlinear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w6/w6_index.html">6. Clustering Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w7/w7_index.html">7. Latent Structure Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w8/w8_index.html">8. TBA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w9/w9_index.html">9. Discriminant Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w10/w10_index.html">10. Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w11/w11_index.html">11. Support Vector Machine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w12/w12_index.html">12. Classification Trees and Boosting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w13/w13_index.html">13. Recommender System</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PSL_Book</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="w2_index.html"><span class="section-number">2. </span>Linear Regression</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">2.2. </span>Geometric interpretation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/w2/w2_2.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="geometric-interpretation">
+<h1><span class="section-number">2.2. </span>Geometric interpretation<a class="headerlink" href="#geometric-interpretation" title="Link to this heading"></a></h1>
+<p>The geometric interpretation of least squares doesn’t focus on the space in which the (p+1) dimensional feature vectors reside, where the feature vector includes the intercept. Therefore, it’s not advisable to utilize scatter plots to obtain geometric intuition.</p>
+<p>Instead, the geometric interpretation focuses on the n-dimensional column vectors of the design matrix X and the n-dimensional data vector y.</p>
+<section id="basic-concepts-in-vector-spaces">
+<h2><span class="section-number">2.2.1. </span>Basic Concepts in Vector Spaces<a class="headerlink" href="#basic-concepts-in-vector-spaces" title="Link to this heading"></a></h2>
+<p>First, let’s briefly revisit some foundational concepts in linear algebra.</p>
+<p><strong>Vectors</strong>: Vectors could be two-dimensional, three-dimensional, or more generally, n-dimensional. A vector can be visualized as a point in the corresponding space, or as an arrow originating at zero and pointing to that point. Vectors allow mathematical operations like addition and scalar multiplication. When you perform these operations on vectors from the same space, the result is also a vector from that space.</p>
+<a class="reference internal image-reference" href="../_images/w2_vector_scale_sum.png"><img alt="../_images/w2_vector_scale_sum.png" src="../_images/w2_vector_scale_sum.png" style="width: 290.0px; height: 185.20000000000002px;" /></a>
+<p><strong>Linear Subspace</strong>: This is an important concept in linear algebra. A linear subspace is a collection of vectors that remains closed under linear combinations. You can think of a subspace as a bag containing vectors. If you pick any two vectors u and v from this bag, any linear combination of them should also reside in the bag. It’s worth noting that u and v can be identical vectors.  Consequently, a linear subspace always includes the origin since u-u = 0.</p>
+<p>A key characteristic of a linear subspace is its dimension. If a linear subspace in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> has a dimension of m, then the following statements are true:</p>
+<ul class="simple">
+<li><p>A bais can be found consisting of m vectors, and any vector within this subspace can be uniquely represented using these m basis vectors. However, it’s important to note that bases for a subspace are not unique; different sets of basis vectors can span the same subspace.</p></li>
+<li><p>If there’s a subset of k vectors where k &gt;m, then this set of vectors must be linear dependent; this means that at least (k-m) vectors can be expressed as linear combinations of others.</p></li>
+</ul>
+<p>In <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>, linear subspaces are typically lines passing through the origin. In <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span>, they could be lines (one-dimensional subspace) or planes (two-dimensional subspace) that pass through the origin.</p>
+<a class="reference internal image-reference" href="../_images/w2_example_subspace.png"><img alt="../_images/w2_example_subspace.png" src="../_images/w2_example_subspace.png" style="width: 382.5px; height: 151.5px;" /></a>
+<p>For regression analysis, we often deal with a special type of linear subspace known as the column space of the design matrix. Recall the p+1 columns of X, each being a vector in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>. The column space, denoted by</p>
+<div class="math notranslate nohighlight">
+\[C(X) = \{ \mathbf{X} \boldsymbol{\beta}, \boldsymbol{\beta} \in \mathbb{R}^{p+1} \}\]</div>
+<p>contains vectors that can be expressed as a linear combination of the columns of X. In other words, any vector in C(X) can be  represented as X times a coefficient vector.</p>
+</section>
+<section id="ls-and-projection">
+<h2><span class="section-number">2.2.2. </span>LS and Projection<a class="headerlink" href="#ls-and-projection" title="Link to this heading"></a></h2>
+<p>Now we can delve into the geometric interpretation of least squares. Consider the least squares optimization problem, where our objective is to find a linear combination of the columns of X so that the difference vector <span class="math notranslate nohighlight">\(\mathbf{y} - \mathbf{X} \boldsymbol{\beta}\)</span> has the smallest norm.</p>
+<p>Let’s illustrate this geometrically, with the origin set at zero. Imagine y as a vector colored in red. For simplicity, assume that X has only two columns, X1 and X2. In this case, C(X), the column space of X, is a two-dimensional plane. This plane contains the yellow triangle in our illustration. Any point on this plane can be written as a linear combination of X, meaning that for every such point, there exists a corresponding beta. Conversely, for any beta, <span class="math notranslate nohighlight">\(\mathbf{X} \boldsymbol{\beta}\)</span> corresponds to a point on this plane.</p>
+<a class="reference internal image-reference" href="../_images/w2_projection.png"><img alt="../_images/w2_projection.png" src="../_images/w2_projection.png" style="width: 285.59999999999997px; height: 251.29999999999998px;" /></a>
+<p>The least squares optimization problem is equivalent to finding a vector v on this plane so that the difference vector, stretching from y to v, attains the smallest norm. Intuitively, the optimal v is the projection of y onto the space C(X), the plane containing the yellow triangle.</p>
+<p>What is this projection? Start from y, and move perpendicularly towards the yellow plane until you reach it. This point, denoted as y-hat, is the optimal choice for v.</p>
+<p>While the mathematical intricacies have been skipped here,  if matrix X is of full rank, given y-hat, one can easily compute the corresponding linear combination, beta-hat, which is the least squares solution.</p>
+<p>This reveals the essence of least squares: it decomposes the n-dimensional data vector y into two orthogonal components:</p>
+<ol class="arabic simple">
+<li><p>The predicted values, y-hat, which is equal to <span class="math notranslate nohighlight">\(\mathbf{X} \boldsymbol{\beta}\)</span> lying within the column space of X.</p></li>
+<li><p>The residual vector, r, which is equal to y - y-hat.</p></li>
+</ol>
+<p>The two vectors, y-hat and r, are orthogonal to each other.</p>
+</section>
+<section id="r-square-the-coefficient-of-determination">
+<h2><span class="section-number">2.2.3. </span>R-square: The Coefficient of Determination<a class="headerlink" href="#r-square-the-coefficient-of-determination" title="Link to this heading"></a></h2>
+<p>The R-square value, often referred to as the coefficient of determination, is a statistical measure that represents the proportion of the variance for a dependent variable that is explained by the independent variables in a linear regression model.</p>
+<section id="definition-of-r-square">
+<h3>Definition of R-square<a class="headerlink" href="#definition-of-r-square" title="Link to this heading"></a></h3>
+<p>The definition of R-squared is given by a ratio where the numerator represents the variance of the fitted values and the denominator represents the variance of the original data.</p>
+<div class="math notranslate nohighlight">
+\[R^2  = \frac{\sum (\hat{y}_i - \bar{\mathbf{y}})^2}{\sum (y_i - \bar{\mathbf{y}})^2} \ =  \frac{\| \hat{\mathbf{y}} - \bar{\mathbf{y}} \|^2}{\| \mathbf{y} - \bar{\mathbf{y}} \|^2}\]</div>
+<p>Note that since y = y-hat + r and the mean of the residual vector r is zero, the mean of y and the mean of y-hat are the same (i.e., y-bar). If we divide the numerator and denominator of the R-squared ratio by (n-1), it becomes clear that R-square equates to the variance of the fitted values (y-hat) relative to the variance of the original data (y). This understanding leads us to interpret R-suare as the fraction of the variance in Y explained by X because y-hat is determined by X.</p>
+</section>
+<section id="id1">
+<h3>Geometric Interpretation<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<p>Visually, (y, y-hat, r) can be depicted as the three sides of a right triangle. This analogy holds even when we center our data, i.e., subtract the mean.</p>
+<p>Using the Pythagorean theorem, the squared length of long side (y - ybar) equates to the sum of the squared lengths of the other two sides, y-hat - ybar and r.</p>
+<div class="math notranslate nohighlight">
+\[\| \mathbf{y} - \bar{\mathbf{y}} \|^2  = \| \hat{\mathbf{y}} - \bar{\mathbf{y}} \|^2 + \| \mathbf{r}\|^2.\]</div>
+<p>These squared lengths correspond to:</p>
+<ul class="simple">
+<li><p>Total sum of squares: squared length of (y - ybar).</p></li>
+<li><p>Fitted sum of squares: squared length of (y-hat - ybar).</p></li>
+<li><p>Residual sum of squares: squared length of r.</p></li>
+</ul>
+<p>R-square can be alternatively expressed as FSS/TSS or (1 - RSS/TSS)</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}R^2 &amp; =  \frac{\| \hat{\mathbf{y}} - \bar{\mathbf{y}} \|^2}{\| \mathbf{y} - \bar{\mathbf{y}} \|^2}  = \frac{\text{FSS}}{\text{TSS}} \\
+&amp; = \frac{\| \mathbf{y} - \bar{\mathbf{y}} \|^2 - \| \mathbf{r} \|^2}{\| \mathbf{y} - \bar{\mathbf{y}} \|^2}  = 1 -  \frac{\text{RSS}}{\text{TSS}}\end{split}\]</div>
+<p>Additionally, R-squarae can be described as the <strong>squared correlation</strong> between y and y-hat in multiple linear regression, and between y and x in simple linear regression. This is why R-square values always lie between 0 and 1.</p>
+</section>
+<section id="invariance-properties-of-r-square">
+<h3>Invariance Properties of R-square<a class="headerlink" href="#invariance-properties-of-r-square" title="Link to this heading"></a></h3>
+<p>Any location or scale change in y won’t impact R-square. That’s because any modifications to y result in proportional changes in y-hat, ensuring correlations remain consistent and, in turn, R-square remains unaffected.</p>
+<p>A Fun Result: In simple linear regression, the R-squared value remains the same whether X is used to predict Y or Y is used to predict X. This is due to the fact that in both scenarios,  R-square represents the squared correlation between y and x.</p>
+</section>
+<section id="interpretation-and-limitations">
+<h3>Interpretation and Limitations<a class="headerlink" href="#interpretation-and-limitations" title="Link to this heading"></a></h3>
+<p>A high R-square value, like 70% or 80%, suggests a good fit. However, it doesn’t inherently validate the model’s efficacy. While a high value can suggest effective model fit, it’s not conclusive. One can artificially boost R-square by introducing more predictors, even irrelevant ones. This addition reduces the residual sum of squares, raising the R-square value.</p>
+<p>Thus, while R-square is a useful metric, its interpretation should be approached with caution, especially concerning the number of predictors in the model. In light of these limitations, the concept of adjusted R-square is introduced:</p>
+<div class="math notranslate nohighlight">
+\[R^2_{\text{adj}} = 1 - \frac{\text{RSS}/(n-p-1)}{\text{TSS}/(n-1)} = 1 - (1 - R^2) \frac{n-1}{n-p-1}.\]</div>
+</section>
+</section>
+<section id="linear-transformation-of-x">
+<h2><span class="section-number">2.2.4. </span>Linear Transformation of X<a class="headerlink" href="#linear-transformation-of-x" title="Link to this heading"></a></h2>
+<p>When applying linear transformations to X, such as scaling or adding a location shift to a predictor, one might wonder how these alterations affect the least squares fit.</p>
+<p>Let’s consider a general case where a new design matrix F is derived from the original matrix multiplied by a transformation matrix A:</p>
+<div class="math notranslate nohighlight">
+\[F_{n \times (p+1)} = X_{n \times (p+1)} A_{(p+1) \times (p+1)}.\]</div>
+<p>As long as this transformation does not change the rank of the design matrix (which basically means that A is of full rank), we  have <span class="math notranslate nohighlight">\(X = F A^{-1}\)</span>. Then, it’s easy to show that any linear transformation of one matrix can be represented by a linear combination of the other.</p>
+<p>Consequently, the column space of the new matrix is the same as the original one. So, the two linear subspaces are the same. Therefore, the projected y-hat, residual vector, and R-square are the same. However, the least square coefficient vector beta will be different because the underlying predictors have been changed.</p>
+<p>So, what kind of transformation could change the rank of X? For example, instead of scaling up a predictor, say X2, by two, multiplying by zero would render it ineffective. Then, we lose the X2 direction and the two design matrices won’t share the same rank, leading to distinct least squares fits.</p>
+</section>
+<section id="rank-deficiency">
+<h2><span class="section-number">2.2.5. </span>Rank Deficiency<a class="headerlink" href="#rank-deficiency" title="Link to this heading"></a></h2>
+<p>If X is rank deficient (i.e., its rank is less than p+1), it implies that at least one of the columns (predictors) of X is redundant, meaning it can be expressed as a linear combination of the other columns.</p>
+<p><strong>Examples of Redundancy</strong>:</p>
+<ul class="simple">
+<li><p>Suppose we have two predictors. One shows the size of a house in square feet, and the other shows the size of the house in square meters.  They are perfectly related through units conversion. If both are included in the design matrix, one column becomes redundant.</p></li>
+<li><p>Suppose we have three predictors, X1, X2, and X3, which measure the age distribution in a neighborhood: X1 is the percentage of the population above age 75; X2 is the percentage below age 18; and X3 is the percentage between these two ages. If we sum the percentages of these three age groups, it should total 100% or 1 when expressed as a proportion.  This means that X1 + X2 + X3 = 1. Thus, a design matrix containing all three age-group predictors and an intercept will not be full rank.</p></li>
+</ul>
+<p>When rank deficiency occurs, the LS formula <span class="math notranslate nohighlight">\((\mathbf{X}^t \mathbf{X})^{-1} \mathbf{X} \mathbf{y}\)</span> is inapplicable because <span class="math notranslate nohighlight">\((\mathbf{X}^t \mathbf{X})^{-1}\)</span> is not invertible. As noted earlier, the rank deficiency of the design matrix X indicates that one or more predictor (columns of X) can be represented as linear combinations of the others. This scenario causes a lack of a unique least squares solution for the coefficients beta. This non-uniqueness arises because we can adjust the weights (coefficients) of the linearly dependent predictors without changing the overall prediction. Consequently, there are infinitely many sets of beta values that could produce the same prediction values y-hat.</p>
+<p>However, y-hat remains unique and well-defined, since the subspace spanned by the columns of X is well-defined.</p>
+<p>Software packages and libraries handle rank deficiency differently.</p>
+<ul class="simple">
+<li><p>R’s lm() function automatically detects rank deficiency in the design matrix. Upon detection, lm() drops one or more of the redundant columns to make the matrix full rank. Coefficients of these omitted columns are marked as NA, signaling their non-estimation due to collinearity. Substituting these NAs with zeros in the coefficient vector allows for standard prediction.</p></li>
+<li><p>Python’s Scikit-learn returns coefficients with the minimum Euclidean norm (L2 norm) among all possible solutions. Typically, coefficients for all predictors are non-zero.  This approach has connections to the way scikit-learn addresses the least squares problem in the context of rank deficiency: Python uses the Moore-Penrose pseudoinverse of X^t X when it’s singular; this approach, when applied to the normal equations, minimizes the Euclidean norm of the coefficient vector.</p></li>
+</ul>
+<p>For instance, suppose you want to build a linear model predicting store sales at Walmart using ‘Year’ as a predictor, yet the training dataset only contains data from a single year (e.g., 2020), predicting sales for 2021 can yield differing results between linear models from R and Python.</p>
+<p>The minimum norm solution has some desirable properties, like being unique and stable with respect to small perturbations in the data, but it lacks sparsity. Conversely, R’s solution champions sparsity but isn’t unique. It consistently excludes redundant features listed last. Therefore, reshuffling predictor order can modify the solution.</p>
+<p>In summation,  rank deficiency in the design matrix X does not make the linear regression model invalid, but it does make the interpretation and estimation of the coefficients beta problematic. R and Python can detect and handle rank deficiency, but their treatments of rank deficiency are different.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="w2_1.html" class="btn btn-neutral float-left" title="2.1. Multiple linear regression" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="w2_3.html" class="btn btn-neutral float-right" title="2.3. Practical issues" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Feng Liang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

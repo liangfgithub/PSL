@@ -1,0 +1,24 @@
+Latent Structure Models
+====================================
+
+Model-based Clustering
+--------------------------------------
+
+
+Mixture Models
+--------------------------------------
+ 
+
+Two-component Gaussian Mixtures
+--------------------------------------
+
+
+The EM Algorithm
+--------------------------------------
+
+Latent Dirichlet Allocation Model
+--------------------------------------
+
+Hidden Markov Models
+--------------------------------------
+

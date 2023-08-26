@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1.1.1. Types of statistical learning problems &mdash; PSL_Book 0.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=2709fde1"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="1.1.2. Challenge of supervised learning" href="w1_1_challenge.html" />
+    <link rel="prev" title="1.1. Introduction to statistical learning" href="w1_1_index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PSL_Book
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="w1_index.html">1. Introduction</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="w1_1_index.html">1.1. Introduction to statistical learning</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">1.1.1. Types of statistical learning problems</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#supervised-learning-predicting-numerical-values">Supervised Learning: Predicting Numerical Values</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#supervised-learning-classifying-categorical-data">Supervised Learning: Classifying Categorical Data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#unsupervised-learning-discovering-hidden-patterns">Unsupervised Learning: Discovering Hidden Patterns</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#summary-of-statistical-learning-problem-types">Summary of Statistical Learning Problem Types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#beyond-the-basics">Beyond the Basics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="w1_1_challenge.html">1.1.2. Challenge of supervised learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="w1_1_curse.html">1.1.3. Curse of dimensionality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="w1_1_learning_theory.html">1.1.4. A Glimpse of Learning Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="w1_1_bias_variance_tradeoff.html">1.1.5. Bias and variance tradeoff</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="w1_2_index.html">1.2. Least squares vs. nearest neighbors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../w2/w2_index.html">2. Linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w3/w3_index.html">3. Variable Selection and Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w4/w4_index.html">4. Regression Trees and Ensemble</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w5/w5_index.html">5. Nonlinear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w6/w6_index.html">6. Clustering Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w7/w7_index.html">7. Latent Structure Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w8/w8_index.html">8. TBA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w9/w9_index.html">9. Discriminant Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w10/w10_index.html">10. Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w11/w11_index.html">11. Support Vector Machine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w12/w12_index.html">12. Classification Trees and Boosting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w13/w13_index.html">13. Recommender System</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PSL_Book</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="w1_index.html"><span class="section-number">1. </span>Introduction</a></li>
+          <li class="breadcrumb-item"><a href="w1_1_index.html"><span class="section-number">1.1. </span>Introduction to statistical learning</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">1.1.1. </span>Types of statistical learning problems</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/w1/w1_1_type_of_learning.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="types-of-statistical-learning-problems">
+<h1><span class="section-number">1.1.1. </span>Types of statistical learning problems<a class="headerlink" href="#types-of-statistical-learning-problems" title="Link to this heading"></a></h1>
+<section id="supervised-learning-predicting-numerical-values">
+<h2>Supervised Learning: Predicting Numerical Values<a class="headerlink" href="#supervised-learning-predicting-numerical-values" title="Link to this heading"></a></h2>
+<p>Supervised learning is about solving problems where we have a target variable, denoted as Y, and a set of features or covariates, often represented as X, which are multidimensional. Our goal is to build a predictive model or a “black box” that can ingest these features and produce predictions for Y.</p>
+<p>For example, in Project 1, students are provided with real estate transaction data in Ames, Iowa; the objective is to predict the sale price of a house based on its features. In Project 2, students are asked to build predictive models for Walmart stores, forecasting sales at a department level based on historical sales information.</p>
+<p>In the two examples (Projects 1 &amp; 2) mentioned above, the target variable (Y) takes numerical values. We call these  <strong>regression</strong> problems in supervised learning.</p>
+</section>
+<section id="supervised-learning-classifying-categorical-data">
+<h2>Supervised Learning: Classifying Categorical Data<a class="headerlink" href="#supervised-learning-classifying-categorical-data" title="Link to this heading"></a></h2>
+<p>Our second category within supervised learning deals with classification problems, where Y takes on categorical values, such as positive or negative, or even multiple categories.</p>
+<p>Take Project 3 as an example, where students need to determine whether movie reviews, represented as text, are positive or negative. In a project assigned in prior semesters, students were asked to assess the likelihood that a borrower will miss a payment next month based on various borrower and loan characteristics.</p>
+<p>In these scenarios, our goal remains unchanged: to craft predictive models, but what distinguishes these problems from the previous category is that the target variable (Y) is categorical. Instead of numerical values, it has categories such as “positive” or “negative.” These tasks fall under the <strong>classification</strong> problem within supervised learning.</p>
+</section>
+<section id="unsupervised-learning-discovering-hidden-patterns">
+<h2>Unsupervised Learning: Discovering Hidden Patterns<a class="headerlink" href="#unsupervised-learning-discovering-hidden-patterns" title="Link to this heading"></a></h2>
+<p>Here is the third type of problems. For example, based on the housing data provided in Project 1, can we identify any home buying or selling trends? Where are the highly sought neighborhoods for first home buyers? What is the average price for houses purchased by the first home buyer? Further, can we identify any distinctive groups of buyers, so the real estate companies and the mortgage companies can design their service and financial products to meet their different needs? In this instance, we’re not aiming to predict a specific target variable (Y); rather, our goal is to extract patterns and structures from the data (X).</p>
+<p>A similar problem could arise in the data analysis problem for Walmart data. For example, based on the transaction data at Walmart, can we recommend any marketing strategies based on associations between purchased items. This might involve using techniques like association rules or market segmentation through clustering algorithms. (For association rule, a classical algorithm designed to identify items that are often purchased together by consumers, you can read Chapter 14.2 of Elements of Statistical Learning.) Again, the goal is to identify patterns within the data (X) to inform decision-making, without necessarily predicting a specific target variable (Y).</p>
+<p>This type of challenge aligns with <strong>unsupervised learning</strong> – where the focus is on uncovering hidden patterns, structures, and groupings within the data, rather than predicting a designated target.</p>
+</section>
+<section id="summary-of-statistical-learning-problem-types">
+<h2>Summary of Statistical Learning Problem Types<a class="headerlink" href="#summary-of-statistical-learning-problem-types" title="Link to this heading"></a></h2>
+<p>In recap, we’ve now classified our statistical learning problems into two main categories: supervised learning and unsupervised learning.</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><strong>Supervised learning</strong> aims to predict a target variable (Y) using features (X).</dt><dd><ul>
+<li><p>If the target variable is numerical, it’s a <strong>regression</strong> problem, and</p></li>
+<li><p>if it’s categorical, it’s a <strong>classification</strong> problem.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p><strong>Unsupervised learning</strong> involves analyzing data without a specific target prediction. Instead, we aim to uncover hidden structures, like clusters or associations, within the data.</p></li>
+</ul>
+</section>
+<section id="beyond-the-basics">
+<h2>Beyond the Basics<a class="headerlink" href="#beyond-the-basics" title="Link to this heading"></a></h2>
+<p>These categorizations serve as guides, and real-world problems can often blur these boundaries. For example, we may encounter semi-supervised learning, where we blend elements of both supervised and unsupervised learning. Recall that in supervised learning we aim to build a predictor model that requires labeled data (Y) for training. However, obtaining these labels can be expensive and time-consuming, such as manually rating movie reviews as positive or negative.</p>
+<p>On the flip side, there’s a wealth of unlabeled data available on the Internet, like untagged movie reviews. Unsupervised learning operates in this realm, focusing on data (X) without predefined labels (Y).</p>
+<p><strong>Semi-supervised learning</strong> steps in to combine these two scenarios. It’s all about crafting algorithms that leverage both labeled and unlabeled data to create highly accurate predictor models. In essence, it’s a cost-effective way to achieve accurate predictions when labeled data is scarce or costly to obtain.</p>
+<p>Another interesting area within machine learning, which we’ll explore in class toward the end of the semester, is <strong>recommender systems</strong>. Consider, for instance, that Walmart, beyond forecasting store sales, may also seek to create a system that recommends products to individual customers. In tackling challenges of this nature, it’s common to draw upon a blend of techniques from both supervised and unsupervised learning, sometimes even combining them for more robust solutions.</p>
+<p>In practical scenarios, real-world problems often require a blend of both supervised and unsupervised learning approaches for effective solutions. However, it’s important to note that in this course, our primary focus is on supervised learning. While we will dedicate two to three weeks to unsupervised learning, the majority of our time will be spent delving into the realm of supervised learning.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="w1_1_index.html" class="btn btn-neutral float-left" title="1.1. Introduction to statistical learning" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="w1_1_challenge.html" class="btn btn-neutral float-right" title="1.1.2. Challenge of supervised learning" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Feng Liang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

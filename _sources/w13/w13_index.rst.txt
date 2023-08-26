@@ -1,0 +1,21 @@
+Recommender System
+====================================
+
+Introduction
+--------------------------------------
+
+
+Content-based recommendation
+--------------------------------------
+
+
+Collaborative filtering
+--------------------------------------
+
+
+Latent factor model
+--------------------------------------
+
+Challenges and future directions
+--------------------------------------
+

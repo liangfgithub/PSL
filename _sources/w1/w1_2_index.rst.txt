@@ -1,0 +1,11 @@
+Least squares vs. nearest neighbors
+====================================
+
+.. toctree::
+   :maxdepth: 1
+
+   w1_2_intro_LS_kNN.rst
+   w1_2_simulation_study.rst
+   w1_2_bayes_rule.rst
+   w1_2_discussion.rst
+ 

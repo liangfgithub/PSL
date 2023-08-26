@@ -1,0 +1,11 @@
+Introduction to statistical learning
+====================================
+
+.. toctree::
+   :maxdepth: 1
+
+   w1_1_type_of_learning.rst
+   w1_1_challenge.rst
+   w1_1_curse.rst
+   w1_1_learning_theory.rst
+   w1_1_bias_variance_tradeoff.rst

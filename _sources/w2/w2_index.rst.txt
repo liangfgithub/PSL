@@ -1,0 +1,9 @@
+Linear Regression
+====================================
+
+.. toctree::
+   :maxdepth: 1
+
+   w2_1.rst
+   w2_2.rst
+   w2_3.rst

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1.2.4. Discussion &mdash; PSL_Book 0.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=2709fde1"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="2. Linear Regression" href="../w2/w2_index.html" />
+    <link rel="prev" title="1.2.3. Compute Bayes rule" href="w1_2_bayes_rule.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PSL_Book
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="w1_index.html">1. Introduction</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="w1_1_index.html">1.1. Introduction to statistical learning</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="w1_2_index.html">1.2. Least squares vs. nearest neighbors</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="w1_2_intro_LS_kNN.html">1.2.1. Introduction to LS and kNN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="w1_2_simulation_study.html">1.2.2. Simulation Study</a></li>
+<li class="toctree-l3"><a class="reference internal" href="w1_2_bayes_rule.html">1.2.3. Compute Bayes rule</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">1.2.4. Discussion</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#example-1">Example 1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example-2">Example 2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#summary">Summary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../w2/w2_index.html">2. Linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w3/w3_index.html">3. Variable Selection and Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w4/w4_index.html">4. Regression Trees and Ensemble</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w5/w5_index.html">5. Nonlinear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w6/w6_index.html">6. Clustering Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w7/w7_index.html">7. Latent Structure Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w8/w8_index.html">8. TBA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w9/w9_index.html">9. Discriminant Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w10/w10_index.html">10. Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w11/w11_index.html">11. Support Vector Machine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w12/w12_index.html">12. Classification Trees and Boosting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w13/w13_index.html">13. Recommender System</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PSL_Book</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="w1_index.html"><span class="section-number">1. </span>Introduction</a></li>
+          <li class="breadcrumb-item"><a href="w1_2_index.html"><span class="section-number">1.2. </span>Least squares vs. nearest neighbors</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">1.2.4. </span>Discussion</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/w1/w1_2_discussion.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="discussion">
+<h1><span class="section-number">1.2.4. </span>Discussion<a class="headerlink" href="#discussion" title="Link to this heading"></a></h1>
+<p>On our code page, we provide scripts for data generation, performance evaluation for the k-nearest neighbor (kNN), linear regression, and the optimal Bayes rule. Additionally, we demonstrate how to create performance plots as displayed.</p>
+<section id="example-1">
+<h2>Example 1<a class="headerlink" href="#example-1" title="Link to this heading"></a></h2>
+<p>Let’s look the  performance plots derived from two datasets generated by Example 1. The x-axis represents the degree of freedom. T</p>
+<a class="reference internal image-reference" href="../_images/w1_perf_ex1.png"><img alt="Performance plot for Example 1" src="../_images/w1_perf_ex1.png" style="width: 481.79999999999995px; height: 377.4px;" /></a>
+<p>The red curve indicates the test error, while the blue dashed line indicates the training error, for different k values in kNN. For instance, k=1 corresponds to a DF of 200, and k=200 ccorresponds to a DF of 1. The blue dashed line indicates the training error for kNN.</p>
+<p>The two triangles, red and blue, denote the test and training errors for the linear model, respectively. They are plotted at a DF of three because, in a two-dimensional setting like ours, the linear model requires estimation of two slope parameters and an intercept.</p>
+<p>The purple line traces the Bayes error, a benchmark derived using the true data-generating process. There’s no training involved; we simply compute the Bayes error on the test data.</p>
+<p>You may notice slight differences in the plots when datasets vary. Yet, some patterns persist. As complexity increases, training error generally reduces, while test error initially remains steady but rises due to over-fitting at advanced stages.</p>
+<p>Interestingly, close examination reveals that the linear model and kNN with a small DF (or equivalently large k value), and the Bayes rule perform quite comparably. This suggests that the optimal decision rule is within the capacity of the linear model. The linear model’s ability to approximate the optimal Bayes rule is not unexpected. In fact, we have shown in previous section that the optimal decision boundary for Example 1 is indeed linear with respect to X.</p>
+</section>
+<section id="example-2">
+<h2>Example 2<a class="headerlink" href="#example-2" title="Link to this heading"></a></h2>
+<p>However, our second example tells a different story. Its performance plot reveals a wider gap between optimal performance and the linear model. This is attributed to the non-linear nature of the optimal decision rule for this example.</p>
+<a class="reference internal image-reference" href="../_images/w1_perf_ex2.png"><img alt="Performance plot for Example 2" src="../_images/w1_perf_ex2.png" style="width: 458.4px; height: 326.4px;" /></a>
+<p>For kNN, we notice a consistent pattern of declining training error as model complexity grows. It exhibits a U-shaped test error, indicating an optimal kNN somewhere within this curve. However, even for kNN, a gap exists between it and the optimal decision rule. For an in-depth discussion on this simulation study and comparisons between kNN and linear regression, refer to Chapter 2 of “Elements of Statistical Learning.”</p>
+<p>While examining these performance plots, it’s important to be aware that the demonstrated effectiveness of kNN might be overstated. For instance, one might be tempted to point the test performance at k=7 (corresponding to DF = 29) as the performance of kNN, since it’s the smallest test error among all k choices. However, such an optimistic performance isn’t feasible in real-world applications, where the perfect k value would be unknown, given our lack of access to the test data.</p>
+<p>A more realistic approach is to use cross-validation. Given a training dataset, various k values are tested and the corresponding cross-validation errors for each are recorded. These errors guide the selection of the optimal k value, which can then be employed to evaluate test errors. In your upcoming coding assignment, you will be asked to implement this cvKNN technique.</p>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading"></a></h2>
+<p>To summarize, linear regression operates on a strong linear assumption. In our simulation, where X is two-dimensional, we estimate only three parameters, leading to low variance for the linear regression model. However, it might possess high bias if the actual function isn’t linear.</p>
+<p>On the other hand, kNN assumes only local smoothness, implying nearby points should yield similar responses. It generally has low bias and can fit many functions, making it consistent. For kNN to remain consistent, though, the neighborhood size (k) can’t remain constant; it must also grow, albeit at a slower rate than the sample size. This results in a high variance for kNN, but with proper bias and variance control, kNN can deliver excellent performance under the right conditions.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="w1_2_bayes_rule.html" class="btn btn-neutral float-left" title="1.2.3. Compute Bayes rule" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../w2/w2_index.html" class="btn btn-neutral float-right" title="2. Linear Regression" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Feng Liang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

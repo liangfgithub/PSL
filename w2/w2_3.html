@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2.3. Practical issues &mdash; PSL_Book 0.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=2709fde1"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3. Variable Selection and Regularization" href="../w3/w3_index.html" />
+    <link rel="prev" title="2.2. Geometric interpretation" href="w2_2.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PSL_Book
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../w1/w1_index.html">1. Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="w2_index.html">2. Linear Regression</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="w2_1.html">2.1. Multiple linear regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w2_2.html">2.2. Geometric interpretation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2.3. Practical issues</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#analyzing-data-with-r-python">2.3.1. Analyzing Data with R/Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#interpret-ls-coefficients">2.3.2. Interpret LS Coefficients</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hypothesis-testing">2.3.3. Hypothesis Testing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#understanding-low-r-squared-and-significant-f-test">Understanding Low R-Squared and Significant F-Test</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#handle-categorical-variables">2.3.4. Handle Categorical Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#collinearity">2.3.5. Collinearity</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#consequences-of-collinearity">Consequences of Collinearity</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#assumptions-and-outliers">2.3.6. Assumptions and Outliers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../w3/w3_index.html">3. Variable Selection and Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w4/w4_index.html">4. Regression Trees and Ensemble</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w5/w5_index.html">5. Nonlinear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w6/w6_index.html">6. Clustering Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w7/w7_index.html">7. Latent Structure Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w8/w8_index.html">8. TBA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w9/w9_index.html">9. Discriminant Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w10/w10_index.html">10. Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w11/w11_index.html">11. Support Vector Machine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w12/w12_index.html">12. Classification Trees and Boosting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w13/w13_index.html">13. Recommender System</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PSL_Book</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="w2_index.html"><span class="section-number">2. </span>Linear Regression</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">2.3. </span>Practical issues</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/w2/w2_3.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="practical-issues">
+<h1><span class="section-number">2.3. </span>Practical issues<a class="headerlink" href="#practical-issues" title="Link to this heading"></a></h1>
+<section id="analyzing-data-with-r-python">
+<h2><span class="section-number">2.3.1. </span>Analyzing Data with R/Python<a class="headerlink" href="#analyzing-data-with-r-python" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Rcode:</dt><dd><p>[<a class="reference external" href="https://liangfgithub.github.io/Rcode_W2_LinearRegression.html">Rcode_W2</a>]</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Python:</dt><dd><p>[<a class="reference external" href="https://liangfgithub.github.io/Python_W2_LinearRegression_1.html">Python_W2_1</a>] [<a class="reference external" href="https://liangfgithub.github.io/Python_W2_LinearRegression_2.html">Python_W2_2</a>]</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="interpret-ls-coefficients">
+<h2><span class="section-number">2.3.2. </span>Interpret LS Coefficients<a class="headerlink" href="#interpret-ls-coefficients" title="Link to this heading"></a></h2>
+<p>The linear regression coefficient, beta_j, quantifies the change in Y for a unit change in X_j while holding all other predictors constant.</p>
+<p>It’s noteworthy that results from Simple Linear Regression (SLR), which involves only one non-intercept predictor, might differ from results in Multiple Linear Regression (MLR), which incorporates multiple predictors. This divergence can arise due to correlations among predictors.</p>
+<p>For instance, consider the case where a predictor X1 is positively correlated with some predictors that have a positive effect on the response. In a joint model (MLR), the coefficient for X1 may appear negative, seemingly contrary to its positive effect in an isolated model (SLR). This adjustment compensates for the positive contribution introduced by other predictors, ensuring that the overall model accurately represents the relationships between predictors and the response variable.</p>
+<p>Consider an example in which the three vectors, X1, X2, and y, are in a 2D space. The data vector y can be expressed as a linear mix of X1 and X2. Running a regression on y against only X1 or X2 would yield positive coefficients. Yet, in a combined model, X2 still gets a postive coefficient due to its proximity to y, but X1 might need a negative coefficient to balance the equation.</p>
+<a class="reference internal image-reference" href="../_images/w2_coef_X_corr.png"><img alt="../_images/w2_coef_X_corr.png" class="align-center" src="../_images/w2_coef_X_corr.png" style="width: 461.0px; height: 99.5px;" /></a>
+<hr class="docutils" />
+<p>The textbook “Element of Statistical Learning” offers an algorithm to derive the least squares coefficient <span class="math notranslate nohighlight">\(\hat{\beta_k}\)</span> from a simple linear regression model:</p>
+<ul class="simple">
+<li><p>First, regress Y against all predictors but X_k and get the residual, termed Y_star.</p></li>
+<li><p>Regress X_k against all other predictors and obtain the residual, labeled Xk_star.</p></li>
+<li><p>Then, run a regression of Y_star against Xk_star. The coefficient from this regression will be equal to <span class="math notranslate nohighlight">\(\hat{\beta_k}\)</span>.</p></li>
+</ul>
+</section>
+<section id="hypothesis-testing">
+<h2><span class="section-number">2.3.3. </span>Hypothesis Testing<a class="headerlink" href="#hypothesis-testing" title="Link to this heading"></a></h2>
+<p>Let’s delve into hypothesis testing in linear regression models. If you’re to remember just one hypothesis testing procedure from linear regression, it’s the F-test.</p>
+<p>In the F-test, we’re essentially contrasting two models:</p>
+<ul class="simple">
+<li><p>null model (H0): the baseline model.</p></li>
+<li><p>alternative model (H1, or Ha): contains additional predictors or parameters.</p></li>
+</ul>
+<p>These models must be “nested.” This means the alternative model can encompass the null model as a specific case. For instance, the alternative model might include an additional predictor, say X3. If we assign the coefficient of X3, denoted by beta_3, a value of zero in the alternative model, it effectively reduces to the null model.</p>
+<p>In linear regression, adding a predictor will invariably decrease the residual sum of squares (RSS). This means the RSS from H1 will always be less than or equal to that of H0. Consequently, the alternative model will typically have more parameters than the null model. We can denote these parameters as p_a for the alternative model and p_0 for the null.</p>
+<p>Our next step? Construct a test statistic. This will encapsulate the evidence within the data that challenges the null hypothesis in favor of the alternative. The strength of this evidence determines whether we reject the null hypothesis.</p>
+<p>The F-test statistic is the difference in RSS values divided by the difference in the number of parameters between the two models. Remember, the RSS of the alternative model (RSS_a) is always less than that of the null (RSS_0), making our numerator always positive. This can be seen as the variance per added parameter that the null model cannot capture but the alternative can.</p>
+<div class="math notranslate nohighlight">
+\[F = \frac{(\text{RSS}_0 - \text{RSS}_a)/(p_a - p_0)}{\text{RSS}_a/(n-p_a)}\]</div>
+<p>However, we must normalize this difference by an estimate of the variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>. While we don’t know the true value of <span class="math notranslate nohighlight">\(\sigma^2\)</span>, we can estimate it using either the null or the alternative model. But here’s a thought: If we’re uncertain about the validity of the null model, then the residuals of the null model may contain unaccounted signals. Hence, it might not be wise to use the null model’s residuals to estimate <span class="math notranslate nohighlight">\(\sigma^2\)</span>. A better choice might be the alternative model’s estimate.</p>
+<p>The F statistic’s magnitude can inform our decision to reject the null. But there’s a crucial question: how big is “big enough”? This leads us to the p-value. Software nowadays presents the p-value, a value between 0 and 1. A small p-value means stronger evidence for the alternative hypothesis. A common threshold is 5% or 1%.</p>
+<p>In R/Python output, you might notice the t-test result for each regression coefficient. This is a special case of the F-test. For instance, testing for the coefficient beta_j is equivalent to an F-test comparing two models: one without the predictor X_j (null) and the original full model (alternative).</p>
+<a class="reference internal image-reference" href="../_images/w2_Ftests.png"><img alt="../_images/w2_Ftests.png" src="../_images/w2_Ftests.png" style="width: 520.8px; height: 202.2px;" /></a>
+<p>The overall F-test, also displayed in R/Python outputs, evaluates the entire set of predictors (alternative) against a model with just an intercept (null). You may recall a measure called R-square, which quantifies how well the set of predictors model the response variable.</p>
+<p>The F statistic from the overall F-test and R-square have a one-to-one transformation relationship. If you know one, you can directly determine the other. We won’t delve into the exact mathematical formula here, but for those curious, this transformation can be easily found online.</p>
+<section id="understanding-low-r-squared-and-significant-f-test">
+<h3>Understanding Low R-Squared and Significant F-Test<a class="headerlink" href="#understanding-low-r-squared-and-significant-f-test" title="Link to this heading"></a></h3>
+<p>Earlier, we discussed how R-square by itself doesn’t directly signify the significance of the predictors. To assess the overall significance of the predictors, F-test is employed.</p>
+<p>It’s entirely possible to encounter situations where R-square is small, indicating a weak fit, yet the F-test shows significance. A notable driver of this paradox is the sample size.</p>
+<p>Consider a simple linear regression model with predictor X, which follows a standard normal distribution. The outcome, Y, follows a linear relationship with X with a coefficient of 0.1. The error term follows a standard normal distribution. With a small sample size, say 20, data generated from this model often won’t produce a significant F-test. However, as the sample size increases to 200 or even 2,000, the F-test can frequently indicate significance even if R-square remains low.</p>
+<p>Why does this happen?</p>
+<ul class="simple">
+<li><p>R-square measures the square of the correlation between the data vector y and the LS fit y-hat.</p></li>
+<li><p>The F-test determines whether the observed linear relationship could have arisen by random chance. Specifically, it evaluates if the true correlation is zero.</p></li>
+</ul>
+<p>While the F-test gauges the significance of this correlation, R-square measures the strength or magnitude of the correlation.</p>
+<p>A large sample size can sometimes highlight even the most subtle relationships, making them statistically significant. This is akin to using a highly accurate machine that flags a blood pressure reading of 100.001 as different from 100—even if this difference isn’t clinically relevant.</p>
+</section>
+</section>
+<section id="handle-categorical-variables">
+<h2><span class="section-number">2.3.4. </span>Handle Categorical Variables<a class="headerlink" href="#handle-categorical-variables" title="Link to this heading"></a></h2>
+<p>How to convert categorical variables into a numerical format? Use one-hot encoding.</p>
+<a class="reference internal image-reference" href="../_images/w2_dummy.png"><img alt="../_images/w2_dummy.png" class="align-right" src="../_images/w2_dummy.png" style="width: 268.8px; height: 250.79999999999998px;" /></a>
+<p>For example, for  the categorical variable ‘size’ with values small (s), medium (m), and large (l), the one-hot encoded matrix would consist of two columns.</p>
+<p><strong>Why k-1 columns?</strong> For a categorical variable with k levels, if including all k dummy variables, we will introduce perfect multicollinearity in our model. Therefore, we always drop one level when doing one-hot encoding for regression.</p>
+<p><strong>Reference Level</strong>: The category that’s omitted (and not given a separate column) is the “reference level.” Its effect is absorbed into the intercept. There’s no strict rule for choosing the reference category. It often depends on the research question or the practical context.</p>
+<p><strong>Interpretability</strong>: By selecting a reference category, you make your regression coefficients interpretable in relation to that category. For example, the coefficient for “medium (m)” would represent the difference in the dependent variable for ‘medium’ compared to ‘small’ (if ‘small’ is the reference category). Similarly, the coefficient for “large (l)” would be the difference in the dependent variable for ‘large’ compared to ‘small’.</p>
+<p><strong>Interaction between a Dummy Variable and a Continuous Variable</strong>: Assume in addition to the categorical variable ‘size’, we also have a continuous variable called ‘price.’ The interaction terms can be created by multiplying the dummy coded columns for ‘size’ by the continuous ‘price’ variable. The resulting design matrix would appear as follows (consider how to interpret the coefficients):</p>
+<a class="reference internal image-reference" href="../_images/w2_dummy_interaction.png"><img alt="../_images/w2_dummy_interaction.png" src="../_images/w2_dummy_interaction.png" style="width: 377.29999999999995px; height: 192.5px;" /></a>
+<p>It’s also worth noting that while the dummy variable approach is common, it’s not the only way to handle categorical variables. Other methods include  ordinal encoding (when there is a clear order in the categories, like low, medium, high); frequency (or count) encoding (replace categories by the count or frequency of observations); and contrast encoding.</p>
+</section>
+<section id="collinearity">
+<h2><span class="section-number">2.3.5. </span>Collinearity<a class="headerlink" href="#collinearity" title="Link to this heading"></a></h2>
+<p>Collinearity arises when predictors in a regression model are closely related or have high correlations with one another. In this case, the contribution of a particular predictor could be masked by other predictors, which create difficulties for statistical inference on the coefficients beta.</p>
+<p>You can check our analysis on the car seat position data. The study aims to ascertain if the ‘hipcenter’ can be accurately predicted using other measurements. A quick glance at these variables reveals that some are highly correlated—like ‘height with shoes’ and ‘height without shoes’.</p>
+<p>Visualize this through a pairwise plot. Notice that many data points lie near a straight line, indicating pronounced pairwise collinearity. A stark example emerges when we plot ‘height’ (x-axis) against ‘height with shoes’ (y-axis), showing clear correlation.</p>
+<p>Now, consider a linear regression model where ‘hipcenter’ is the response variable, and the other measurements are predictors. The summary of this least squares fit is intriguing:</p>
+<ul class="simple">
+<li><p>R-square is quite high, signifying a good model fit.</p></li>
+<li><p>The overall F-test is highly significant, highlighting that the predictors collectively play a crucial role in determining the response variable.</p></li>
+<li><p>However, none of the individual predictors has a p-value below 0.05.</p></li>
+</ul>
+<p>This perplexing outcome arises due to the presence of collinearity. Even if ‘height’ independently predicts ‘hipcenter’, the model assesses its contribution after considering other correlated predictors, like ‘height with shoes’. Given the high correlation between them, ‘height’ won’t appear to add significant predictive power.</p>
+<section id="consequences-of-collinearity">
+<h3>Consequences of Collinearity<a class="headerlink" href="#consequences-of-collinearity" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Often results in a high R-square and a significant F-test, but insignificant p-values for individual predictors.</p></li>
+<li><p>A predictor’s importance might be overshadowed by others, complicating the interpretation of individual coefficients.</p></li>
+</ul>
+<p>If your focus is on understanding the influence of individual predictors (i.e., interpreting the coefficients), you must address collinearity. This can be achieved by:</p>
+<ol class="arabic simple">
+<li><p>Omitting some predictors.</p></li>
+<li><p>Combining predictors, e.g., via Principal Components Analysis (PCA).</p></li>
+</ol>
+<p>On the other hand, if your primary aim is prediction, collinearity poses fewer concerns.</p>
+</section>
+</section>
+<section id="assumptions-and-outliers">
+<h2><span class="section-number">2.3.6. </span>Assumptions and Outliers<a class="headerlink" href="#assumptions-and-outliers" title="Link to this heading"></a></h2>
+<ol class="arabic">
+<li><p><strong>LINE Assumptions</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>L (Linear function): The regression function is a linear function of X. This isn’t strictly an assumption; if the true function isn’t linear, the regression will return the best linear approximation.</p></li>
+<li><p>I, N, E (Independently Normally distributed Errors): Error terms are ideally assumed to be normally distributed, independent, and have constant variance. However, it can be relaxed to just mean zero and constant variance. If errors have different variances, then weighted least squares would be more appropriate.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>Sampling of X’s</strong>:</p>
+<blockquote>
+<div><p>While there’s no strict assumption on the X’s (predictors), having them uniformly sampled ensures information coverage across the feature space. If Xs are clustered in specific regions, predictions in unsampled regions might not be accurate.</p>
+</div></blockquote>
+</li>
+<li><p><strong>Outlier Testing</strong>:</p>
+<blockquote>
+<div><p>There’s a formal outlier test in linear regression based on leave-one-out prediction error. However, for large datasets, applying these tests might not be recommended because:</p>
+<ul class="simple">
+<li><p>Type I error accumulation: In large datasets, the chances of making a type I error (false positive) increase.</p></li>
+<li><p>Multiple Outliers: The design of standard outlier tests assumes one outlier at a time, making it less useful if there are multiple outliers.</p></li>
+<li><p>Large p: With many predictors, variable selection becomes necessary, complicating the outlier test.</p></li>
+</ul>
+<p>Instead of formal tests, it’s often more practical to manually inspect and remove obvious outliers or use domain knowledge. For instance, if a variable mostly lies between 0 and 1, but some values are 999, it’s a red flag.</p>
+</div></blockquote>
+</li>
+<li><p><strong>Practical Recommendations</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Always inspect the data for abnormal values or codes indicating missing values.</p></li>
+<li><p>Transform right-skewed variables to ensure better performance and interpretability.</p></li>
+<li><p>Apply capping to manage extreme values. For instance, if there’s a house with 12 bathrooms in a dataset where most houses have 1-4, it might be reasonable to cap that at 4.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ol>
+<p>In conclusion, while understanding the assumptions of linear regression is crucial, practical considerations and domain knowledge play an essential role in dealing with real-world datasets.
+Instead of obsessing over strict adherence to assumptions or formal tests, the primary goal should be to understand the data and ensure the model captures the underlying patterns effectively. If the model fits well and generalizes well to new data, then it’s likely that the assumptions are either sufficiently met or that any violations aren’t severely impacting the results.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="w2_2.html" class="btn btn-neutral float-left" title="2.2. Geometric interpretation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../w3/w3_index.html" class="btn btn-neutral float-right" title="3. Variable Selection and Regularization" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Feng Liang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

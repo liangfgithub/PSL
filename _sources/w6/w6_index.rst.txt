@@ -1,0 +1,21 @@
+Clustering Analysis
+====================================
+
+Choice of Distance Measures
+--------------------------------------
+
+Multidimensional Scaling
+--------------------------------------
+
+K-means and K-medoids
+--------------------------------------
+
+Choice of K
+--------------------------------------
+
+Hierarchical Clustering
+--------------------------------------
+
+Vector Quantization
+--------------------------------------
+ 

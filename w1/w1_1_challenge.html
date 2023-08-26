@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1.1.2. Challenge of supervised learning &mdash; PSL_Book 0.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=2709fde1"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="1.1.3. Curse of dimensionality" href="w1_1_curse.html" />
+    <link rel="prev" title="1.1.1. Types of statistical learning problems" href="w1_1_type_of_learning.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PSL_Book
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="w1_index.html">1. Introduction</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="w1_1_index.html">1.1. Introduction to statistical learning</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="w1_1_type_of_learning.html">1.1.1. Types of statistical learning problems</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">1.1.2. Challenge of supervised learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="w1_1_curse.html">1.1.3. Curse of dimensionality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="w1_1_learning_theory.html">1.1.4. A Glimpse of Learning Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="w1_1_bias_variance_tradeoff.html">1.1.5. Bias and variance tradeoff</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="w1_2_index.html">1.2. Least squares vs. nearest neighbors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../w2/w2_index.html">2. Linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w3/w3_index.html">3. Variable Selection and Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w4/w4_index.html">4. Regression Trees and Ensemble</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w5/w5_index.html">5. Nonlinear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w6/w6_index.html">6. Clustering Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w7/w7_index.html">7. Latent Structure Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w8/w8_index.html">8. TBA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w9/w9_index.html">9. Discriminant Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w10/w10_index.html">10. Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w11/w11_index.html">11. Support Vector Machine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w12/w12_index.html">12. Classification Trees and Boosting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w13/w13_index.html">13. Recommender System</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PSL_Book</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="w1_index.html"><span class="section-number">1. </span>Introduction</a></li>
+          <li class="breadcrumb-item"><a href="w1_1_index.html"><span class="section-number">1.1. </span>Introduction to statistical learning</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">1.1.2. </span>Challenge of supervised learning</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/w1/w1_1_challenge.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="challenge-of-supervised-learning">
+<h1><span class="section-number">1.1.2. </span>Challenge of supervised learning<a class="headerlink" href="#challenge-of-supervised-learning" title="Link to this heading"></a></h1>
+<p>How does supervised learning work? In other words, how can we learn to predict? Let’s break down this process step by step.</p>
+<a class="reference internal image-reference" href="../_images/w1_flow_chart_supervised.png"><img alt="../_images/w1_flow_chart_supervised.png" src="../_images/w1_flow_chart_supervised.png" style="width: 398.0px; height: 231.0px;" /></a>
+<ol class="arabic simple">
+<li><p><strong>Data Collection</strong>: We start with a collection of n training examples. Each x_i is a multi-dimensional vector encompassing various features, and y_i is either a numerical value for regression problems or a class label for classification problems.</p></li>
+<li><p><strong>Model Building</strong>: Our objective is to create a model f that encapsulates the relationship between the input features x and the corresponding output y. This model is parametrized by w. The primary goal is to learn the optimal values of w from our training data.</p></li>
+<li><p><strong>Objective Function</strong>: But how do we determine the optimal w? We formulate an objective function F(w) that quantifies the discrepancies between our predictions and the actual outcomes. For regression, the mean squared error (MSE) is commonly used. It quantifies the squared difference between the observed y and the prediction f(x). For classification, we can use the zero-one loss (1 if the prediction is correct, 0 otherwise) or the log loss when f(x) represents probabilities.</p></li>
+<li><p><strong>Optimization</strong>: The task at hand now involves finding the optimal w that minimize our objective function F(w). In simple cases, like linear regression, this minimization might have a closed-form solution. Logistic regression, a more complex case, is solved by an iterative algorithm, which is shown to converge to the optimal solution. If the loss function lacks a gradient, surrogate functions can be employed. While gradient descent may find local minima, it works out well in practice.</p></li>
+</ol>
+<p>Up to this point, supervised learning seems straightforward. So, why is it difficult?</p>
+<p>While we’ve approached learning as an optimization problem based on minimizing training error, our ultimate goal is to minimize error on unseen, future data – the test data. And here’s where the conundrum lies.</p>
+<p>The primary concern in supervised learning is that the training error (how well the model fits the training data) often underestimates the test error (how well the model generalizes to new data). By solely focusing on minimizing the training error, one might achieve a near-zero error rate for the training data but find that the model performs poorly on the test data. This phenomenon is well-known as “<strong>overfitting</strong>.” Essentially, the model has become too attuned to the noise in the training data, leading to poor generalization to the test data.</p>
+<p><strong>Subtle Differences Between Learning and Optimization</strong></p>
+<blockquote>
+<div><p>While optimization plays a crucial role in the learning process, it is essential to distinguish between learning and optimization. Central to this is our characterization of the objective function. Rather than denoting it simply as F(w), it’s more apt to represent it as F_n(w). The importance of this distinction lies in the fact that F_n(w) is a metric we get from a random training sample of size n. As the sample size grows, the average loss F_n(w)/n converges to the expected loss over an infinite number of samples. This expected loss is the genuine objective function we aim to minimize.</p>
+<p>The fact that F_n(w) is merely an approximation of the true objective function is pivotal. In many situations, it might not be necessary, or even advisable, to push for a stringent optimization of F_n(w). This is particularly evident when we observe that sometimes suboptimal solutions, like those yielded by gradient descent, can still deliver good results.</p>
+</div></blockquote>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="w1_1_type_of_learning.html" class="btn btn-neutral float-left" title="1.1.1. Types of statistical learning problems" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="w1_1_curse.html" class="btn btn-neutral float-right" title="1.1.3. Curse of dimensionality" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Feng Liang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

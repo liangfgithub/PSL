@@ -1,0 +1,9 @@
+Discriminant Analysis
+====================================
+
+.. toctree::
+   :maxdepth: 1
+
+   w9_1_intro_classification
+
+ 

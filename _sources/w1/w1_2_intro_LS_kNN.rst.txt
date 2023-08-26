@@ -1,0 +1,58 @@
+Introduction to LS and kNN
+=============================================
+
+In this section, we will examine two simple but popular supervised learning approaches: k-Nearest Neighbor (kNN) and linear regression. We'll evaluate their performance using two simulated toy examples to illuminate the trade-off between bias and variance.
+
+k-Nearest Neighbor (kNN)
+-----------------------------------------
+
+The k-Nearest Neighbor (kNN) algorithm is a remarkably simple approach that requires no training. When presented with a test point x, we identify the top k samples in the training data that are closest (in terms of x) to this test point. For regression tasks, we simply output the average of the Y values corresponding to these top k neighbors. For classification, we can either return the majority vote or a probability calculated based on the class frequency within this neighborhood. 
+
+For example, consider a classification problem with k = 5. Among the top five neighbors for a specific test point, if three have a Y value of 1 and the other two have a Y value of 0, majority voting predicts Y as 1 because there are more Y=1 data points in this neighborhood. Alternatively, if we return a probability vector, the probability of Y=1 for this test point would be 3 out of 5, and the probability of Y=0 would be 2 out of 5.
+
+Parameters of kNN
+-----------------------------------------
+
+One key input parameter is k, the neighborhood size. For 1NN (k=1), the nearest training sample to the test point is used for prediction. This results in a training error of zero, as the prediction at the ith training sample equals the corresponding Y value of ith training sample. The upper limit for k is the sample size (n). When k equals n, the prediction remains constant for all x values, akin to fitting a model with only an intercept. Apparently, the flexibility of kNN is inversely related to k. No magic value for k. It's commonly treated as a training parameter, often determined through cross-validation. 
+
+The other input parameter is the metric that defines the neighborhood. The default choice is Euclidean distance for p-dimensional feature vectors X, but it can be customized, such as using weighted Euclidean distance where dimension weights can be adjusted to influence their impact. It does not need to be Euclidean, as long as it is a similarity measure for any two samples. For instance, in image classification (from Flickr), we can measure the similarity of two images by their pixel similarity, or by the similarity of their tags, or by the percentage of people who like both images.
+
+
+Linear Regression
+-----------------------------------------
+
+Linear regression is another simple supervised learning algorithm.  In this model, the response variable Y is approximated using a linear function of X. If X is p-dimensional, we estimate 'p+1' parameters, including the intercept. Least squares that minimizes the quadratic loss is commonly employed for estimating these parameters due to its computation efficiency. 
+
+For binary classification, we code the binary response as 0 or 1. Predictions are formed by thresholding at 0.5. Though the cutoff value can be tuned for better performance, we'll use the default 0.5 in our simulation study.
+
+
+Pros and Cons of LS for Classification
+-----------------------------------------
+
+There are drawbacks to using least squares for classification. The squared differences between binary outcomes and numerical predictions fail to effectively gauge classification performance. For example, a numerical prediction of 2 and a numerical prediction of 0 for a point with label Y=1 yield equal squared errors, but the former is a correct prediction and the latter is not. 
+
+Furthermore, obtaining probability estimates is challenging, as linear regression can generate values outside the [0, 1] range required for probabilities.
+
+
+Despite its drawbacks, the least square approach for classification performs well in practice and has fast computation. We'll apply it to our two toy examples for benchmarking purposes.
+
+
+Model Complexity of kNN and Linear Regression
+-----------------------------------------------------
+
+When discussing model complexity,  we often refer to the number of parameters or the effective number of degrees of freedom (DF) in the model.  For parametric models like linear regression, this is straightforward: it's the number of coefficients, p+1, if the feature vector X is p-dimensional. 
+
+But kNN is a non-parametric method, so things are a bit different. The complexity of kNN is inversely related to k and can be approximated as the ratio n/k. This relationship is evident when considering the following two extremes.
+
+1. k=1: the training error is zero, and model complexity is at its highest. It behaves as if it has n distinct parameters. Each of the n training points can uniquely influence the prediction. For classification, this results in a jagged decision boundary, while in regression, if all y_i values differ in the training set, there would be n unique predictions. 
+
+
+2. k=n: The model complexity is minimal. It behaves like a model with one parameter. Regardless of the input, the model outputs the same prediction for all queries (for classification, it would be the majority class in the dataset; for regression, it would be the mean of the outputs). 
+
+
+**Degree of Freedom (DF)**:
+
+Students often encounter the term DF in introductory statistics courses, related to t-tests and F-tests. For example, the DF of t-tests is n - (p+1) in a linear regression model with an intercept and a p dimensional feature X. This seems to contradict to what's said earlier that the DF of such a linear models is (p+1).
+
+However, the principle is consistent: in the context of linear regression,  DF always denotes the dimension of a relevant vector space. As we'll learn next week, the LS prediction (of a model with p covariates), y-hat, lies is a (p+1) dimensional subpace,  while the residual vector, (y - y-hat), lies in a (n-p-1) dimensional subspace. The DF of the t-test refers to the DF of the residual vector since the residuals are used to compute the standard deviation used in the t-test, while the DF of the linear model measures the DF of the LS prediction y-hat.  
+

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2.1. Multiple linear regression &mdash; PSL_Book 0.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=2709fde1"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="2.2. Geometric interpretation" href="w2_2.html" />
+    <link rel="prev" title="2. Linear Regression" href="w2_index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PSL_Book
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../w1/w1_index.html">1. Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="w2_index.html">2. Linear Regression</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2.1. Multiple linear regression</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#setup">2.1.1. Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ls-principle">2.1.2. LS Principle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ls-estimate">2.1.3. LS Estimate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ls-output">2.1.4. LS Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="w2_2.html">2.2. Geometric interpretation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w2_3.html">2.3. Practical issues</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../w3/w3_index.html">3. Variable Selection and Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w4/w4_index.html">4. Regression Trees and Ensemble</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w5/w5_index.html">5. Nonlinear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w6/w6_index.html">6. Clustering Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w7/w7_index.html">7. Latent Structure Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w8/w8_index.html">8. TBA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w9/w9_index.html">9. Discriminant Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w10/w10_index.html">10. Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w11/w11_index.html">11. Support Vector Machine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w12/w12_index.html">12. Classification Trees and Boosting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w13/w13_index.html">13. Recommender System</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PSL_Book</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="w2_index.html"><span class="section-number">2. </span>Linear Regression</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">2.1. </span>Multiple linear regression</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/w2/w2_1.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="multiple-linear-regression">
+<h1><span class="section-number">2.1. </span>Multiple linear regression<a class="headerlink" href="#multiple-linear-regression" title="Link to this heading"></a></h1>
+<p>Multivariate linear regression (MLR) models the relationship between several predictor variables and a response variable:</p>
+<div class="math notranslate nohighlight">
+\[Y =   \beta_0 + \beta_1 X_1 + \cdots  + \beta_p X_p + e\]</div>
+<p>These models are simple in structure and are computationally efficient to estimate. The linearity assumption in MLR might be seen as a limitation, but many techniques used in MLR can be applied to nonlinear models as well. Understanding MLR is a fundamental part of statistical learningessential because it lays the groundwork for more complex models.</p>
+<section id="setup">
+<h2><span class="section-number">2.1.1. </span>Setup<a class="headerlink" href="#setup" title="Link to this heading"></a></h2>
+<p>Linear regression can be expressed compactly using matrices:</p>
+<a class="reference internal image-reference" href="../_images/w2_matrix_rep.png"><img alt="../_images/w2_matrix_rep.png" src="../_images/w2_matrix_rep.png" style="width: 452.8px; height: 300.8px;" /></a>
+<p>where</p>
+<ul class="simple">
+<li><p>y is an n-by-1 vector of observed outputs.</p></li>
+<li><p>X is the design matrix with n rows (samples) and an (p+1) columns (features + intercept).</p></li>
+<li><p><span class="math notranslate nohighlight">\(\beta\)</span> is a (p+1)-by-1 vector regression coefficients.</p></li>
+<li><p>e is an n-by-1 vector or errors.</p></li>
+</ul>
+<p>You can picture this matrix representation as follows:</p>
+<a class="reference internal image-reference" href="../_images/w2_large_n_small_p.png"><img alt="../_images/w2_large_n_small_p.png" src="../_images/w2_large_n_small_p.png" style="width: 262.0px; height: 139.5px;" /></a>
+<p>The picture above represents the classical setting where we have many samples but a few features (large n small p). The design matrix X  is “tall and skinny.” In this situation, the matrix (X^t X) is  is typically invertible, which allows for unique solutions for <span class="math notranslate nohighlight">\(\beta\)</span> and statistical properties of such solutions are well-understood.</p>
+<p>Next week, we’ll encounter regression models like this:</p>
+<a class="reference internal image-reference" href="../_images/w2_large_p_small_n.png"><img alt="../_images/w2_large_p_small_n.png" src="../_images/w2_large_p_small_n.png" style="width: 291.0px; height: 142.5px;" /></a>
+<p>This is a scenario frequently encountered in modern datasets where the number of features surpasses the number of samples (large p small n). The design matrix X is “short and fat.” A consequence of this setup is that (X^t X) no longer invertible, leading to an infinitely array of solutions for <span class="math notranslate nohighlight">\(\beta\)</span>. This is a challenging situation and can lead to overfitting,  as it becomes easy to find a <span class="math notranslate nohighlight">\(\beta\)</span>  that fits the training data perfectly but performs poorly on unseen data.</p>
+<p>We’re going to discuss how to deal with this “large p small n” setting next week. For now, let’s focus on the “large n small p” setting with a tall and skinny design matrix X.</p>
+</section>
+<section id="ls-principle">
+<h2><span class="section-number">2.1.2. </span>LS Principle<a class="headerlink" href="#ls-principle" title="Link to this heading"></a></h2>
+<p>The least square method is a standard technique for estimating parameters in regression models. It is used to obtain the least square estimates of the beta coefficients by minimizing a quantity known as the residual sum of squares, or RSS for short.</p>
+<a class="reference internal image-reference" href="../_images/w2_LS.png"><img alt="../_images/w2_LS.png" class="align-right" src="../_images/w2_LS.png" style="width: 190.2px; height: 195.6px;" /></a>
+<p>So, what exactly is RSS? Let’s consider a case where we have two predictors. In this context, each sample can be represented by a triplet, corresponding to one of the red dots in our graphical representation.</p>
+<p>A linear function can then be described as: <span class="math notranslate nohighlight">\(y = \beta_0 + \beta_1 x_1 + \beta_2 x_2\)</span>. This equation represents a plane in our graph. Now, the difference between the observed value y_i and the predicted value from our linear model corresponds to one of those black vertical bars in our graphical representation.</p>
+<p>Our goal is to find the beta values—or in other words, a plane—such that these red dots (observed values) are as close as possible to the plane. Ideally, we want those black bars (residuals) to be short. The RSS is defined as the sum of the squared lengths of these black bars, which is the objective function we aim to minimize.</p>
+<p>We could theoretically use other objective functions. For instance, we could drop the square and use the absolute value, which would still be a reasonable way to measure the closeness between the red dots and the plane. However, minimizing the RSS has become the standard approach, largely due to its appealing mathematical properties, computational efficiency, and the fact that its solution is in closed form.</p>
+</section>
+<section id="ls-estimate">
+<h2><span class="section-number">2.1.3. </span>LS Estimate<a class="headerlink" href="#ls-estimate" title="Link to this heading"></a></h2>
+<p>In matrix form, RSS can be expressed as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\text{RSS}( \boldsymbol{\beta}) &amp; =  \sum_{i=1}^n \big (y_i -  \beta_0 -  x_{i1} \beta_1 - \cdots - x_{ip} \beta_p \big)^2 \\
+&amp;=  \| \mathbf{y} - \mathbf{X}  \boldsymbol{\beta} \|^2.\end{split}\]</div>
+<p>The residual vector <span class="math notranslate nohighlight">\(\mathbf{r} = \mathbf{y} - \mathbf{X}  \boldsymbol{\beta}\)</span> is n-by-1, each element corresponding to the residual for each observation. The Residual Sum of Squares (RSS) is the squared norm of this residual vector.</p>
+<p>To minimize the RSS, we take its derivative with respect to <span class="math notranslate nohighlight">\(\boldsymbol{\beta}\)</span> and set it to zero. Remember, this is a shorthand for taking the derivative concerning each element of <span class="math notranslate nohighlight">\(\boldsymbol{\beta}\)</span>, resulting in a vector of zeros of length (p+1).</p>
+<a class="reference internal image-reference" href="../_images/w2_normal_equation.png"><img alt="../_images/w2_normal_equation.png" src="../_images/w2_normal_equation.png" style="width: 421.6px; height: 140.8px;" /></a>
+<p>It’s crucial to note that this solution assumes X has full rank, meaning the inverse of X^t X exists. What if X doesn’t have full rank? We’ll discuss this later; it’s not a serious issue.</p>
+<p>In statistics, placing a hat on a symbol indicates it’s an estimate. Thus, <span class="math notranslate nohighlight">\(\hat{\boldsymbol{\beta}}\)</span>, is an estimate of the true coefficient vector based on a collection of n samples.</p>
+</section>
+<section id="ls-output">
+<h2><span class="section-number">2.1.4. </span>LS Output<a class="headerlink" href="#ls-output" title="Link to this heading"></a></h2>
+<p>Once we’ve derived the least square estimate, various other least squares outputs can be obtained.</p>
+<a class="reference internal image-reference" href="../_images/w2_LS_output.png"><img alt="../_images/w2_LS_output.png" src="../_images/w2_LS_output.png" style="width: 612.0px; height: 264.59999999999997px;" /></a>
+<p>This RSS can be employed to estimate the error variance, sigma-square. Notably, sigma-quare is  generally estimated by the ratio of RSS and n-p-1, rather than simply dividing by n. The rationale for using n-p-1 as the denominator is that the degree of freedom of the n residuals is n-p-1.</p>
+<p>But why is this the case?</p>
+<p>To grasp this, let’s return to our normal equation utilized to derive beta-hat. It implies that <span class="math notranslate nohighlight">\(\mathbf{X}^t \mathbf{r} = \mathbf{0}_{(p+1) \times 1}\)</span>; visulize this equation below.</p>
+<a class="reference internal image-reference" href="../_images/w2_Xr.png"><img alt="../_images/w2_Xr.png" src="../_images/w2_Xr.png" style="width: 262.40000000000003px; height: 132.4px;" /></a>
+<p>This equation indicates that the inner product between r and all p+1 columns of X is zero.</p>
+<p>What do these constraints entail?</p>
+<p>For instance. the first column of X consists solely of ones, leading to the constraint <span class="math notranslate nohighlight">\(\mathbf{1}^t \mathbf{r} = \sum_i r_i = 0\)</span>. This emphasizes that the mean residual for any regression model with an intercept is always zero.</p>
+<p>Other constraints can be derived by assessing the inner product between r and other X columns. Due to these p+1 constraints, the residuals vector, despite having n elements, undergoes a reduction of p+1 degrees of freedom.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="w2_index.html" class="btn btn-neutral float-left" title="2. Linear Regression" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="w2_2.html" class="btn btn-neutral float-right" title="2.2. Geometric interpretation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Feng Liang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
