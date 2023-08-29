@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3.1. Subset Selection &mdash; PSL_Book 0.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=2709fde1"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3.2. Regularization" href="w3_2_regularize.html" />
+    <link rel="prev" title="3. Variable Selection and Regularization" href="w3_index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PSL_Book
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../w1/w1_index.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w2/w2_index.html">2. Linear Regression</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="w3_index.html">3. Variable Selection and Regularization</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">3.1. Subset Selection</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#why-subset-selection">3.1.1. Why Subset Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#selection-criteria">3.1.2. Selection Criteria</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#aic-vs-bic">3.1.3. AIC vs BIC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#search-algorithms">3.1.4. Search Algorithms</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#level-wise-search-algorithm">Level-wise Search Algorithm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#greedy-algorithms">Greedy Algorithms</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#subset-selection-in-r-python">3.1.5. Subset Selection in R/Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#variable-screening">3.1.6. Variable Screening</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="w3_2_regularize.html">3.2. Regularization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w3_3_ridge.html">3.3. Ridge Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w3_4_lasso.html">3.4. Lasso Regression</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../w4/w4_index.html">4. Regression Trees and Ensemble</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w5/w5_index.html">5. Nonlinear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w6/w6_index.html">6. Clustering Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w7/w7_index.html">7. Latent Structure Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w8/w8_index.html">8. TBA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w9/w9_index.html">9. Discriminant Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w10/w10_index.html">10. Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w11/w11_index.html">11. Support Vector Machine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w12/w12_index.html">12. Classification Trees and Boosting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w13/w13_index.html">13. Recommender System</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PSL_Book</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="w3_index.html"><span class="section-number">3. </span>Variable Selection and Regularization</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">3.1. </span>Subset Selection</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="subset-selection">
+<h1><span class="section-number">3.1. </span>Subset Selection<a class="headerlink" href="#subset-selection" title="Link to this heading"></a></h1>
+<section id="why-subset-selection">
+<h2><span class="section-number">3.1.1. </span>Why Subset Selection<a class="headerlink" href="#why-subset-selection" title="Link to this heading"></a></h2>
+<p>In modern statistical applications, there is often a vast array of potential predictors. Sometimes, the number of predictors p can exceed the sample size n. In certain applications, the primary objective is to pinpoint a subset of these predictors that have the most significant relevance to the response variable. For such tasks, variable selection becomes indispensable.</p>
+<p>However, if our sole aim is to achieve accurate predictions without being concerned about the relevance of predictors in our regression model to Y, do we still need variable selection? Can adding more variables always lead to better predictions?</p>
+<p>To delve deeper into this question, let’s embark on a theoretical exploration of the training and test errors in a linear regression model. Assume a training dataset (x_i, y_i) of size n. Using this data,  we can fit a linear regression model, yielding a least square estimat, beta-hat. The training error can then be quantified as the squared difference between y and X times beta-hat, esssentially the residual sum of squares.</p>
+<p>Now, consider a separate test dataset, gathered from the same  locations x_i. In this case, the response, y-star_i will differ from y_i. The test error is the squared difference between y-star and X times beta-hat.</p>
+<a class="reference internal image-reference" href="../_images/w3_train_test_errors.png"><img alt="../_images/w3_train_test_errors.png" src="../_images/w3_train_test_errors.png" style="width: 551.5999999999999px; height: 232.39999999999998px;" /></a>
+<p>It is crucial to note that whole both y_i and y-star_i are random and independent of each other. They are assumed to follow the same distribution which has a mean of f(x_i) and variance sigma-square. Another random term is beta-hat, whose randomness originates from the data y. This means that y and beta-hat are correlated (therefore, both colored in blue) but y-star (colored in red) and beta-hat are independent.</p>
+<p>If we break down the expectations of both errors, they can be segmented into three parts:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbb{E} [ \text{Train Err}  ] &amp; = \text{(Unavoidable Err)} - p \sigma^2  + \text{Bias} \\
+\mathbb{E} [ \text{Test Err}  ] &amp;= \text{(Unavoidable Err)} + p \sigma^2  + \text{Bias}\end{split}\]</div>
+<ol class="arabic simple">
+<li><p>Unavoidable Error: This error persists even if we knew true function f. When the error terms are assumed to be independent with mean zero and variance sigma-square, the unavoidable error is equal to n times sigma-square.</p></li>
+<li><p>Bias: This emerges if the true function f deviates from linearity or if, for instance, it involves three predictors, but we include only two in our model.</p></li>
+<li><p>Dimensional Error term, <span class="math notranslate nohighlight">\(p \sigma^2\)</span>: This is where things get intriguing. Its sign changes between training and test errors. The positive sign in the test error arises because of our reliance on the estimated beta instead of the true beta. The negative sign in the training error can be attributed to the positive correlation between beta-hat and y.</p></li>
+</ol>
+<p>In conclusion, whether our primary objective lies in identifying a subset of relevant predictors or merely in enhancing prediction accuracy, it becomes evident that variable selection plays a crucial role.</p>
+</section>
+<section id="selection-criteria">
+<h2><span class="section-number">3.1.2. </span>Selection Criteria<a class="headerlink" href="#selection-criteria" title="Link to this heading"></a></h2>
+<p>How do we determine which variables to retain and which to discard?</p>
+<p>This is a complex challenge. One might initially think of using p-values obtained from a linear regression model that includes all variables. In the resulting summary table, each variable is assigned a p-value. A common practice might be to use these p-values, setting a threshold (like 5%), and dropping variables with values exceeding this. But is this approach optimal?</p>
+<p>The crux of the issue is that a variable’s p-value is contingent upon the other variables included in the model. Recall that the p-value for a variable assesses its <strong>conditional</strong> contribution in the presence of other variables in the model. If we remove any variable, the entire set of p-values could shift. Thus, simply using a snapshot of p-values from a full model is not recommended.</p>
+<p>Instead of using p-values, we can assign a score to each model and then utilize an algorithm to determine the best one. Here, ‘model’ refers to a linear regression model containing a specific subset of variables. Imagine we have 10 non-intercept predictors. Excluding the intercept, which is always present, our subset of variables will be a combination of these 10 predictors. The potential models can be indexed using binary vectors, with a ‘1’ indicating the presence of a variable and ‘0’ its absence. So, the number of potential models equates to 2^10 or 1024. Even for just 10 predictors, the model possibilities exceed a thousand, underscoring the significance of search algorithms.</p>
+<p>The score for model selection typically comprises two components:</p>
+<ol class="arabic simple">
+<li><p>A goodness of fit measure: often an increasing function of the residual sum of squares.</p></li>
+<li><p>A complexity penalty term: often an increasing function of p, the number of non-intercepted variables.</p></li>
+</ol>
+<p>The optimal model strikes a balance between these two terms. Too simple, and you might get a poor fit. Too complex, and you risk overfitting.</p>
+<p>Popular scores for linear models include: Mallow’s Cp, AIC and BIC.</p>
+<a class="reference internal image-reference" href="../_images/w3_selection_criteria.png"><img alt="../_images/w3_selection_criteria.png" src="../_images/w3_selection_criteria.png" style="width: 567.6999999999999px; height: 272.29999999999995px;" /></a>
+<p>AIC and BIC are versatile and can be applied to any statistical model. Although one might default to AIC and BIC, it’s useful to consider Mallow’s Cp, which aligns well with our theoretical understanding of training and test errors. The intent is always to minimize the test error, making Mallow’s Cp a robust choice for model selection, especially in the context of linear regression.</p>
+</section>
+<section id="aic-vs-bic">
+<h2><span class="section-number">3.1.3. </span>AIC vs BIC<a class="headerlink" href="#aic-vs-bic" title="Link to this heading"></a></h2>
+<p><strong>Key Differences</strong>: Both AIC and BIC serve as model selection criteria, with the primary difference being in their penalty terms. The cofficients, specifically the ‘2’ in AIC and log(n) in BIC, can be thought of as the “cost” associated with adding an additional predictor to the model. As the sample size n grows, the cost incurred by AIC remains constant, while the cost for BIC increases.</p>
+<p><strong>Practical Implications</strong>: Given the distinct penalties, it’s common to see AIC and BIC favor different models when applied to the same dataset. Generally, AIC tends to select larger models compared to BIC. Mallow’s Cp, another criterion, aligns closely with AIC because its penalties are constant and don’t hinge on n. However, for many practical purposes, focusing on AIC and BIC might suffice.</p>
+<p><strong>Underlying Philosophies</strong>:</p>
+<ul class="simple">
+<li><p><strong>AIC</strong>: Aims to minimize the predictive error. It prioritizes accurate predictions even if it means including variables that might not necessarily be crucial.</p></li>
+<li><p><strong>BIC</strong>: Focuses on model parsimony and identifying truly relevant variables. It’s more conservative and emphasizes the exclusion of unnecessary predictors.</p></li>
+</ul>
+<p>Two primary errors can arise during variable selection:</p>
+<ol class="arabic simple">
+<li><p>Excluding Signals: Leaving out variables crucial to  y.</p></li>
+<li><p>Including Noise: Incorporating variables that don’t significantly impact y.</p></li>
+</ol>
+<p>While BIC considers both errors equally significant, their impacts on predictions differ. For instance, an irrelevant variable included in the model will have its influence diminish as the sample size increases, eventually moving its estimated coefficient towards zero. Conversely, excluding a relevant variable introduces a bias that persists regardless of sample size. As a result, AIC has a lighter penalty for adding new predictors.</p>
+<p><strong>In Conclusion</strong>: If your primary goal is prediction, lean towards AIC. But if you’re keen on selecting a model with only truly relevant features, BIC is your go-to.</p>
+</section>
+<section id="search-algorithms">
+<h2><span class="section-number">3.1.4. </span>Search Algorithms<a class="headerlink" href="#search-algorithms" title="Link to this heading"></a></h2>
+<p>Once you’ve chosen your model selection criteria, the next step is to employ a search algorithm to pinpoint the model with the smallest score.</p>
+<section id="level-wise-search-algorithm">
+<h3>Level-wise Search Algorithm<a class="headerlink" href="#level-wise-search-algorithm" title="Link to this heading"></a></h3>
+<p>A popular method is the ‘level-wise search algorithm’, which works as follows:</p>
+<ol class="arabic simple">
+<li><p><strong>Grouping Models by Size</strong>: Imagine there are p potential predictors. Models can then be grouped into p groups. For instance: The first group consists of models with just one predictor, the second group has models with two predictors, and so on, until the last group, which contains a model with all predictors.</p></li>
+<li><p><strong>Identifying Optimal Models Within Groups</strong>: Given that models within a group share the same size, their penalties are identical. Therefore, within each group, the model with the smallest residual sum of squares is considered optimal for that group. Thus, we can identify p best models, one for each group.</p></li>
+<li><p><strong>Evaluating Model Scores</strong>: Next, evaluate the score (residual sum of squares plus the penalty) of these p models and select the one with the lowest score.</p></li>
+</ol>
+<p>The computational demands at step 2 can be immense, especially when p is large. Typically, this algorithm may not be advisable when p &gt; 40.</p>
+</section>
+<section id="greedy-algorithms">
+<h3>Greedy Algorithms<a class="headerlink" href="#greedy-algorithms" title="Link to this heading"></a></h3>
+<p>For significantly large p values, employing greedy algorithms is beneficial. These algorithms search for the optimal model following a specific path.</p>
+<ul class="simple">
+<li><p><strong>Backward Search</strong>: Start with the full model and sequentially eliminate predictors until the score no longer improves.</p></li>
+<li><p><strong>Forward Search</strong>: Start with a null model (only the intercept) and sequentially add predictors until the score no longer improves.</p></li>
+<li><p><strong>Stepwise Algorithm</strong>: This is a blend of backward and forward methods. Start with the full model and move backward, but at each stage, in addition to removing predictors, consider reintroducing ones previously removed.  The process halts when adding or removing predictors no longer improves the score.</p></li>
+</ul>
+<p>The nature of greedy algorithms, given their specific path of search, means they may stop at a locally optimal solution rather than a globally optimal one. However, they’re faster and often yield solutions that are practically sufficient.</p>
+</section>
+</section>
+<section id="subset-selection-in-r-python">
+<h2><span class="section-number">3.1.5. </span>Subset Selection in R/Python<a class="headerlink" href="#subset-selection-in-r-python" title="Link to this heading"></a></h2>
+</section>
+<section id="variable-screening">
+<h2><span class="section-number">3.1.6. </span>Variable Screening<a class="headerlink" href="#variable-screening" title="Link to this heading"></a></h2>
+<p>Among the three model selection procedures — complete, forward, and backward — stepwise is the most computationally intensive. However, compared to forward and backward methods, stepwise is less prone to prematurely settling on a local optimum. The forward method doesn’t allow for the removal of variables once they’ve been added, even if they become less relevant as other predictors are included. Conversely, the backward method can’t reintroduce a predictor that might seem unimportant in the presence of other variables but could be beneficial if certain variables are removed.</p>
+<p>In summary, if computational resources allow, we recommend the stepwise approach, beginning with the full model.</p>
+<p>However, what if p (number of predictors) exceeds n (sample size)? Note that for any linear regression model with sample size n, adding more than n−1 non-intercepted predictors will result in a residual sum of squares of zero. Consequently, both AIC and BIC metrics become undefined, as the first term of AIC and BIC-being the logarithm of the residual sum of squares—equal negative infinity. Despite this, search algorithms can still be utilized by setting a cap on the model size. Under the stepwise procedure, for example, when your model reaches this threshold, you can only remove predictors, not add them.</p>
+<p>When p exceeds n, directly using the full model as a starting point isn’t feasible. It’s recommended to use screening procedures to identify a starting model for the stepwise process. A simple screening approach is to rank predictors based on their correlation magnitude with the outcome variable Y and retain only the top K predictors (e.g., K = n/3). This method mirrors the process of executing individual simple linear regressions for Y against each predictor and ranking them based on p-values. Although this elementary procedure might overlook crucial variables, the subsequent stepwise process can potentially reincorporate them into the model.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="w3_index.html" class="btn btn-neutral float-left" title="3. Variable Selection and Regularization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="w3_2_regularize.html" class="btn btn-neutral float-right" title="3.2. Regularization" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Feng Liang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,15 +1,10 @@
 Variable Selection and Regularization
 ======================================
 
-Subset Selection
---------------------------------------
+.. toctree::
+   :maxdepth: 1
 
-Regularization
---------------------------------------
-
-Ridge Regression
---------------------------------------
-
-Lasso Regression
---------------------------------------
-
+   w3_1_subset.rst
+   w3_2_regularize.rst
+   w3_3_ridge.rst
+   w3_4_lasso.rst
