@@ -8,7 +8,7 @@ Multivariate linear regression (MLR) models the relationship between several pre
 
 	 Y =   \beta_0 + \beta_1 X_1 + \cdots  + \beta_p X_p + e
 
-These models are simple in structure and are computationally efficient to estimate. The linearity assumption in MLR might be seen as a limitation, but many techniques used in MLR can be applied to nonlinear models as well. Understanding MLR is a fundamental part of statistical learningessential because it lays the groundwork for more complex models.
+These models are simple in structure and are computationally efficient to estimate. The linearity assumption in MLR might be seen as a limitation, but many techniques used in MLR can be applied to nonlinear models as well. Understanding MLR is a fundamental part of statistical learning because it lays the groundwork for more complex models.
 
 Setup
 -------------------------

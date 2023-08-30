@@ -22,7 +22,7 @@ First, let's briefly revisit some foundational concepts in linear algebra.
 
 A key characteristic of a linear subspace is its dimension. If a linear subspace in :math:`\mathbb{R}^n` has a dimension of m, then the following statements are true: 
 
-* A bais can be found consisting of m vectors, and any vector within this subspace can be uniquely represented using these m basis vectors. However, it's important to note that bases for a subspace are not unique; different sets of basis vectors can span the same subspace. 
+* A basis can be found consisting of m vectors, and any vector within this subspace can be uniquely represented using these m basis vectors. However, it's important to note that bases for a subspace are not unique; different sets of basis vectors can span the same subspace. 
 * If there's a subset of k vectors where k >m, then this set of vectors must be linear dependent; this means that at least (k-m) vectors can be expressed as linear combinations of others.
 
 
@@ -45,9 +45,6 @@ LS and Projection
 -------------------------
 
 Now we can delve into the geometric interpretation of least squares. Consider the least squares optimization problem, where our objective is to find a linear combination of the columns of X so that the difference vector :math:`\mathbf{y} - \mathbf{X} \boldsymbol{\beta}` has the smallest norm. 
-
-
-
 
 
 
