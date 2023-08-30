@@ -16,6 +16,7 @@
         <script src="../_static/documentation_options.js?v=2709fde1"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -90,6 +91,24 @@
              
   <section id="regularization">
 <h1><span class="section-number">3.2. </span>Regularization<a class="headerlink" href="#regularization" title="Link to this heading"></a></h1>
+<p>In this lecture, we’ll delve into variable selection using the regularization framework. Previously, we discussed using AIC or BIC for variable subset selection. This process can be framed as the pursuit of minimizing a specific objective function.</p>
+<p>Assuming we know or can reliably estimate the error variance, sigma-square, the objective function becomes:</p>
+<div class="math notranslate nohighlight">
+\[\min_{\boldsymbol{\beta}} \| \mathbf{y} - \mathbf{X}  \boldsymbol{\beta}\|^2 + \lambda \| \boldsymbol{\beta} \|_0,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\| \boldsymbol{\beta} \|_0 = \sum_{j=1}^p \mathbf{1}_{\{ \beta_j \ne 0 \}}\)</span> counts the number of predictors in our model. Both AIC and BIC essentially correspond to different choices of lambda. Yet, framing AIC and BIC under this unified objective function doesn’t simplify matters, because it poses the same computational challenges as AIC or BIC. In the worst-case scenario, we’d need to explore all possible subsets of betas.</p>
+<p>Next, we’ll introduce two alternative regularization or penalty terms for beta. Ridge regression employs the L2 penalty on beta, while Lasso regression uses the L1 penalty.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\text{Ridge} &amp; : \min \| \mathbf{y} - \mathbf{X}  \boldsymbol{\beta}\|^2 + \lambda \| \boldsymbol{\beta} \|_2 \\
+\text{Lasso} &amp; : \min \| \mathbf{y} - \mathbf{X}  \boldsymbol{\beta}\|^2 + \lambda \| \boldsymbol{\beta} \|_1\end{split}\]</div>
+<p>The L0 norm’s focus is on the presence or absence of predictors, without regard to their magnitude. However, this isn’t true for the L1 or L2 norms. This can create complications.</p>
+<p>For instance, a predictor X_j that measures price in dollars can be transformed to measure in thousands of dollars, which, while only a scale change, can drastically impact the Ridge or Lasso beta estimates. Furthermore, a simple location shift of predictors can influence the intercept. If we penalize the intercept, any minor location change in X or Y will yield different Ridge or Lasso intercepts.</p>
+<p>These inconsistencies are problematic. Ideally, the algorithm should yield consistent results regardless of predictor scaling or location changes.</p>
+<p>Due to this, it’s customary to preprocess the data. This involves centering and scaling each column of the design matrix to achieve a mean of zero and unit sample variance. We also center Y. This ensures the intercept, when regressing Y against X, is consistently zero. In effect, the design matrix X only contains columns without the intercept.</p>
+<p>This preprocessing might seem intricate, but many software packages handle this automatically. They apply transformations before executing their algorithms and then revert the coefficients to their original scale, reintroducing the intercept.</p>
+<a class="reference internal image-reference" href="../_images/w3_standardize.png"><img alt="../_images/w3_standardize.png" src="../_images/w3_standardize.png" style="width: 485.65000000000003px; height: 201.85000000000002px;" /></a>
+<p>This intercept beta_0 can be computed using the following formula:</p>
+<div class="math notranslate nohighlight">
+\[\hat{\beta}_0 = m_y - \sum_{j=1}^p \hat{\beta}_j \cdot m_{x,j} \frac{se_y}{se_{x,j}}.\]</div>
 </section>
 
 

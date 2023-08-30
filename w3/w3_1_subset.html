@@ -111,7 +111,7 @@
 <p>Now, consider a separate test dataset, gathered from the same  locations x_i. In this case, the response, y-star_i will differ from y_i. The test error is the squared difference between y-star and X times beta-hat.</p>
 <a class="reference internal image-reference" href="../_images/w3_train_test_errors.png"><img alt="../_images/w3_train_test_errors.png" src="../_images/w3_train_test_errors.png" style="width: 551.5999999999999px; height: 232.39999999999998px;" /></a>
 <p>It is crucial to note that whole both y_i and y-star_i are random and independent of each other. They are assumed to follow the same distribution which has a mean of f(x_i) and variance sigma-square. Another random term is beta-hat, whose randomness originates from the data y. This means that y and beta-hat are correlated (therefore, both colored in blue) but y-star (colored in red) and beta-hat are independent.</p>
-<p>If we break down the expectations of both errors, they can be segmented into three parts:</p>
+<p>If we break down the expectations of both errors, they can be segmented into three parts (<a class="reference external" href="https://liangfgithub.github.io/Notes/lec_W3_VariableSelection_appendix.pdf">see the derivation here</a>):</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\mathbb{E} [ \text{Train Err}  ] &amp; = \text{(Unavoidable Err)} - p \sigma^2  + \text{Bias} \\
 \mathbb{E} [ \text{Test Err}  ] &amp;= \text{(Unavoidable Err)} + p \sigma^2  + \text{Bias}\end{split}\]</div>

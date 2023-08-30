@@ -19,7 +19,7 @@ Now, consider a separate test dataset, gathered from the same  locations x_i. In
 
 It is crucial to note that whole both y_i and y-star_i are random and independent of each other. They are assumed to follow the same distribution which has a mean of f(x_i) and variance sigma-square. Another random term is beta-hat, whose randomness originates from the data y. This means that y and beta-hat are correlated (therefore, both colored in blue) but y-star (colored in red) and beta-hat are independent. 
 
-If we break down the expectations of both errors, they can be segmented into three parts:
+If we break down the expectations of both errors, they can be segmented into three parts (`see the derivation here <https://liangfgithub.github.io/Notes/lec_W3_VariableSelection_appendix.pdf>`_):
 
 .. math::
 	\mathbb{E} [ \text{Train Err}  ] & = \text{(Unavoidable Err)} - p \sigma^2  + \text{Bias} \\
