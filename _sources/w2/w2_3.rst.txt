@@ -170,7 +170,7 @@ Assumptions and Outliers
 1. **LINE Assumptions**:
 
 	* L (Linear function): The regression function is a linear function of X. This isn't strictly an assumption; if the true function isn't linear, the regression will return the best linear approximation.
-	* I, N, E (Independently Normally distributed Errors): Error terms are ideally assumed to be normally distributed, independent, and have constant variance. However, it can be relaxed to just mean zero and constant variance. If errors have different variances, then weighted least squares would be more appropriate.
+	* I, N, E (Independently Normally distributed Errors): Error terms are ideally assumed to be normally distributed, independent, and have constant variance. However, it can be relaxed to just uncorrelated, mean zero and constant variance. If errors have different variances, then weighted least squares would be more appropriate.
 
 2. **Sampling of X's**: 
 
