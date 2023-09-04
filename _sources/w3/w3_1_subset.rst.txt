@@ -139,6 +139,13 @@ Subset Selection in R/Python
 ------------------------------
 
 
+*  Rcode: [`Rcode_W2 <https://liangfgithub.github.io/Rcode_W3_VarSel_SubsetSelection.html>`_]
+
+*  Python: [`Python_W2_1 <https://liangfgithub.github.io/Python_W3_VarSel_SubsetSelection.html>`_] 
+
+
+
+
 
 Variable Screening
 ------------------------------

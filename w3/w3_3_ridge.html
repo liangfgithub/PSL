@@ -16,6 +16,7 @@
         <script src="../_static/documentation_options.js?v=2709fde1"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -50,7 +51,10 @@
 <li class="toctree-l2"><a class="reference internal" href="w3_2_regularize.html">3.2. Regularization</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">3.3. Ridge Regression</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#introduction-to-ridge">3.3.1. Introduction to Ridge</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#the-shrinkage-effect">3.3.2. The Shrinkage Effect</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-shrinkage-effect">3.3.2. The Shrinkage Effect</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#summary">Summary</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#why-shrinkage">3.3.3. Why Shrinkage</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#degree-of-freedom-of-ridge-regression">3.3.4. Degree-of-Freedom of Ridge Regression</a></li>
 </ul>
@@ -98,15 +102,58 @@
 <h1><span class="section-number">3.3. </span>Ridge Regression<a class="headerlink" href="#ridge-regression" title="Link to this heading"></a></h1>
 <section id="introduction-to-ridge">
 <h2><span class="section-number">3.3.1. </span>Introduction to Ridge<a class="headerlink" href="#introduction-to-ridge" title="Link to this heading"></a></h2>
+<p>In ridge regression, the objective function to be minimized is a smooth quadratic function of beta. This function consists of two terms: the residual sum of squares and the L2 norm of beta.</p>
+<div class="math notranslate nohighlight">
+\[\min_{\boldsymbol{\beta}} \| \mathbf{y} - \mathbf{X}  \boldsymbol{\beta}\|^2 + \lambda \| \boldsymbol{\beta} \|_2\]</div>
+<p>To find the minimizer of this objective function, multiple approaches can be employed. For instance, taking the derivative with respect to beta and setting it to zero leads to a solvable form for the minimizer Alternatively, one can can express the objective function as the residual sum of squares for an augmented linear regression model.</p>
+<p>In this augmented model, we have n+p observations. The response vector is formed by stacking p zero responses onto the original y vector. The design matrix for the newly added p responses is simply an identity matrix. Defining this augmented response vector as <span class="math notranslate nohighlight">\(\tilde{y}\)</span> and  the new design matrix as <span class="math notranslate nohighlight">\(\tilde{\mathbf{X}}\)</span>, one finds that their residual sum of squares is identical to the ridge regression objective function.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left (\begin{array}{c} \mathbf{y}_{n \times 1} \\ \mathbf{0}_{p \times 1} \end{array} \right )  =  \left (\begin{array}{c} \mathbf{X}_{n \times p} \\ \sqrt{\lambda} \mathbf{I}_p \end{array} \right )_{(n+p) \times p} \boldsymbol{\beta}_{p \times 1} + \text{ error}\end{split}\]</div>
+<p>We can then find the ridge regression solution using this new design matrix and new respose vector.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\tilde{\mathbf{X}}^t \tilde{\mathbf{X}}  &amp; =  \left (\mathbf{X}^t \ \sqrt{\lambda} \mathbf{I}_p \right ) \left (\begin{array}{c} \mathbf{X}_{n \times p} \\ \sqrt{\lambda} \mathbf{I}_p \end{array} \right )
+ = (\mathbf{X}^t \mathbf{X} + \lambda \mathbf{I}) \\
+ \tilde{\mathbf{X}}^t \tilde{\mathbf{y}} &amp; = \left (\mathbf{X}^t \ \sqrt{\lambda} \mathbf{I}_p \right ) \left (\begin{array}{c} \mathbf{y}_{n \times 1} \\ \mathbf{0}_{p \times 1} \end{array} \right ) = \mathbf{X}^t \mathbf{y} \\
+\hat{\boldsymbol{\beta}}^{\text{ridge}} &amp; = (\tilde{\mathbf{X}}^t \tilde{\mathbf{X}})^{-1} \tilde{\mathbf{X}}^t \tilde{\mathbf{y}} = (\mathbf{X}^t \mathbf{X} + \lambda \mathbf{I})^{-1} \mathbf{X}^t \mathbf{y}.\end{split}\]</div>
+<p>A key benefit of ridge regression is its applicability to design matrices that are not of full rank. This is made possible by adding <span class="math notranslate nohighlight">\(\lambda \mathbf{I}\)</span> to <span class="math notranslate nohighlight">\(\mathbf{X}^t \mathbf{X}\)</span>, which allows us to invert the resulting matrix. This feature sets ridge regression apart from ordinary least squares (OLS) methods, making it a versatile tool for tackling a wide range of problems.</p>
 </section>
 <section id="the-shrinkage-effect">
 <h2><span class="section-number">3.3.2. </span>The Shrinkage Effect<a class="headerlink" href="#the-shrinkage-effect" title="Link to this heading"></a></h2>
+<p>When discussing ridge regression, it’s crucial to consider its nature as a ‘shrinkage’ method. This becomes evident when we look at the special case where the design matrix X is orthogonal.</p>
+<p>Suppose X is an n-by-p matrix where the columns are orthonormal (i.e., unit length and mutually orthogonal). Then  <span class="math notranslate nohighlight">\(\mathbf{X}^t \mathbf{X} = \mathbf{I}\)</span>.</p>
+<a class="reference internal image-reference" href="../_images/w3_ridge_ols_shrinkage.png"><img alt="../_images/w3_ridge_ols_shrinkage.png" src="../_images/w3_ridge_ols_shrinkage.png" style="width: 316.25px; height: 232.65px;" /></a>
+<p>It becomes clear that the ridge estimate is a shrunk version of the OLS estimate since <span class="math notranslate nohighlight">\(\frac{1}{1 + \lambda} &lt; 1\)</span> for any lambda &gt; 0.</p>
+<p>In situations where the columns of X are not orthogonal, we can reformulate the regression problem using an orthogonal version of X, achieved through techniques such as Principal Component Analysis (PCA) or Singular Value Decomposition (SVD). In this transformed space, it becomes evident that the ridge estimates and predictions serve as shrunken versions of their least squares (LS) counterparts.</p>
+<a class="reference internal image-reference" href="../_images/w3_ridge_SVD_PCA.png"><img alt="../_images/w3_ridge_SVD_PCA.png" src="../_images/w3_ridge_SVD_PCA.png" style="width: 524.3px; height: 376.59999999999997px;" /></a>
+<p>Next, we can rewrite the problem in terms of a transformed design matrix F and new coefficient vector alpha, which is a rotation transformation of the original beta.</p>
+<a class="reference internal image-reference" href="../_images/w3_ridge_SVD_shrinkage.png"><img alt="../_images/w3_ridge_SVD_shrinkage.png" src="../_images/w3_ridge_SVD_shrinkage.png" style="width: 468.99999999999994px; height: 349.29999999999995px;" /></a>
+<section id="summary">
+<h3>Summary<a class="headerlink" href="#summary" title="Link to this heading"></a></h3>
+<p>In ridge regression, the coefficients and predictions are shrinkage versions of those in OLS. The degree of shrinkage varies with the magnitude of singular values, shrinking less for larger singular values and more for smaller ones. This accounts for the regularization effect that makes ridge regression robust, especially when X has multicollinearity or is not full-rank.</p>
+</section>
 </section>
 <section id="why-shrinkage">
 <h2><span class="section-number">3.3.3. </span>Why Shrinkage<a class="headerlink" href="#why-shrinkage" title="Link to this heading"></a></h2>
+<p>A natural question that arises is why one might want to shrink the least squares estimate. One might argue that the least squares estimate is unbiased, so applying shrinkage, which would introduce bias, seems counterintuitive. After all, isn’t unbiasedness a desirable property?</p>
+<p>To explore this, let’s consider a simple one-dimensional estimation problem and examine the mean squared error (MSE) of two estimators. MSE, defined as the expected squared difference between the estimator and the true value, is equal to Bias-square + Variance.</p>
+<a class="reference internal image-reference" href="../_images/w3_normal_mean.png"><img alt="../_images/w3_normal_mean.png" src="../_images/w3_normal_mean.png" style="width: 553.6px; height: 171.20000000000002px;" /></a>
+<p>When comparing the MSE of these two estimators, it’s not straightforward to determine which estimator performs better. The effectiveness of the shrinkage depends on the magnitude of theta-square.</p>
+<p>In summary, while shrinkage introduces bias, it also reduces variance. This trade-off may result in an overall lower MSE, making shrinkage a worthwhile consideration in certain situations.</p>
 </section>
 <section id="degree-of-freedom-of-ridge-regression">
 <h2><span class="section-number">3.3.4. </span>Degree-of-Freedom of Ridge Regression<a class="headerlink" href="#degree-of-freedom-of-ridge-regression" title="Link to this heading"></a></h2>
+<p>When discussing linear regression with variable selection, a key consideration is the model’s dimensionality, which refers to the number of parameters or predictors utilized.</p>
+<p>A pertinent question in this context is: What is the effective degree of freedom for a ridge regression model? Despite using a p-dimensional coefficient vector, the model’s effective dimensionality may be less due to the shrinkage effect introduced by the regularization term.</p>
+<p>In ridge regression, the regularization strength is controlled by lambda.  This parameter directly impacts the shrinkage factor, usually represented as a/(a + lambda), where a and lambda are both positive.</p>
+<ul class="simple">
+<li><p>As lambda approaches infinity, the shrinkage factor nears zero, essentially reducing the dimension of the model to zero.</p></li>
+<li><p>On the other hand, as lambda goes to zero,  the ridge regression model becomes a standard p-dimensional least squares regression model.</p></li>
+</ul>
+<p>A commonly-adopted metric for the degree of freedom involves the sum of the normalized variance between the observed <span class="math notranslate nohighlight">\(y_i\)</span> and its corresponding predicted value <span class="math notranslate nohighlight">\(\hat{y}_i\)</span>, across all n samples. In matrix notation, if a method returns <span class="math notranslate nohighlight">\(\hat{\mathbf{y}} = \mathbf{A} \mathbf{y}\)</span>, the degree of freedom can be computed as the trace of matrix A.</p>
+<a class="reference internal image-reference" href="../_images/w3_ridge_df_def.png"><img alt="../_images/w3_ridge_df_def.png" src="../_images/w3_ridge_df_def.png" style="width: 516.8000000000001px; height: 356.8px;" /></a>
+<p>Similarly, we can compute the effective degree of freedom in ridge regression as follows.</p>
+<a class="reference internal image-reference" href="../_images/w3_ridge_df_formula.png"><img alt="../_images/w3_ridge_df_formula.png" src="../_images/w3_ridge_df_formula.png" style="width: 493.6px; height: 246.4px;" /></a>
+<p>Distinct from other variable selection methods, ridge regression allows for a fractional degree of freedom. This value can range continuously between zero and p, contingent upon the regularization parameter lambda.</p>
 </section>
 </section>
 
