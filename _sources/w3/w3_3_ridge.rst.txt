@@ -107,3 +107,15 @@ Similarly, we can compute the effective degree of freedom in ridge regression as
 	:scale: 80 %
 
 Distinct from other variable selection methods, ridge regression allows for a fractional degree of freedom. This value can range continuously between zero and p, contingent upon the regularization parameter lambda. 
+
+
+
+R/Python Code for Ridge
+------------------------------
+
+
+*  Rcode: [`Rcode_W2 <https://liangfgithub.github.io/Rcode_W3_VarSel_RidgeLasso.html>`_]
+
+*  Python: [`Python_W2_1 <https://liangfgithub.github.io/Python_W3_VarSel_RidgeLasso.html>`_] 
+
+

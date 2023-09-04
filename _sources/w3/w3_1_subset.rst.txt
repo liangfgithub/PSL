@@ -135,8 +135,8 @@ The nature of greedy algorithms, given their specific path of search, means they
 
 
 
-Subset Selection in R/Python
-------------------------------
+R/Python Code for Subset Selection
+-------------------------------------
 
 
 *  Rcode: [`Rcode_W2 <https://liangfgithub.github.io/Rcode_W3_VarSel_SubsetSelection.html>`_]
