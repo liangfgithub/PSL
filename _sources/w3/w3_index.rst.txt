@@ -8,3 +8,4 @@ Variable Selection and Regularization
    w3_2_regularize.rst
    w3_3_ridge.rst
    w3_4_lasso.rst
+   w3_5_discussion.rst

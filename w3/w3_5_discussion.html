@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>3.2. Regularization &mdash; PSL_Book 0.1 documentation</title>
+  <title>3.5. Discussion &mdash; PSL_Book 0.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -16,12 +16,11 @@
         <script src="../_static/documentation_options.js?v=2709fde1"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="3.3. Ridge Regression" href="w3_3_ridge.html" />
-    <link rel="prev" title="3.1. Subset Selection" href="w3_1_subset.html" /> 
+    <link rel="next" title="4. Regression Trees and Ensemble" href="../w4/w4_index.html" />
+    <link rel="prev" title="3.4. Lasso Regression" href="w3_4_lasso.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -48,10 +47,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../w2/w2_index.html">2. Linear Regression</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="w3_index.html">3. Variable Selection and Regularization</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="w3_1_subset.html">3.1. Subset Selection</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">3.2. Regularization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w3_2_regularize.html">3.2. Regularization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w3_3_ridge.html">3.3. Ridge Regression</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w3_4_lasso.html">3.4. Lasso Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="w3_5_discussion.html">3.5. Discussion</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">3.5. Discussion</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../w4/w4_index.html">4. Regression Trees and Ensemble</a></li>
@@ -81,7 +80,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="w3_index.html"><span class="section-number">3. </span>Variable Selection and Regularization</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">3.2. </span>Regularization</li>
+      <li class="breadcrumb-item active"><span class="section-number">3.5. </span>Discussion</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -90,34 +89,29 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="regularization">
-<h1><span class="section-number">3.2. </span>Regularization<a class="headerlink" href="#regularization" title="Link to this heading"></a></h1>
-<p>In this lecture, we’ll delve into variable selection using the regularization framework. Previously, we discussed using AIC or BIC for variable subset selection. This process can be framed as the pursuit of minimizing a specific objective function.</p>
-<p>Assuming we know or can reliably estimate the error variance, sigma-square, the objective function becomes:</p>
-<div class="math notranslate nohighlight">
-\[\min_{\boldsymbol{\beta}} \| \mathbf{y} - \mathbf{X}  \boldsymbol{\beta}\|^2 + \lambda \| \boldsymbol{\beta} \|_0,\]</div>
-<p>where <span class="math notranslate nohighlight">\(\| \boldsymbol{\beta} \|_0 = \sum_{j=1}^p \mathbf{1}_{\{ \beta_j \ne 0 \}}\)</span> counts the number of predictors in our model. Both AIC and BIC essentially correspond to different choices of lambda. Yet, framing AIC and BIC under this unified objective function doesn’t simplify matters, because it poses the same computational challenges as AIC or BIC. In the worst-case scenario, we’d need to explore all possible subsets of betas.</p>
-<p>Next, we’ll introduce two alternative regularization or penalty terms for beta. Ridge regression employs the L2 penalty on beta, while Lasso regression uses the L1 penalty.</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\text{Ridge} &amp; : \min \| \mathbf{y} - \mathbf{X}  \boldsymbol{\beta}\|^2 + \lambda \| \boldsymbol{\beta} \|_2 \\
-\text{Lasso} &amp; : \min \| \mathbf{y} - \mathbf{X}  \boldsymbol{\beta}\|^2 + \lambda \| \boldsymbol{\beta} \|_1\end{split}\]</div>
-<p>The L0 norm’s focus is on the presence or absence of predictors, without regard to their magnitude. However, this isn’t true for the L1 or L2 norms. This can create complications.</p>
-<p>For instance, a predictor X_j that measures price in dollars can be transformed to measure in thousands of dollars, which, while only a scale change, can drastically impact the Ridge or Lasso beta estimates. Furthermore, a simple location shift of predictors can influence the intercept. If we penalize the intercept, any minor location change in X or Y will yield different Ridge or Lasso intercepts.</p>
-<p>These inconsistencies are problematic. Ideally, the algorithm should yield consistent results regardless of predictor scaling or location changes.</p>
-<p>Due to this, it’s customary to preprocess the data. This involves centering and scaling each column of the design matrix to achieve a mean of zero and unit sample variance. We also center Y. This ensures the intercept, when regressing Y against X, is consistently zero. In effect, the design matrix X only contains columns without the intercept.</p>
-<p>This preprocessing might seem intricate, but many software packages handle this automatically. They apply transformations before executing their algorithms and then revert the coefficients to their original scale, reintroducing the intercept.</p>
-<a class="reference internal image-reference" href="../_images/w3_standardize.png"><img alt="../_images/w3_standardize.png" src="../_images/w3_standardize.png" style="width: 485.65000000000003px; height: 201.85000000000002px;" /></a>
-<p>This intercept beta_0 can be computed using the following formula:</p>
-<div class="math notranslate nohighlight">
-\[\hat{\beta}_0 = m_y - \sum_{j=1}^p \hat{\beta}_j \cdot m_{x,j} \frac{se_y}{se_{x,j}}.\]</div>
+  <section id="discussion">
+<h1><span class="section-number">3.5. </span>Discussion<a class="headerlink" href="#discussion" title="Link to this heading"></a></h1>
+<p>Thus far, we have explored a variety of techniques for variable selection and shrinkage, including subset selection, ridge regression, lasso regression, and principal components regression (<a class="reference external" href="https://liangfgithub.github.io/Notes/lec_W3_PCR.pdf">Notes on PCR</a>). A critical question emerges: which method is most appropriate for a given situation? While there’s no one-size-fits-all answer, students will have the opportunity to explore this question in depth through an upcoming coding assignment. The assignment involves a simulation study where students will compare these techniques, using the prediction error on test sets as the key performance metric.</p>
+<p>For this study, we will examine three different design matrices:</p>
+<ol class="arabic simple">
+<li><p>The first design matrix, X1, consists of a small set of features carefully selected by experts for their known predictive power with respect to the response variable Y.</p></li>
+<li><p>The second design matrix, X2, extends  X1 by including all quadratic terms and interaction terms for the features in X1. While these features are expected to be related to Y, they are also correlated, adding a layer of complexity to the analysis.</p></li>
+<li><p>The third design matrix, X3, further extends X2 by incorporating 500 noise features. These noise features are generated by selecting a true feature from X2, randomly shuffling its n values, and repeating this process 500 times. Although these features may appear marginally similar to the true features, they are not relevant to Y.</p></li>
+</ol>
+<p>Key insights that students may uncover during this exercise include:</p>
+<ul class="simple">
+<li><p>For X1, the feature set is small and carefully curated, often obviating the need for variable shrinkage or selection; a full model may be sufficient.</p></li>
+<li><p>For X2, where features are correlated yet mostly relevant to Y, shrinkage methods like ridge regression and methods based on top PCs such as PCR can be effective.</p></li>
+<li><p>For X3, ridge regression and PCR are less effective as they tend to prioritize early principal components. Given that much of the variation in X3 is noise-driven, the top principal components are not necessarily relevant to Y. Here, methods like Lasso, which can completely zero out specific features, become increasingly important.</p></li>
+</ul>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="w3_1_subset.html" class="btn btn-neutral float-left" title="3.1. Subset Selection" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="w3_3_ridge.html" class="btn btn-neutral float-right" title="3.3. Ridge Regression" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="w3_4_lasso.html" class="btn btn-neutral float-left" title="3.4. Lasso Regression" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../w4/w4_index.html" class="btn btn-neutral float-right" title="4. Regression Trees and Ensemble" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

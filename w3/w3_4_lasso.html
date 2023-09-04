@@ -16,10 +16,11 @@
         <script src="../_static/documentation_options.js?v=2709fde1"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4. Regression Trees and Ensemble" href="../w4/w4_index.html" />
+    <link rel="next" title="3.5. Discussion" href="w3_5_discussion.html" />
     <link rel="prev" title="3.3. Ridge Regression" href="w3_3_ridge.html" /> 
 </head>
 
@@ -52,11 +53,18 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">3.4. Lasso Regression</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#introduction-to-lasso">3.4.1. Introduction to Lasso</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#one-dimensional-lasso">3.4.2. One-dimensional Lasso</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lasso-vs-ridge">3.4.3. Lasso vs. Ridge</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#coordinate-descent">3.4.4. Coordinate Descent</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#uniqueness-of-lasso">3.4.5. Uniqueness of Lasso</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lasso-vs-ridge">3.4.3. Lasso vs. Ridge</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#implications-of-duality">Implications of Duality</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geometric-perspective">Geometric Perspective</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#thresholding-mechanisms">Thresholding Mechanisms</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#coordinate-descent">3.4.4. Coordinate Descent</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#uniqueness-of-lasso">3.4.5. Uniqueness of Lasso</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#r-python-code-for-lasso-ridge">3.4.6. R/Python Code for Lasso &amp; Ridge</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="w3_5_discussion.html">3.5. Discussion</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../w4/w4_index.html">4. Regression Trees and Ensemble</a></li>
@@ -99,18 +107,93 @@
 <h1><span class="section-number">3.4. </span>Lasso Regression<a class="headerlink" href="#lasso-regression" title="Link to this heading"></a></h1>
 <section id="introduction-to-lasso">
 <h2><span class="section-number">3.4.1. </span>Introduction to Lasso<a class="headerlink" href="#introduction-to-lasso" title="Link to this heading"></a></h2>
+<p>The Lasso objective function consists of two terms:</p>
+<ul class="simple">
+<li><p>The residual sum of squares (RSS)</p></li>
+<li><p>The L1 norm of the coefficient vector beta</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\min_{\boldsymbol{\beta}} \| \mathbf{y} - \mathbf{X}  \boldsymbol{\beta}\|^2 + \lambda \| \boldsymbol{\beta} \|_1\]</div>
+<p>When X is orthogonal, we can express the RSS term using the ordinary least squares (OLS) estimator <span class="math notranslate nohighlight">\(\hat{\boldsymbol{\beta}}^{\text{LS}}\)</span>.</p>
+<a class="reference internal image-reference" href="../_images/w3_lasso_X_orthogonal.png"><img alt="../_images/w3_lasso_X_orthogonal.png" src="../_images/w3_lasso_X_orthogonal.png" style="width: 517.75px; height: 203.29999999999998px;" /></a>
+<p>since the n-dimensional vector in red (which is a linear combination of columns of X, no matter what value beta takes) is in C(X), therefore orthogonal to the residual vector r.</p>
+<p>Next we show that the objective function can be decomposed into component-wise terms. Each component only involves a single beta_j, making it possible to solve for the optimal beta_j individually.</p>
+<a class="reference internal image-reference" href="../_images/w3_lasso_elementwise.png"><img alt="../_images/w3_lasso_elementwise.png" src="../_images/w3_lasso_elementwise.png" style="width: 528.1999999999999px; height: 268.84999999999997px;" /></a>
 </section>
 <section id="one-dimensional-lasso">
 <h2><span class="section-number">3.4.2. </span>One-dimensional Lasso<a class="headerlink" href="#one-dimensional-lasso" title="Link to this heading"></a></h2>
+<p>Solving for each beta_j (when X is orthogonal) can be formulated as the following one-dimensional optimization problem</p>
+<div class="math notranslate nohighlight">
+\[f(x) = (x-a)^2 + \lambda |x|,\]</div>
+<p>where <span class="math notranslate nohighlight">\(a\)</span> is a  given constant and lambda is a positive regularization parameter.</p>
+<p>Normally, when dealing with a differentiable function, you’d find the minimum by setting its derivative equal to zero. However, in our optimization problem, the term ∣x∣ makes the function not entirely differentiable. Fortunately, the procedure is nearly the same here; we simply use subgradients instead of gradients to find the minimum.</p>
+<p>The minimizer x* must satisfy the following equation</p>
+<div class="math notranslate nohighlight">
+\[0 = \frac{\partial}{\partial x} (x^*-a)^2 + \lambda \frac{\partial}{\partial x} |x^*|  = 2 (x^*-a) + \lambda z^*\]</div>
+<p>where z* is the <strong>sub-gradient</strong> of the absolute value function evaluated at x*, which equals to the sign of x* unless x* =  0. In that case, z* lies between -1 and 1.</p>
+<img alt="../_images/w3_lasso_one-dim_solution.png" src="../_images/w3_lasso_one-dim_solution.png" />
+<p>So, in an orthogonal design matrix, the Lasso solution can be computed using the soft-thresholding operator. It performs both variable selection and coefficient shrinkage. This is one of the reasons why Lasso is a preferred method because it can both select important features and shrink the coefficients towards zero, making it particularly useful in practice.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\hat{\beta}^{\text{lasso}}_j = \left \{ \begin{array}{ll}
+\text{sign}(\hat{\beta}_j^{\text{LS}}) (|\hat{\beta}_j^{\text{LS}}| - \lambda/2) &amp; \text{ if }
+|\hat{\beta}_j^{\text{LS}}| &gt; \lambda/2 \\
+    0 &amp; \text{ if }
+|\hat{\beta}_j^{\text{LS}}| \le  \lambda/2.
+            \end{array} \right.\end{split}\]</div>
 </section>
 <section id="lasso-vs-ridge">
 <h2><span class="section-number">3.4.3. </span>Lasso vs. Ridge<a class="headerlink" href="#lasso-vs-ridge" title="Link to this heading"></a></h2>
+<p>Lasso and Ridge regression can be understood through two seemingly different but fundamentally connected perspectives: optimization and constrained minimization.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Lasso</strong>: The optimization task involves minimizing the residual sum of squares (RSS) coupled with a penalty term on the  L1 norm of the coefficients. This is mathematically equivalent to a constrained minimization of RSS, where the coefficients (beta) are restricted to lie within an L1 ball (a diamond-shaped constraint).</p></li>
+<li><p><strong>Ridge</strong>: Similarly, Ridge regression can either be framed as an optimization problem that minimizes RSS plus a penalty term on the L2 norm of beta or as a constrained minimization problem where beta is confined to an L2 ball (a spherical constraint).</p></li>
+</ul>
+<p>In simpler terms, this means that the Lasso/Ridge optimization can also be viewed as finding the set of coefficients that best fit the data while being constrained to lie within a certain L1/L2 budget.</p>
+</div></blockquote>
+<a class="reference internal image-reference" href="../_images/w3_lasso_duality.png"><img alt="../_images/w3_lasso_duality.png" src="../_images/w3_lasso_duality.png" style="width: 519.4px; height: 373.09999999999997px;" /></a>
+<section id="implications-of-duality">
+<h3>Implications of Duality<a class="headerlink" href="#implications-of-duality" title="Link to this heading"></a></h3>
+<p>The duality between optimization and constrained minimization has the following implications:</p>
+<ul class="simple">
+<li><p><strong>Ridge</strong>: When we increase lambda,  the RSS increases, and  the L2 norm of beta decreases.</p></li>
+<li><p><strong>Lasso</strong>: Similarly, when lambda increases, the RSS increases, and the L1 norm of beta decreases.</p></li>
+</ul>
+<p>Here ‘RSS’ refers to the residual sum of squares on the training data; ‘increases’ means either increases or stays the same; ‘decreases’ means either decreases or stays the same.</p>
+<p>It’s important to note that these statements are definitive only for the norms on which Ridge and Lasso are based. For example, while Lasso often produces sparser models as lambda increases, tthis isn’t a guaranteed outcome.</p>
+</section>
+<section id="geometric-perspective">
+<h3>Geometric Perspective<a class="headerlink" href="#geometric-perspective" title="Link to this heading"></a></h3>
+<a class="reference internal image-reference" href="../_images/w3_fig_3_11.png"><img alt="../_images/w3_fig_3_11.png" src="../_images/w3_fig_3_11.png" style="width: 392.0px; height: 305.6px;" /></a>
+<p>The underlying geometry of Ridge and Lasso can be visualized as ellipsoids intersecting with spheres or diamonds, respectively. While these geometric interpretations are insightful in 2D or 3D settings, they become complex in higher-dimensional spaces. For example, the sign of Ridge or Lasso estimates can change relative to the OLS (Ordinary Least Squares) estimates when lambda varies, illustrating the limitations of low-dimensional intuitions.</p>
+</section>
+<section id="thresholding-mechanisms">
+<h3>Thresholding Mechanisms<a class="headerlink" href="#thresholding-mechanisms" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Ridge</strong>: Performs linear shrinkage. As lambda increases, coefficients are shrunken towards zero without usually becoming exactly zero.</p></li>
+<li><p><strong>Lasso</strong>: Implements “soft-thresholding.” Increasing lambda not only shrinks the coefficients but can also set some to zero, effectively performing variable selection.</p></li>
+<li><p><strong>Subset Selection</strong>: Operates as a “hard-thresholding” mechanism, where coefficients either remain at their original value or are set to zero.</p></li>
+</ul>
+</section>
 </section>
 <section id="coordinate-descent">
 <h2><span class="section-number">3.4.4. </span>Coordinate Descent<a class="headerlink" href="#coordinate-descent" title="Link to this heading"></a></h2>
+<p>For general design matrices, Lasso does not have a closed-form solution; that is, one cannot employ analytical methods to directly find the optimal coefficients. A popular technique for solving the Lasso problem is the Coordinate Descent algorithm. In this algorithm, each coefficient is updated individually while all other coefficients remain fixed. Students will be asked to implement this Coordinate Descent algorithm in an upcoming coding assignment.</p>
 </section>
 <section id="uniqueness-of-lasso">
 <h2><span class="section-number">3.4.5. </span>Uniqueness of Lasso<a class="headerlink" href="#uniqueness-of-lasso" title="Link to this heading"></a></h2>
+<p>When the design matrix X is of full rank, the Lasso solution is unique because it minimizes a strictly convex function summed with another convex function. In this case, the uniqueness of the minimizer is guaranteed. However, the situation changes when either the number of predictors p exceeds the number of observations n, or when X is not of full rank.</p>
+<p>When p&gt;n, X is likely not full rank. Under these circumstances, the sum of squares, which is the first term in the Lasso objective function, is no longer strictly convex (as a function of beta). As a result, the Lasso solution may not be unique and could have multiple equivalent values.</p>
+<p>Interestingly, even if the original X matrix is not of full rank, the Lasso solution can still be unique under certain conditions. Let’s define S as the subset of predictors where the coefficients are non-zero in the Lasso solution. The corresponding submatrix <span class="math notranslate nohighlight">\(X_S\)</span> consists only of columns related to these predictors. If <span class="math notranslate nohighlight">\(X_S\)</span> has full rank, then the Lasso solution will be unique.</p>
+<p>It’s also worth noting that, similar to the Ordinary Least Squares (OLS) method, even when the Lasso solution is not unique, the fitted values will still be unique. Additionally, the L1 norm of the different Lasso estimates for beta will also be unique.</p>
+<p>For a more in-depth discussion on the uniqueness of Lasso solutions, you can follow this <a class="reference external" href="https://projecteuclid.org/euclid.ejs/1369148600">link</a> to find relevant references.</p>
+</section>
+<section id="r-python-code-for-lasso-ridge">
+<h2><span class="section-number">3.4.6. </span>R/Python Code for Lasso &amp; Ridge<a class="headerlink" href="#r-python-code-for-lasso-ridge" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Rcode: [<a class="reference external" href="https://liangfgithub.github.io/Rcode_W3_VarSel_RidgeLasso.html">Rcode_W2</a>]</p></li>
+<li><p>Python: [<a class="reference external" href="https://liangfgithub.github.io/Python_W3_VarSel_RidgeLasso.html">Python_W2_1</a>]</p></li>
+</ul>
 </section>
 </section>
 
@@ -119,7 +202,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="w3_3_ridge.html" class="btn btn-neutral float-left" title="3.3. Ridge Regression" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../w4/w4_index.html" class="btn btn-neutral float-right" title="4. Regression Trees and Ensemble" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="w3_5_discussion.html" class="btn btn-neutral float-right" title="3.5. Discussion" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

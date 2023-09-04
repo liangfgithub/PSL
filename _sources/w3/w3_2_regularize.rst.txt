@@ -38,4 +38,3 @@ This intercept beta_0 can be computed using the following formula:
 
 	\hat{\beta}_0 = m_y - \sum_{j=1}^p \hat{\beta}_j \cdot m_{x,j} \frac{se_y}{se_{x,j}}.
 
-
