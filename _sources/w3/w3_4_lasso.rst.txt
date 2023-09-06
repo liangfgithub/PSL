@@ -139,8 +139,8 @@ R/Python Code for Lasso & Ridge
 ---------------------------------------
 
 
-*  Rcode: [`Rcode_W2 <https://liangfgithub.github.io/Rcode_W3_VarSel_RidgeLasso.html>`_]
+*  Rcode: [`Rcode_W3_VarSel_RidgeLasso <https://liangfgithub.github.io/Rcode_W3_VarSel_RidgeLasso.html>`_]
 
-*  Python: [`Python_W2_1 <https://liangfgithub.github.io/Python_W3_VarSel_RidgeLasso.html>`_] 
+*  Python: [`Python_W3_VarSel_RidgeLasso <https://liangfgithub.github.io/Python_W3_VarSel_RidgeLasso.html>`_] 
 
 

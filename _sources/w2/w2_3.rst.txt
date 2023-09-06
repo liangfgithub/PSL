@@ -5,10 +5,10 @@ Analyzing Data with R/Python
 --------------------------------
 
 *  Rcode: 
-	[`Rcode_W2 <https://liangfgithub.github.io/Rcode_W2_LinearRegression.html>`_]
+	[`Rcode_W2_LinearRegression <https://liangfgithub.github.io/Rcode_W2_LinearRegression.html>`_]
 
 *  Python:
-	[`Python_W2_1 <https://liangfgithub.github.io/Python_W2_LinearRegression_1.html>`_] [`Python_W2_2 <https://liangfgithub.github.io/Python_W2_LinearRegression_2.html>`_] 
+	[`Python_W2_LinearRegression_1 <https://liangfgithub.github.io/Python_W2_LinearRegression_1.html>`_] [`Python_W2_LinearRegression_2 <https://liangfgithub.github.io/Python_W2_LinearRegression_2.html>`_] 
 
 
 

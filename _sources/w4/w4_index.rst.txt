@@ -1,13 +1,11 @@
 Regression Trees and Ensemble
 ====================================
 
-Regression Trees
---------------------------------------
 
-Random Forest
---------------------------------------
+.. toctree::
+   :maxdepth: 1
 
-
-GBM
---------------------------------------
-
+   w4_1_reg_tree.rst
+   w4_2_randomforest.rst
+   w4_3_gbm.rst
+ 
