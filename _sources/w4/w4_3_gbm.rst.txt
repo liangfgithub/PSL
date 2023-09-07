@@ -1,2 +1,84 @@
 GBM
 ====================================
+
+
+Boosting 
+----------------------------------
+
+The boosting algorithm was originally designed for classification tasks, but it has significant applications in regression as well. In this lecture, we'll delve deeper into boosting, particularly focusing on its role in regression.
+
+Imagine you have a set of weak regression functions, like small decision trees, that don't perform particularly well on their own. Boosting combines these weak models in a clever way to significantly improve their collective performance. Although this explanation may sound quite exciting, I will instead focus on a more technical description of boosting today.
+
+Forward Stagewise Optimization
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+At its core, boosting is a forward stage-wise greedy algorithm aimed at solving an additive model. An additive model consists of 'T' functions, 
+
+.. math::
+	F(x) = f_1(x) + f_2(x) + \cdots + f_T(x)
+
+and you can think of each function as corresponding to a regression tree. Solving for all functions simultaneously becomes impractical when 'T' is large due to the sheer number of arguments involved. A forward stage-wise approach offers a more manageable solution. 
+
+Here's how it works:
+
+1. Start by initializing your target function F(x) to zero.
+2. Record the current residuals, which initially will just be the data points y_i, as the prediction is zero to start with.
+3. Loop from t = 1 to T. In each iteration:
+
+	-  Fit a regression tree to the current residuals.
+	-  Add the tree to the arget function F(x).
+	- Update the residuals, which become old residual - f_t, where f_t is the fit from the current tree.
+
+
+This process constructs an additive model in a greedy, iterative fashion, building upon each weak learner until 'T' trees are formed. 
+
+Tuning Parameters
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+However, a word of caution: boosting can easily lead to overfitting. This is why regularization is critical. In Gradient Boosting Machines (GBM) or Extreme Gradient Boosting (XGBoost), packages for boosting, one of the key regularization parameters is the learning rate, 'eta', which shrinks the contribution of each individual tree.
+
+From an optimization standpoint, you could also view 'eta' as the "learning rate" that governs how big a "step" the algorithm should take in the optimal direction.
+
+Another important consideration is the number of trees, 'T'. Initially, you can set T as an upper limit and subsequently determine an optimal value—ideally less than this upper bound—by closely monitoring the Cross-Validation (CV) error during training. It's worth noting that the choice of T is often inversely related to the learning rate eta. Specially, a smaller learning rate generally necessitates a larger T for the model to effectively learn and generalize. 
+
+
+When it comes to the complexity of the individual trees, i.e., their depth, it's advisable to keep them relatively shallow, as boosting is designed to work with weak learners.
+
+
+Moreover, inspired by bagging techniques and random forests, many boosting implementations, including GBM and XGBoost, now fit a regression tree to a random subset of the data, determined by a sub-sampling rate, to further guard against overfitting.
+
+Summary
+~~~~~~~~~~~~~~~~~~~~~~~
+
+In summary, boosting is a powerful yet nuanced algorithm. Its various parameters like learning rate, tree depth, and number of trees must be carefully tuned to create a robust predictive model. Up next, we will provide hands-on R/Python code examples using the GBM package as a practical means for fitting boosting trees in regression. It's worth noting, however, that the XGBoost package has gained prominence as the go-to toolkit for tree-based boosting algorithms. For those interested in mastering XGBoost, an abundant selection of online tutorials and examples is available, eliminating the need for us to provide hands-on code for that specific package.
+
+GBM in R/Python
+----------------------------------
+
+*  Rcode: [`Rcode_W4_Regression_GBM <https://liangfgithub.github.io/Rcode_W4_Regression_GBM.html>`_]
+
+*  Python: [`Python_W4_Regression_GBM <https://liangfgithub.github.io/Python_W4_Regression_GBM.html>`_] 
+
+
+
+Discussion
+----------------------------------
+
+As previously highlighted, tree-based ensemble methods are highly valuable in supervised learning. We'll delve deeper into this when discussing classification.
+
+Apart from their outstanding performance, these methods offer several other advantages. For instance, they typically require less preprocessing because they can automatically handle missing values (NAs) and interactions, and often don't necessitate scaling or normalization. Furthermore, they're adept at managing a vast number of predictors.
+
+Now, comparing GBM and RandomForest: RandomForest boasts fewer tuning parameters. GBM has more. However, with the right tuning, GBM can outperform RandomForest. If you're pressed for time but still want commendable results, I'd advocate for RandomForest.
+
+
+Regarding categorical predictors: As previously discussed, splitting categorical predictors for regression with a squared error is not computationally burdensome. But, many packages designed for boosting trees or RandomForest are written for general loss functions, meaning the specific splitting technique mentioned can't be utilized.
+
+Each package has its own limitations concerning categorical predictors. For instance, RandomForest cannot handle categorical variables with more than 32 levels, while GBM has a cap at 1024 levels. Some tools like XGBoost and certain Python packages only accept numerical inputs. Thus, if you intend to employ these packages across various datasets, you might need to numerically encode or combine some of the categorical features.
+
+
+
+
+
+
+
+

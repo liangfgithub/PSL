@@ -16,6 +16,7 @@
         <script src="../_static/documentation_options.js?v=2709fde1"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -49,7 +50,17 @@
 <li class="toctree-l1 current"><a class="reference internal" href="w4_index.html">4. Regression Trees and Ensemble</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="w4_1_reg_tree.html">4.1. Regression Trees</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w4_2_randomforest.html">4.2. Random Forest</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">4.3. GBM</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.3. GBM</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#boosting">4.3.1. Boosting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#forward-stagewise-optimization">Forward Stagewise Optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tuning-parameters">Tuning Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#gbm-in-r-python">4.3.2. GBM in R/Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#discussion">4.3.3. Discussion</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../w5/w5_index.html">5. Nonlinear Regression</a></li>
@@ -89,6 +100,60 @@
              
   <section id="gbm">
 <h1><span class="section-number">4.3. </span>GBM<a class="headerlink" href="#gbm" title="Link to this heading"></a></h1>
+<section id="boosting">
+<h2><span class="section-number">4.3.1. </span>Boosting<a class="headerlink" href="#boosting" title="Link to this heading"></a></h2>
+<p>The boosting algorithm was originally designed for classification tasks, but it has significant applications in regression as well. In this lecture, we’ll delve deeper into boosting, particularly focusing on its role in regression.</p>
+<p>Imagine you have a set of weak regression functions, like small decision trees, that don’t perform particularly well on their own. Boosting combines these weak models in a clever way to significantly improve their collective performance. Although this explanation may sound quite exciting, I will instead focus on a more technical description of boosting today.</p>
+<section id="forward-stagewise-optimization">
+<h3>Forward Stagewise Optimization<a class="headerlink" href="#forward-stagewise-optimization" title="Link to this heading"></a></h3>
+<p>At its core, boosting is a forward stage-wise greedy algorithm aimed at solving an additive model. An additive model consists of ‘T’ functions,</p>
+<div class="math notranslate nohighlight">
+\[F(x) = f_1(x) + f_2(x) + \cdots + f_T(x)\]</div>
+<p>and you can think of each function as corresponding to a regression tree. Solving for all functions simultaneously becomes impractical when ‘T’ is large due to the sheer number of arguments involved. A forward stage-wise approach offers a more manageable solution.</p>
+<p>Here’s how it works:</p>
+<ol class="arabic">
+<li><p>Start by initializing your target function F(x) to zero.</p></li>
+<li><p>Record the current residuals, which initially will just be the data points y_i, as the prediction is zero to start with.</p></li>
+<li><p>Loop from t = 1 to T. In each iteration:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Fit a regression tree to the current residuals.</p></li>
+<li><p>Add the tree to the arget function F(x).</p></li>
+<li><p>Update the residuals, which become old residual - f_t, where f_t is the fit from the current tree.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ol>
+<p>This process constructs an additive model in a greedy, iterative fashion, building upon each weak learner until ‘T’ trees are formed.</p>
+</section>
+<section id="tuning-parameters">
+<h3>Tuning Parameters<a class="headerlink" href="#tuning-parameters" title="Link to this heading"></a></h3>
+<p>However, a word of caution: boosting can easily lead to overfitting. This is why regularization is critical. In Gradient Boosting Machines (GBM) or Extreme Gradient Boosting (XGBoost), packages for boosting, one of the key regularization parameters is the learning rate, ‘eta’, which shrinks the contribution of each individual tree.</p>
+<p>From an optimization standpoint, you could also view ‘eta’ as the “learning rate” that governs how big a “step” the algorithm should take in the optimal direction.</p>
+<p>Another important consideration is the number of trees, ‘T’. Initially, you can set T as an upper limit and subsequently determine an optimal value—ideally less than this upper bound—by closely monitoring the Cross-Validation (CV) error during training. It’s worth noting that the choice of T is often inversely related to the learning rate eta. Specially, a smaller learning rate generally necessitates a larger T for the model to effectively learn and generalize.</p>
+<p>When it comes to the complexity of the individual trees, i.e., their depth, it’s advisable to keep them relatively shallow, as boosting is designed to work with weak learners.</p>
+<p>Moreover, inspired by bagging techniques and random forests, many boosting implementations, including GBM and XGBoost, now fit a regression tree to a random subset of the data, determined by a sub-sampling rate, to further guard against overfitting.</p>
+</section>
+<section id="summary">
+<h3>Summary<a class="headerlink" href="#summary" title="Link to this heading"></a></h3>
+<p>In summary, boosting is a powerful yet nuanced algorithm. Its various parameters like learning rate, tree depth, and number of trees must be carefully tuned to create a robust predictive model. Up next, we will provide hands-on R/Python code examples using the GBM package as a practical means for fitting boosting trees in regression. It’s worth noting, however, that the XGBoost package has gained prominence as the go-to toolkit for tree-based boosting algorithms. For those interested in mastering XGBoost, an abundant selection of online tutorials and examples is available, eliminating the need for us to provide hands-on code for that specific package.</p>
+</section>
+</section>
+<section id="gbm-in-r-python">
+<h2><span class="section-number">4.3.2. </span>GBM in R/Python<a class="headerlink" href="#gbm-in-r-python" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Rcode: [<a class="reference external" href="https://liangfgithub.github.io/Rcode_W4_Regression_GBM.html">Rcode_W4_Regression_GBM</a>]</p></li>
+<li><p>Python: [<a class="reference external" href="https://liangfgithub.github.io/Python_W4_Regression_GBM.html">Python_W4_Regression_GBM</a>]</p></li>
+</ul>
+</section>
+<section id="discussion">
+<h2><span class="section-number">4.3.3. </span>Discussion<a class="headerlink" href="#discussion" title="Link to this heading"></a></h2>
+<p>As previously highlighted, tree-based ensemble methods are highly valuable in supervised learning. We’ll delve deeper into this when discussing classification.</p>
+<p>Apart from their outstanding performance, these methods offer several other advantages. For instance, they typically require less preprocessing because they can automatically handle missing values (NAs) and interactions, and often don’t necessitate scaling or normalization. Furthermore, they’re adept at managing a vast number of predictors.</p>
+<p>Now, comparing GBM and RandomForest: RandomForest boasts fewer tuning parameters. GBM has more. However, with the right tuning, GBM can outperform RandomForest. If you’re pressed for time but still want commendable results, I’d advocate for RandomForest.</p>
+<p>Regarding categorical predictors: As previously discussed, splitting categorical predictors for regression with a squared error is not computationally burdensome. But, many packages designed for boosting trees or RandomForest are written for general loss functions, meaning the specific splitting technique mentioned can’t be utilized.</p>
+<p>Each package has its own limitations concerning categorical predictors. For instance, RandomForest cannot handle categorical variables with more than 32 levels, while GBM has a cap at 1024 levels. Some tools like XGBoost and certain Python packages only accept numerical inputs. Thus, if you intend to employ these packages across various datasets, you might need to numerically encode or combine some of the categorical features.</p>
+</section>
 </section>
 
 
