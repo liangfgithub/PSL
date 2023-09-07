@@ -48,7 +48,18 @@
 <li class="toctree-l1"><a class="reference internal" href="../w3/w3_index.html">3. Variable Selection and Regularization</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="w4_index.html">4. Regression Trees and Ensemble</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="w4_1_reg_tree.html">4.1. Regression Trees</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">4.2. Random Forest</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.2. Random Forest</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#introduction-to-random-forest">4.2.1. Introduction to Random Forest</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#understanding-bootstrapping">Understanding Bootstrapping</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#out-of-bag-samples">Out-of-Bag Samples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bootstrap-aggregation">Bootstrap Aggregation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Random Forest</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#random-forest-in-r-python">4.2.2. Random Forest in R/Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#variable-importance">4.2.3. Variable Importance</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="w4_3_gbm.html">4.3. GBM</a></li>
 </ul>
 </li>
@@ -89,6 +100,54 @@
              
   <section id="random-forest">
 <h1><span class="section-number">4.2. </span>Random Forest<a class="headerlink" href="#random-forest" title="Link to this heading"></a></h1>
+<section id="introduction-to-random-forest">
+<h2><span class="section-number">4.2.1. </span>Introduction to Random Forest<a class="headerlink" href="#introduction-to-random-forest" title="Link to this heading"></a></h2>
+<a class="reference internal image-reference" href="../_images/w4_forest.png"><img alt="../_images/w4_forest.png" class="align-right" src="../_images/w4_forest.png" style="width: 197.60000000000002px; height: 147.20000000000002px;" /></a>
+<p>The performance of an individual regression tree is often not very impressive. To enhance its capabilities, one approach is to assemble multiple trees into a forest. In this week’s discussion, we will focus on ensemble methods like Random Forest, which is built upon the principle of bagging, and Gradient Boosting Machines (GBM), which relies on boosting. These ensemble techniques have proven to be highly effective for various supervised learning problems. For now, we will explore these methods specifically in the context of linear regression. In future discussions, we’ll revisit these techniques for classification tasks.</p>
+<section id="understanding-bootstrapping">
+<h3>Understanding Bootstrapping<a class="headerlink" href="#understanding-bootstrapping" title="Link to this heading"></a></h3>
+<p>Before delving into the Random Forest algorithm, it’s essential to understand what a bootstrap sample is. Imagine we have ‘n’ pairs of training data, represented as (xi, yi), stored in an orange box. A bootstrap sample is created by drawing ‘n’ random samples from this box, with replacement. The process involves randomly selecting a data point, say (x2, y2), copying it into the bootstrap sample, returning it to the original orange box, and then drawing another random sample.  This process is repeated until ‘n’ samples have been collected. Each bootstrap sample may include repeated and unique data points.</p>
+<a class="reference internal image-reference" href="../_images/w4_bootstrap.png"><img alt="../_images/w4_bootstrap.png" src="../_images/w4_bootstrap.png" style="width: 476.5px; height: 277.0px;" /></a>
+</section>
+<section id="out-of-bag-samples">
+<h3>Out-of-Bag Samples<a class="headerlink" href="#out-of-bag-samples" title="Link to this heading"></a></h3>
+<p>Note that each bootstrap sample contains ‘n’ data points. Given that some data points can appear multiple times in a single bootstrap sample, it follows that some original data points may not appear at all in that sample. These omitted data points are referred to as “<strong>Out-of-Bag</strong>” (OOB) samples.  Out-of-Bag (OOB) samples play a pivotal role in the Random Forest algorithm, as they effectively function as test points for model evaluation.</p>
+<p>What is the meaning of ‘bag’ in this specific context? As shown in the picture above, imagine your original training dataset as being stored in an orange box. A bootstrap sample is then formed by drawing, with replacement, from this box. These selected samples are placed into a metaphorical “bag.”</p>
+</section>
+<section id="bootstrap-aggregation">
+<h3>Bootstrap Aggregation<a class="headerlink" href="#bootstrap-aggregation" title="Link to this heading"></a></h3>
+<p>Bagging (Bootstrap Aggregation) is a technique where we generate multiple bootstrap samples, fit a regression tree model to each, and average the predictions from these trees. Specifically, for each of the ‘B’ bootstrap samples, we fit the data to a regression tree to obtain individual trees T1, T2, …, TB. The final prediction is the average of the predictions from these ‘B’ trees. Bagging is particularly useful for high-variance, low-bias models like decision trees.</p>
+<p>Trees are known for their high variance because they are constructed in a top-down greedy manner, making them sensitive to the data they are trained on. Even small changes in the data can result in a very different tree structure. Bagging helps mitigate this high variance by averaging the predictions from multiple trees.</p>
+<a class="reference internal image-reference" href="../_images/w4_bootstrap_samples.png"><img alt="../_images/w4_bootstrap_samples.png" src="../_images/w4_bootstrap_samples.png" style="width: 471.90000000000003px; height: 258.7px;" /></a>
+<a class="reference internal image-reference" href="../_images/w4_bagging_def.png"><img alt="../_images/w4_bagging_def.png" src="../_images/w4_bagging_def.png" style="width: 406.90000000000003px; height: 143.65px;" /></a>
+</section>
+<section id="id1">
+<h3>Random Forest<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<p>Random Forest improves upon simple bagging by introducing constraints aimed at decorrelating the individual trees. In each iteration, from 1 to ‘B’, we draw a bootstrap sample and grow a large tree, but with specific restrictions.</p>
+<a class="reference internal image-reference" href="../_images/w4_RF_algorithm.png"><img alt="../_images/w4_RF_algorithm.png" src="../_images/w4_RF_algorithm.png" style="width: 409.5px; height: 229.45000000000002px;" /></a>
+<p><strong>Random Forest Constraints</strong>: The key constraint in Random Forest is that at each split, only a random subset of ‘m’ features is considered out of the total ‘p’ features. The optimal split is then chosen among these ‘m’ features. The recommended values for ‘m’ are the square root of ‘p’ for classification tasks and ‘p/3’ for regression tasks.</p>
+<p>One of the primary reasons for this constraint is to minimize the correlation between individual trees in the forest. If all trees were trained using all features, they would likely make similar splits and, consequently, make highly correlated errors. By subsetting the features at each split, the trees are “forced” to consider different features for making a split. This results in different trees focusing on different aspects of the data, which makes the ensemble more diverse and robust.</p>
+<p>By leveraging these advanced techniques, Random Forest achieves a balance between bias and variance, making it a highly effective method for both regression and classification problems.</p>
+</section>
+</section>
+<section id="random-forest-in-r-python">
+<h2><span class="section-number">4.2.2. </span>Random Forest in R/Python<a class="headerlink" href="#random-forest-in-r-python" title="Link to this heading"></a></h2>
+</section>
+<section id="variable-importance">
+<h2><span class="section-number">4.2.3. </span>Variable Importance<a class="headerlink" href="#variable-importance" title="Link to this heading"></a></h2>
+<p>Random Forest algorithms, like many ensemble methods, offer robust predictive power but sacrifice interpretability as a trade-off. While individual decision trees are easy to interpret, this advantage diminishes when multiple trees are combined in a forest.</p>
+<p>Despite this, Random Forest algorithms provide two key measures to assess the importance of each variable in a random forest model. (For specfic code and commands to retrieve these measures, please check the code page.)</p>
+<ol class="arabic simple">
+<li><p>Improvement of RSS</p></li>
+</ol>
+<p>The first measure evaluates  a variable’s importance based on the reduction in the residual sum of squares (RSS) it contributes to each tree. Whenever a split is made in a tree using a particular variable, RSS decreases. Those reductions are are aggregated across all the trees in the forest for each variable. The average RSS improvement gives us an indication of a variable’s importance.</p>
+<p><strong>Intuition</strong>: A high value for this measure implies that the variable, on average, significantly reduces the residual sum of squares when used in splits.</p>
+<ol class="arabic simple" start="2">
+<li><p>Prediction Accuracy Before/After Permutation</p></li>
+</ol>
+<p>The second measure focuses on prediction accuracy, using OOB samples. The process involves random shuffling of the j-th predictor and recording the new prediction error. The difference between the two prediction errors, before and after permutation, gives the importance measure for the j-th predictor variable. An average is taken across all trees.</p>
+<p><strong>Intuition</strong>: If shuffling the j-th predictor doesn’t significantly affect the prediction error, it suggests that the variable is not critically important for the model.</p>
+</section>
 </section>
 
 
