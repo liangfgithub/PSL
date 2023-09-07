@@ -15,7 +15,7 @@ where :math:`\| \boldsymbol{\beta} \|_0 = \sum_{j=1}^p \mathbf{1}_{\{ \beta_j \n
 Next, we'll introduce two alternative regularization or penalty terms for beta. Ridge regression employs the L2 penalty on beta, while Lasso regression uses the L1 penalty. 
 
 .. math::
-	\text{Ridge} & : \min \| \mathbf{y} - \mathbf{X}  \boldsymbol{\beta}\|^2 + \lambda \| \boldsymbol{\beta} \|_2 \\
+	\text{Ridge} & : \min \| \mathbf{y} - \mathbf{X}  \boldsymbol{\beta}\|^2 + \lambda \| \boldsymbol{\beta} \|^2 \\
 	\text{Lasso} & : \min \| \mathbf{y} - \mathbf{X}  \boldsymbol{\beta}\|^2 + \lambda \| \boldsymbol{\beta} \|_1 
 
 

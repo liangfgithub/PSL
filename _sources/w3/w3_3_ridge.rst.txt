@@ -8,7 +8,7 @@ Introduction to Ridge
 In ridge regression, the objective function to be minimized is a smooth quadratic function of beta. This function consists of two terms: the residual sum of squares and the L2 norm of beta.
 
 .. math::
-	 \min_{\boldsymbol{\beta}} \| \mathbf{y} - \mathbf{X}  \boldsymbol{\beta}\|^2 + \lambda \| \boldsymbol{\beta} \|_2 
+	 \min_{\boldsymbol{\beta}} \| \mathbf{y} - \mathbf{X}  \boldsymbol{\beta}\|^2 + \lambda \| \boldsymbol{\beta} \|^2 
 
 To find the minimizer of this objective function, multiple approaches can be employed. For instance, taking the derivative with respect to beta and setting it to zero leads to a solvable form for the minimizer Alternatively, one can can express the objective function as the residual sum of squares for an augmented linear regression model.
 

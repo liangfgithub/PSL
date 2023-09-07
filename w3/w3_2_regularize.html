@@ -99,7 +99,7 @@
 <p>where <span class="math notranslate nohighlight">\(\| \boldsymbol{\beta} \|_0 = \sum_{j=1}^p \mathbf{1}_{\{ \beta_j \ne 0 \}}\)</span> counts the number of predictors in our model. Both AIC and BIC essentially correspond to different choices of lambda. Yet, framing AIC and BIC under this unified objective function doesn’t simplify matters, because it poses the same computational challenges as AIC or BIC. In the worst-case scenario, we’d need to explore all possible subsets of betas.</p>
 <p>Next, we’ll introduce two alternative regularization or penalty terms for beta. Ridge regression employs the L2 penalty on beta, while Lasso regression uses the L1 penalty.</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}\text{Ridge} &amp; : \min \| \mathbf{y} - \mathbf{X}  \boldsymbol{\beta}\|^2 + \lambda \| \boldsymbol{\beta} \|_2 \\
+\[\begin{split}\text{Ridge} &amp; : \min \| \mathbf{y} - \mathbf{X}  \boldsymbol{\beta}\|^2 + \lambda \| \boldsymbol{\beta} \|^2 \\
 \text{Lasso} &amp; : \min \| \mathbf{y} - \mathbf{X}  \boldsymbol{\beta}\|^2 + \lambda \| \boldsymbol{\beta} \|_1\end{split}\]</div>
 <p>The L0 norm’s focus is on the presence or absence of predictors, without regard to their magnitude. However, this isn’t true for the L1 or L2 norms. This can create complications.</p>
 <p>For instance, a predictor X_j that measures price in dollars can be transformed to measure in thousands of dollars, which, while only a scale change, can drastically impact the Ridge or Lasso beta estimates. Furthermore, a simple location shift of predictors can influence the intercept. If we penalize the intercept, any minor location change in X or Y will yield different Ridge or Lasso intercepts.</p>

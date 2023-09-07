@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>6. Clustering Analysis &mdash; PSL_Book 0.1 documentation</title>
+  <title>5.4. Local Regression &mdash; PSL_Book 0.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="7. Latent Structure Models" href="../w7/w7_index.html" />
-    <link rel="prev" title="5.4. Local Regression" href="../w5/w5_4_local_reg.html" /> 
+    <link rel="next" title="6. Clustering Analysis" href="../w6/w6_index.html" />
+    <link rel="prev" title="5.3. Smoothing Splines" href="w5_3_smoothing_spline.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -47,16 +47,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../w2/w2_index.html">2. Linear Regression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../w3/w3_index.html">3. Variable Selection and Regularization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../w4/w4_index.html">4. Regression Trees and Ensemble</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../w5/w5_index.html">5. Nonlinear Regression</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">6. Clustering Analysis</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#choice-of-distance-measures">6.1. Choice of Distance Measures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#multidimensional-scaling">6.2. Multidimensional Scaling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#k-means-and-k-medoids">6.3. K-means and K-medoids</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#choice-of-k">6.4. Choice of K</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#hierarchical-clustering">6.5. Hierarchical Clustering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#vector-quantization">6.6. Vector Quantization</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="w5_index.html">5. Nonlinear Regression</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="w5_1_poly.html">5.1. Polynomial Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w5_2_reg_spline.html">5.2. Regression Splines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w5_3_smoothing_spline.html">5.3. Smoothing Splines</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.4. Local Regression</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../w6/w6_index.html">6. Clustering Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../w7/w7_index.html">7. Latent Structure Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../w8/w8_index.html">8. TBA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../w9/w9_index.html">9. Discriminant Analysis</a></li>
@@ -80,7 +78,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active"><span class="section-number">6. </span>Clustering Analysis</li>
+          <li class="breadcrumb-item"><a href="w5_index.html"><span class="section-number">5. </span>Nonlinear Regression</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5.4. </span>Local Regression</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -89,34 +88,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="clustering-analysis">
-<h1><span class="section-number">6. </span>Clustering Analysis<a class="headerlink" href="#clustering-analysis" title="Link to this heading"></a></h1>
-<section id="choice-of-distance-measures">
-<h2><span class="section-number">6.1. </span>Choice of Distance Measures<a class="headerlink" href="#choice-of-distance-measures" title="Link to this heading"></a></h2>
-</section>
-<section id="multidimensional-scaling">
-<h2><span class="section-number">6.2. </span>Multidimensional Scaling<a class="headerlink" href="#multidimensional-scaling" title="Link to this heading"></a></h2>
-</section>
-<section id="k-means-and-k-medoids">
-<h2><span class="section-number">6.3. </span>K-means and K-medoids<a class="headerlink" href="#k-means-and-k-medoids" title="Link to this heading"></a></h2>
-</section>
-<section id="choice-of-k">
-<h2><span class="section-number">6.4. </span>Choice of K<a class="headerlink" href="#choice-of-k" title="Link to this heading"></a></h2>
-</section>
-<section id="hierarchical-clustering">
-<h2><span class="section-number">6.5. </span>Hierarchical Clustering<a class="headerlink" href="#hierarchical-clustering" title="Link to this heading"></a></h2>
-</section>
-<section id="vector-quantization">
-<h2><span class="section-number">6.6. </span>Vector Quantization<a class="headerlink" href="#vector-quantization" title="Link to this heading"></a></h2>
-</section>
+  <section id="local-regression">
+<h1><span class="section-number">5.4. </span>Local Regression<a class="headerlink" href="#local-regression" title="Link to this heading"></a></h1>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../w5/w5_4_local_reg.html" class="btn btn-neutral float-left" title="5.4. Local Regression" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../w7/w7_index.html" class="btn btn-neutral float-right" title="7. Latent Structure Models" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="w5_3_smoothing_spline.html" class="btn btn-neutral float-left" title="5.3. Smoothing Splines" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../w6/w6_index.html" class="btn btn-neutral float-right" title="6. Clustering Analysis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

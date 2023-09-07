@@ -105,7 +105,7 @@
 <h2><span class="section-number">3.3.1. </span>Introduction to Ridge<a class="headerlink" href="#introduction-to-ridge" title="Link to this heading"></a></h2>
 <p>In ridge regression, the objective function to be minimized is a smooth quadratic function of beta. This function consists of two terms: the residual sum of squares and the L2 norm of beta.</p>
 <div class="math notranslate nohighlight">
-\[\min_{\boldsymbol{\beta}} \| \mathbf{y} - \mathbf{X}  \boldsymbol{\beta}\|^2 + \lambda \| \boldsymbol{\beta} \|_2\]</div>
+\[\min_{\boldsymbol{\beta}} \| \mathbf{y} - \mathbf{X}  \boldsymbol{\beta}\|^2 + \lambda \| \boldsymbol{\beta} \|^2\]</div>
 <p>To find the minimizer of this objective function, multiple approaches can be employed. For instance, taking the derivative with respect to beta and setting it to zero leads to a solvable form for the minimizer Alternatively, one can can express the objective function as the residual sum of squares for an augmented linear regression model.</p>
 <p>In this augmented model, we have n+p observations. The response vector is formed by stacking p zero responses onto the original y vector. The design matrix for the newly added p responses is simply an identity matrix. Defining this augmented response vector as <span class="math notranslate nohighlight">\(\tilde{y}\)</span> and  the new design matrix as <span class="math notranslate nohighlight">\(\tilde{\mathbf{X}}\)</span>, one finds that their residual sum of squares is identical to the ridge regression objective function.</p>
 <div class="math notranslate nohighlight">
