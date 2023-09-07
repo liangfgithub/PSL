@@ -138,15 +138,16 @@
 <p>Random Forest algorithms, like many ensemble methods, offer robust predictive power but sacrifice interpretability as a trade-off. While individual decision trees are easy to interpret, this advantage diminishes when multiple trees are combined in a forest.</p>
 <p>Despite this, Random Forest algorithms provide two key measures to assess the importance of each variable in a random forest model. (For specfic code and commands to retrieve these measures, please check the code page.)</p>
 <ol class="arabic simple">
-<li><p>Improvement of RSS</p></li>
+<li><p>RSS Gain</p></li>
 </ol>
 <p>The first measure evaluates  a variable’s importance based on the reduction in the residual sum of squares (RSS) it contributes to each tree. Whenever a split is made in a tree using a particular variable, RSS decreases. Those reductions are are aggregated across all the trees in the forest for each variable. The average RSS improvement gives us an indication of a variable’s importance.</p>
 <p><strong>Intuition</strong>: A high value for this measure implies that the variable, on average, significantly reduces the residual sum of squares when used in splits.</p>
 <ol class="arabic simple" start="2">
-<li><p>Prediction Accuracy Before/After Permutation</p></li>
+<li><p>Accuracy Gain Before/After Permutation</p></li>
 </ol>
 <p>The second measure focuses on prediction accuracy, using OOB samples. The process involves random shuffling of the j-th predictor and recording the new prediction error. The difference between the two prediction errors, before and after permutation, gives the importance measure for the j-th predictor variable. An average is taken across all trees.</p>
 <p><strong>Intuition</strong>: If shuffling the j-th predictor doesn’t significantly affect the prediction error, it suggests that the variable is not critically important for the model.</p>
+<p><strong>Inflated Importance of High-Cardinality Variables</strong>: Building on our earlier discussion about the elevated partitioning power of categorical variables with a large number of levels, it’s worth noting that such high-cardinality variables may appear artificially important in a random forest model. This perceived importance arises not necessarily because these variables are genuinely informative, but because they offer more opportunities for splitting. Consequently, their importance metrics could be inflated.</p>
 </section>
 </section>
 

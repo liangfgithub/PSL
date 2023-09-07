@@ -90,6 +90,8 @@ The simplified answer is that we sort the m levels by their corresponding means 
 
 Why does this work? The intuition is that, when it comes to minimizing RSS (in the case of regression trees), we would ideally like to group together levels that have similar means, as this minimizes within-group variance. The sorting process lines up the levels in such a way that adjacent levels are the most similar in terms of the response variable Y, which simplifies the number of splits we need to consider to m-1. 
 
+**Note**: It is crucial to recognize that these 'm−1' are chosen as the most effective among :math:`2^m-1` possibilities. Although this selection process itself can be performed quite efficiently, that shouldn't overshadow the fact that a categorical variable with a large number of levels ('m') has significantly greater partitioning power compared to a numerical feature. This increased partitioning capability can make the model more susceptible to fitting the noise in the data, thereby elevating the risk of overfitting.
+
 
 Handling Missing Values
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
