@@ -69,6 +69,10 @@ By leveraging these advanced techniques, Random Forest achieves a balance betwee
 Random Forest in R/Python
 -------------------------------------------
 
+*  Rcode: [`Rcode_W4_Regression_RandomForest <https://liangfgithub.github.io/Rcode_W4_Regression_RandomForest.html>`_]
+
+*  Python: [`Python_W4_Regression_RandomForest <https://liangfgithub.github.io/Python_W4_Regression_RandomForest.html>`_] 
+
 
 Variable Importance
 -------------------------------------------
