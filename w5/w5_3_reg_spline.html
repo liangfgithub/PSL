@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5. Nonlinear Regression &mdash; PSL_Book 0.1 documentation</title>
+  <title>5.3. Regression Splines &mdash; PSL_Book 0.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="5.1. Polynomial Regression" href="w5_1_poly.html" />
-    <link rel="prev" title="4.3. GBM" href="../w4/w4_3_gbm.html" /> 
+    <link rel="next" title="5.4. Smoothing Splines" href="w5_4_smoothing_spline.html" />
+    <link rel="prev" title="5.2. Cubic Splines" href="w5_2_spline.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -47,10 +47,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../w2/w2_index.html">2. Linear Regression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../w3/w3_index.html">3. Variable Selection and Regularization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../w4/w4_index.html">4. Regression Trees and Ensemble</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">5. Nonlinear Regression</a><ul>
+<li class="toctree-l1 current"><a class="reference internal" href="w5_index.html">5. Nonlinear Regression</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="w5_1_poly.html">5.1. Polynomial Regression</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w5_2_spline.html">5.2. Cubic Splines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="w5_3_reg_spline.html">5.3. Regression Splines</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.3. Regression Splines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w5_4_smoothing_spline.html">5.4. Smoothing Splines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w5_5_local_reg.html">5.5. Local Regression</a></li>
 </ul>
@@ -79,7 +79,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active"><span class="section-number">5. </span>Nonlinear Regression</li>
+          <li class="breadcrumb-item"><a href="w5_index.html"><span class="section-number">5. </span>Nonlinear Regression</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5.3. </span>Regression Splines</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -88,25 +89,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="nonlinear-regression">
-<h1><span class="section-number">5. </span>Nonlinear Regression<a class="headerlink" href="#nonlinear-regression" title="Link to this heading"></a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="w5_1_poly.html">5.1. Polynomial Regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="w5_2_spline.html">5.2. Cubic Splines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="w5_3_reg_spline.html">5.3. Regression Splines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="w5_4_smoothing_spline.html">5.4. Smoothing Splines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="w5_5_local_reg.html">5.5. Local Regression</a></li>
-</ul>
-</div>
+  <section id="regression-splines">
+<h1><span class="section-number">5.3. </span>Regression Splines<a class="headerlink" href="#regression-splines" title="Link to this heading"></a></h1>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../w4/w4_3_gbm.html" class="btn btn-neutral float-left" title="4.3. GBM" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="w5_1_poly.html" class="btn btn-neutral float-right" title="5.1. Polynomial Regression" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="w5_2_spline.html" class="btn btn-neutral float-left" title="5.2. Cubic Splines" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="w5_4_smoothing_spline.html" class="btn btn-neutral float-right" title="5.4. Smoothing Splines" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

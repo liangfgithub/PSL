@@ -6,7 +6,8 @@ Nonlinear Regression
    :maxdepth: 1
 
    w5_1_poly.rst
-   w5_2_reg_spline.rst
-   w5_3_smoothing_spline.rst
-   w5_4_local_reg.rst
+   w5_2_spline.rst
+   w5_3_reg_spline.rst
+   w5_4_smoothing_spline.rst
+   w5_5_local_reg.rst
 

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5.2. Cubic Splines &mdash; PSL_Book 0.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=2709fde1"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5.3. Regression Splines" href="w5_3_reg_spline.html" />
+    <link rel="prev" title="5.1. Polynomial Regression" href="w5_1_poly.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PSL_Book
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../w1/w1_index.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w2/w2_index.html">2. Linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w3/w3_index.html">3. Variable Selection and Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w4/w4_index.html">4. Regression Trees and Ensemble</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="w5_index.html">5. Nonlinear Regression</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="w5_1_poly.html">5.1. Polynomial Regression</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.2. Cubic Splines</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">5.2.1. Cubic Splines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#degree-of-freedom">Degree of Freedom</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#linear-subspace-of-cubic-splines">5.2.2. Linear Subspace of Cubic Splines:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#natural-cubic-splines">5.2.3. Natural Cubic Splines</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="w5_3_reg_spline.html">5.3. Regression Splines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w5_4_smoothing_spline.html">5.4. Smoothing Splines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w5_5_local_reg.html">5.5. Local Regression</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../w6/w6_index.html">6. Clustering Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w7/w7_index.html">7. Latent Structure Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w8/w8_index.html">8. TBA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w9/w9_index.html">9. Discriminant Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w10/w10_index.html">10. Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w11/w11_index.html">11. Support Vector Machine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w12/w12_index.html">12. Classification Trees and Boosting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w13/w13_index.html">13. Recommender System</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PSL_Book</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="w5_index.html"><span class="section-number">5. </span>Nonlinear Regression</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5.2. </span>Cubic Splines</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cubic-splines">
+<h1><span class="section-number">5.2. </span>Cubic Splines<a class="headerlink" href="#cubic-splines" title="Link to this heading"></a></h1>
+<p>In our exploration of spline models, we’ll start by delving into the concept of the cubic spline, followed closely by the introduction of the natural cubic spline. Central to understanding both is the idea of piece-wise polynomials.</p>
+<p>So, what exactly are piece-wise polynomials? To provide clarity, let’s keep in mind that our predictor, X, is one-dimensional. Picture the values of X being partitioned into disjoint intervals, some of which may even stretch to negative or positive infinity at their ends. Within each of these intervals, f(x) takes the form of a low-order polynomial, like a cubic function.</p>
+<p>However, simply fitting a polynomial function might not be in our best interest, due to potential non-smooth transitions at interval breakpoints. To address this, we introduce certain constraints, ensuring that f(x) not only  smooth throughout but also retains consistency up to certain derivatives.</p>
+<p>As we become acquainted with cubic splines and natural cubic splines, the discussion will extend to their application in regression. There are two main applications: <strong>regression splines</strong> and <strong>smoothing splines</strong>. For now, consider regression splines analogous to ordinary least squares, while smoothing splines can be likened to ridge regression.</p>
+<section id="id1">
+<h2><span class="section-number">5.2.1. </span>Cubic Splines<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>A cubic spline is a function that’s defined piecewise by individual cubic polynomials. Specifically, for any interval divided by m knots, the cubic spline ensures smoothness by being not only continuous but also having continuous first and second derivatives at every knot.</p>
+<p>Let’s take an interval [a, b] of a one-dimensional feature <span class="math notranslate nohighlight">\(x\)</span>. The interval is split into m+1 smaller intervals by m knots.</p>
+<a class="reference internal image-reference" href="../_images/w5_cubic_spline_def.png"><img alt="../_images/w5_cubic_spline_def.png" src="../_images/w5_cubic_spline_def.png" style="width: 547.2px; height: 299.2px;" /></a>
+<section id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h3>
+<p>Consider an interval [a, b] with two knots <span class="math notranslate nohighlight">\(\xi_1\)</span> and <span class="math notranslate nohighlight">\(\xi_2\)</span>. Let’s look at the following two examples of cubic splines.</p>
+<p>Example 1 (Global Cubic Function): If g(x) is a global cubic function, then it is also a cubic spline. This is because the function remains a cubic polynomial within each subinterval. As a global cubic function, it is inherently continuous up to its second derivative.</p>
+<p>Example 2 (Specific Cubic Functions): Let’s consider another function, g(x), defined as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}(x-\xi_i)_{+}^3 =  \begin{cases} 0 &amp;  \text{if } x &lt; \xi_2 \\
+                                        (x - \xi_2)^3 &amp; \text{otherwise}
+                                        \end{cases}\end{split}\]</div>
+<p>The graph of this function will be zero untill <span class="math notranslate nohighlight">\(\xi_2\)</span> and then follow a cubic trajectory thereafter. The main point of focus is the continuity at the knot <span class="math notranslate nohighlight">\(\xi_2\)</span>. To the left of <span class="math notranslate nohighlight">\(\xi_2\)</span>, g(x) is essentially a constant zero function, implying that the function, its first, and second derivatives are all zero. To the right of <span class="math notranslate nohighlight">\(\xi_2\)</span>, despite it being a cubic function, its evaluation (or its derivatives) at <span class="math notranslate nohighlight">\(\xi_2\)</span> also equates to zero due to the term <span class="math notranslate nohighlight">\((x - \xi_2)\)</span>. Hence, both the left and right sides of <span class="math notranslate nohighlight">\(\xi_2\)</span> align, making g(x) a valid cubic spline.</p>
+<p>However, it’s worth noting that g(x) wouldn’t be continuous up to the third derivative, but that isn’t a necessity for a cubic spline.</p>
+<p><strong>Note</strong>: Every cubic spline is defined concerning a specific sequence of knots. Given a set of m knots, any cubic spline mentioned hereafter will implicitly refer to these knots.</p>
+</section>
+<section id="degree-of-freedom">
+<h3>Degree of Freedom<a class="headerlink" href="#degree-of-freedom" title="Link to this heading"></a></h3>
+<p>Every cubic spline is defined concerning a specific sequence of knots. For a given set of m knots, a cubic spline requires  4(m+1) parameters in total (4 for each cubic polynomial; there are m+1 cubic polynomials).</p>
+<p>However, because of the smoothness conditions at each knot, there are 3m constraints in total (3 for each of the m knots).</p>
+<p>So, the effective degree of freedom, or the number of independent parameters, for a cubic spline with m knots is 4(m+1)-3m = m+4.</p>
+</section>
+</section>
+<section id="linear-subspace-of-cubic-splines">
+<h2><span class="section-number">5.2.2. </span>Linear Subspace of Cubic Splines:<a class="headerlink" href="#linear-subspace-of-cubic-splines" title="Link to this heading"></a></h2>
+<p>Given a set of knots, it’s crucial to understand that the resulting cubic splines constitute a linear subspace. To visualize, imagine a bag containing these splines. If you select any two cubic spline functions from this bag and create a linear combination, the result will also be a cubic spline and will reside within the same bag.</p>
+<p>The justification is straightforward. Given two cubic splines, g1 and g2, both are piecewise cubic and continuous up to their second derivatives. These properties are preserved even when combining them linearly. Hence, the set of all cubic splines (with respect to the same set of knots) forms a linear space.</p>
+<p>The dimension of this linear subspace is m+4, established from our earlier discussion. This means we can select m+4 linearly independent functions from this space, which serve as a basis. For example, a set of basis functions for cubic splines with m knots <span class="math notranslate nohighlight">\(\{\xi_i\}_{i=1}^m\)</span> are given below:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}h_0(x)&amp; =1; \quad  h_1(x)=x; \\
+h_2(x)&amp; =x^2; \quad h_3(x)=x^3; \\
+h_{i+3}(x) &amp; = (x-\xi_i)_{+}^3, \quad i=1, 2, \dots, m.\end{split}\]</div>
+<p>These basis functions are not unique, and while we presented one set, programs like R utilize the B-spline basis.</p>
+</section>
+<section id="natural-cubic-splines">
+<h2><span class="section-number">5.2.3. </span>Natural Cubic Splines<a class="headerlink" href="#natural-cubic-splines" title="Link to this heading"></a></h2>
+<p>A natural cubic spline is a special kind of cubic spline. While it retains the property of being a piecewise cubic polynomial function with continuity up to the second derivative, it exhibits linear behavior in the two extreme intervals.</p>
+<p>Recall that a cubic spline has a degree of freedom of m+4. With natural cubic splines, the outer intervals, being linear, each have only two parameters, thereby reducing the degree of freedom by four. Consequently, the degree of freedom for a natural cubic spline is m.</p>
+<p>Interestingly, when estimating curves using n distinct data points, if we position n knots at the n data locations and employ a natural cubic spline, we achieve a perfect fit. The spline will seamlessly pass through all data points.</p>
+<p>Similarly, we can show that cubic splines form a linear subspace with an m degree of freedom. The detailed construction of these basis functions is complex and can be handled efficiently by tools like R.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="w5_1_poly.html" class="btn btn-neutral float-left" title="5.1. Polynomial Regression" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="w5_3_reg_spline.html" class="btn btn-neutral float-right" title="5.3. Regression Splines" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Feng Liang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
