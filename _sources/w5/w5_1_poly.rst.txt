@@ -1,2 +1,101 @@
 Polynomial Regression
 ====================================
+
+Fit a Polynomial Regression Model
+------------------------------------
+
+Polynomial regression is a type of regression analysis used when the relationship between the independent variable x and the dependent variable y is non-linear. For this discussion, x is considered to be one-dimensional. Extensions to multi-dimensional cases will be covered later.
+
+Polynomial regression can be seen as a specialized case of multiple linear regression. Consider a polynomial model of degree 'd': 
+
+.. math::
+	 y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 \cdots + \beta_d x_i^d + \text{err}. 
+
+The coefficients, from :math:`\beta_0` to :math:`\beta_d`, can be estimated using methods similar to multiple linear regression. The design matrix contains terms for the intercept and for each power of the predictor up to the chosen degree d.
+
+.. math::
+	 \left ( \begin{array}{c} y_1 \\ y_2 \\ \cdots \\ y_n \end{array} \right )_{n \times 1} =  \left ( \begin{array}{ccccc}  1 & x_1 &x_1^2  & \cdots &x_1^d \\
+	 1 & x_2 & x_2^2 & \cdots & x_2^d \\
+	 & & & & \\
+	 1 & x_n & x_n^2 & \cdots & x_n^d
+	 \end{array} \right )_{n \times (d+1)} \ \left ( \begin{array}{c} \beta_0 \\ \cdots \\ \beta_d \end{array} \right )_{(d+1)\times 1} + \text{err}.
+
+
+
+
+**Interpretation of Coefficients**: When using polynomial regression, it's often more important to look at the fitted curve or the predicted values rather than the estimated coefficients. This is because the coefficients depend on the choice of the basis function. Different methods can yield different coefficients but result in the same predicted curve.
+
+Choosing the Degree 
+------------------------------------------------------
+
+When performing polynomial regression, one of the most critical decisions is selecting the appropriate degree :math:`d` for the polynomial. 
+
+Note that the residual sum of squares, being a measure of training error, is unsuitable for this purpose. Employing it could misleadingly favor the highest degree. 
+
+Two common strategies employed are the forward and backward approaches:
+
+1. Forward Approach:
+
+	- Starting Point: Initiate with the simplest model, typically a linear regression.
+	- Progression: Incrementally introduce higher-degree polynomial terms to the model.
+	- Stopping Criterion: Continue adding terms until the coefficient of the latest added polynomial term is statistically insignificant. 
+
+2. Backward Approach:
+
+	- Starting Point: Begin with a model that has a high degree d. This choice is based on a preliminary understanding or hypothesis about the complexity of the underlying relationship.
+	- Progression: Gradually eliminate the highest-degree terms from the model.
+	- Stopping Criterion: Remove terms until the coefficient of the highest-degree term in the model becomes significant. At this juncture, retain the remaining terms and finalize the model.
+
+
+Beyond the forward and backward approaches, polynomial degree selection can benefit from algorithms grounded in the AIC, BIC, or Cross-validation methods.
+
+
+
+Questioning the Selection of :math:`d` 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A logical question that arises is why don't we evaluate across all possible sub-models, similar to our approach in multiple linear regression?  This prompts a related question: once we've determined that d is the highest polynomial order, is there a need to further evaluate the inclusion of lower-order terms?
+
+
+The answer is no. We don't typically test the significance of lower-order terms. By default, when opting to fit a polynomial of degree d, we inherently include all lower-order terms. But why?
+
+
+This practice stems from the non-uniqueness of the design matrix in polynomial regression. In standard multiple linear regression, each column of the design matrix X corresponds to a specific predictor, allowing us to select an optimal set of predictors to explain y. In contrast, the design matrix of a polynomial regression is not unique. 
+
+
+Consider a scenario where the genuine underlying curve corresponds to :math:`x^2`. If we fit a polynomial model with a default design matrix (comprising an intercept, linear term, and :math:`x^2` term), we would end up with a concise model consisting solely of the :math:`x^2` 
+term, potentially excluding even the intercept. However, if we were to choose a different basis for our design matrix, such as `poly(x)`, the design matrix would also consist of three columns (including the intercept). It's crucial to remember that the last column isn't merely :math:`x^2`, but a blend of :math:`x^2`, :math:`x`, and the intercept. As a result, to express :math:`x^2`, we need a linear combination of the three columns. 
+
+Owing to this inherent complexity, in standard polynomial regression, we generally settle on a degree :math:`d` without further testing the lower-order terms. However, there might be specific scenarios or applications where one wishes to evaluate a particular model or formula. In such cases, assessing the significance of certain lower-order terms could be warranted. Otherwise, the preferred practice is simply to determine math:`d`.
+
+
+
+Implementing in R/Python
+----------------------------
+
+
+*  Rcode: [`Rcode_W5_PolynomialRegression <https://liangfgithub.github.io/Rcode_W5_PolynomialRegression.html>`_]
+
+*  Python: [`Python_W5_PolynomialRegression <https://liangfgithub.github.io/Python_W5_PolynomialRegression.html>`_] 
+
+
+Global vs Local
+---------------------------------------
+
+
+As we conclude this section, I'd like to address some limitations of polynomial regression and introduce potential alternatives.
+
+When dealing with fluctuating data patterns, as one might find in a wavy curve, higher-order polynomials become necessary to adapt to the fluctuations. However, such polynomials are often discouraged in practical applications for several reasons: 
+
+1. **Interpretability**: It's  challenging to convey to clients or stakeholders that the dependent variable is influenced by a predictor raised to, say, the eighth power.
+
+2. **Tail Behavior**: With polynomial regression, predictions beyond the range of the training data can be problematic. Imagine the bulk of our data is clustered in a specific range. When attempting to predict values outside this range, the tail behavior of polynomials, which is dominated by the coefficients of the highest order terms, can result in exaggerated increases or decreases. This makes out-of-range predictions particularly unreliable.
+
+3. **Global Assumptions**: Polynomial regression inherently posits a global assumption about the mean function, which represents the expected value of the response variable Y given X. Such global functions can lack flexibility, particularly when data exhibits localized fluctuations. For instance, data might exhibit local fluctuations in one range while being relatively flat in another. A global polynomial might struggle to capture these distinct behaviors effectively.
+
+To address these limitations, we will explore extensions termed as "local polynomial methods." 
+
+- Firstly, we'll delve into spline models, which replace the global polynomial function with piece-wise local polynomial functions. 
+
+- Secondly, we'll introduce an approach that modifies the fitting procedure itself. Instead of a consistent linear regression model, we'll fit localized models at each data point, allowing the coefficients to change based on the value of X.
+
