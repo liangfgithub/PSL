@@ -1,2 +1,40 @@
 Regression Splines
 ====================================
+
+
+Introduction 
+---------------------------------
+
+
+Given data points :math:`(x_i, y_i)_{i=1}^n` where x is one-dimensional, one might consider fitting cubic splines or natural cubic splines to predict y. This can be achieved using the basis expansion approach. In essence, this means representing y as a linear combination of chosen basis functions evaluated at x, plus some error. If we're considering cubic splines, we'd have m+4 basis functions, and for natural cubic splines, there are m basis functions. 
+
+.. math::
+	 y = \textcolor{red}{\beta_1} h_1(x) + \textcolor{red}{\beta_2} h_2(x) + \dots + \textcolor{red}{\beta_{p}} h_{p}(x) + \text{err}
+
+
+
+To express this in matrix form, consider the following:
+
+.. math::
+	\left ( \begin{array}{c} y_1 \\ y_2 \\ \cdots \\ y_n \end{array} \right )_{n \times 1} =  
+	\left ( \begin{array}{cccc} h_1(x_1) & h_2(x_1) & \cdots & h_p(x_1) \\ h_1(x_2) & h_2(x_2) & \cdots & h_p(x_2) \\ & & & \\ h_1(x_n) & h_2(x_n) & \cdots & h_p(x_n)
+	\end{array} \right )_{n \times p} \ \left ( \begin{array}{c} \beta_1 \\ \cdots \\ \beta_p \end{array} \right )_{p \times 1} + \text{err}
+
+The aim is to minimize the squared error between the response vector :math:`\mathbf{y}` and the product of the design matrix :math:`\mathbf{F}` and coefficient vector :math:`\boldsymbol{\beta}`. 
+
+.. math::	 
+	\hat{\boldsymbol{\beta}} = \arg\min_{\boldsymbol{\beta}} \| \mathbf{y} - \mathbf{F} \boldsymbol{\beta} \|^2
+
+With R/Python, you don't need to manually construct the design matrix :math:`\mathbf{F}`. Next, let's explore how to fit a regression spline model using R/Python. 
+
+Regression Splines in R/Python
+---------------------------------
+
+
+
+Choice of Knots
+---------------------------------
+
+
+Summary
+---------------------------------
