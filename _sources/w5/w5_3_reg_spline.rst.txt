@@ -31,10 +31,35 @@ Regression Splines in R/Python
 ---------------------------------
 
 
+*  Rcode: [`Rcode_W5_RegressionSpline <https://liangfgithub.github.io/Rcode_W5_RegressionSpline.html>`_] (html)
+
+*  Python: [`Python_W5_RegressionSpline <https://liangfgithub.github.io/Python_W5_PolynomialRegression.ipynb>`_] (ipynb)
+
 
 Choice of Knots
 ---------------------------------
 
+For regression splines, once the location of the knots is specified, the process closely resembles fitting a multiple linear regression model. However, an important question arises: where should these knots be placed?
+
+In the first approach, we sidestep the intricate task of knot location selection, primarily due to its computational demands. Instead, we opt for positioning the knots at quantiles of the predictor variable, x. This then narrows our focus to deciding the optimal number of knots. This is analogous to model selection but is simpler because we're considering only p models. We can consider a predetermined range for the number of knots and evaluate each using criteria such as AIC/BIC or by employing cross-validation. 
+
+In the second approach, we can set a significant number of knots and then employ techniques like Lasso or Ridge regression select a subset of the generated basis functions. This resembles feature engineering: generating a multitude of new features based on B-spline functions and then selecting a subset.
+
+It's important to highlight a nuance in the first approach: when increasing the number of knots from K to K+1, even though it appears that we are expanding our function space, the spaces corresponding to K and K+1 aren't nested. This is because the knot locations differ as we adjust the knot count. Therefore, though we can employ model selection criteria such as AIC/BIC to evaluate them, a nested F-test or t-test would be inappropriate.
+
+On our code page, we delve into an example where we use 10-fold CV to select the ideal number of knots, or equivalently, the degrees of freedom (df), using the birthrate data. 
 
 Summary
 ---------------------------------
+
+- Fitting with Regression Splines:
+
+	- To model data with regression splines, we begin by determining the degrees of freedom (DF).
+	- **Note**: in this context, DF isn't indicative of the polynomial degree. Instead, it relates to the degrees of freedom in the spline system and is associated with the number of knots.
+	- Using specific commands in R/Python, one can obtain the appropriate design matrix. Afterward, the process mirrors fitting a multiple linear regression model.
+
+- Knot Selection:
+
+	- The choice of knot location can greatly influence the performance of the spline.
+	- One method we've explored is to sidestep the intricacy of knot location selection. Instead, we focus solely on determining the number of knots. After deciding on the number, the procedure involves positioning the knots at corresponding quantiles of the x values. 
+	- Tools such as cross-validation, AIC, or BIC can assist in choosing the ideal number of knots.
