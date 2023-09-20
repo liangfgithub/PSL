@@ -1,2 +1,12 @@
 Local Regression
 ====================================
+
+
+
+Local Smoother in R/Python
+---------------------------------
+
+
+*  Rcode: [`Rcode_W5_LocalSmoother <https://liangfgithub.github.io/Rcode_W5_LocalSmoother.html>`_] 
+
+*  Python: [`Python_W5_LocalSmoother <https://liangfgithub.github.io/Python_W5_LocalSmoother.html>`_] 
