@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>6.1. Distance Measures &mdash; PSL_Book 0.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=2709fde1"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6.2. K-means and K-medoids" href="w6_2_kmeans.html" />
+    <link rel="prev" title="6. Clustering Analysis" href="w6_index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PSL_Book
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../w1/w1_index.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w2/w2_index.html">2. Linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w3/w3_index.html">3. Variable Selection and Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w4/w4_index.html">4. Regression Trees and Ensemble</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w5/w5_index.html">5. Nonlinear Regression</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="w6_index.html">6. Clustering Analysis</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">6.1. Distance Measures</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#choice-of-distance-measures">6.1.1. Choice of Distance Measures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multidimensional-scaling">6.1.2. Multidimensional Scaling</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="w6_2_kmeans.html">6.2. K-means and K-medoids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w6_3_choice_of_k.html">6.3. Hierarchical Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w6_4_hcluster.html">6.4. Hierarchical Clustering</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../w7/w7_index.html">7. Latent Structure Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w8/w8_index.html">8. TBA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w9/w9_index.html">9. Discriminant Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w10/w10_index.html">10. Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w11/w11_index.html">11. Support Vector Machine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w12/w12_index.html">12. Classification Trees and Boosting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w13/w13_index.html">13. Recommender System</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PSL_Book</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="w6_index.html"><span class="section-number">6. </span>Clustering Analysis</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">6.1. </span>Distance Measures</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="distance-measures">
+<h1><span class="section-number">6.1. </span>Distance Measures<a class="headerlink" href="#distance-measures" title="Link to this heading"></a></h1>
+<section id="choice-of-distance-measures">
+<h2><span class="section-number">6.1.1. </span>Choice of Distance Measures<a class="headerlink" href="#choice-of-distance-measures" title="Link to this heading"></a></h2>
+<p>In clustering, the primary objective is to categorize samples or objects into clusters. Ideally, samples within the same cluster should be more alike compared to those in different clusters. Consequently, selecting the appropriate distance or similarity measure is vital.</p>
+<p>In mathematical terms, a distance measure <span class="math notranslate nohighlight">\(d(x,z)\)</span> is a function between two points and must meet certain criteria:</p>
+<ol class="arabic simple">
+<li><p>It should always be non-negative, equating to zero only if the two samples are identical or equivalent: <span class="math notranslate nohighlight">\(d(x,z) \ge 0\)</span> and :math: <cite>d(x,z)=0</cite> if and only if <span class="math notranslate nohighlight">\(x = z\)</span>.</p></li>
+<li><p>It must be symmetric: <span class="math notranslate nohighlight">\(d(x,z) = d(z,x)\)</span>.</p></li>
+<li><p>It should adhere to the triangle inequality: <span class="math notranslate nohighlight">\(d(x,y) \le d(x,z) + d(z,y)\)</span>. This means the distance between points x and y should not exceed the combined distances of x to z and z to y. This essentially means the distance measures the shortest path between two points.</p></li>
+</ol>
+<p>We’ll next explore popular distance measures for clustering that meet these criteria. However, in practice, it might suffice to choose measures that meet, for instance, the first two properties. These are often deemed reasonable for clustering.</p>
+<p>For numerical features, the <strong>Euclidean distance</strong> is common. The L-infinity distance is the maximum absolute difference across all dimensions. Intriguingly, L-infinity distance resembles Ld distance when d approaches infinity.</p>
+<a class="reference internal image-reference" href="../_images/w6_euclidean_dist.png"><img alt="../_images/w6_euclidean_dist.png" src="../_images/w6_euclidean_dist.png" style="width: 492.75px; height: 249.75px;" /></a>
+<p>For non-numeric data like texts, non-Euclidean measures are useful. The <strong>Jaccard distance</strong> between two sets is 1 minus the fraction of their intersection’s size to their union’s size.</p>
+<div class="math notranslate nohighlight">
+\[\text{Jaccard Distance}(A, B) = 1 - \frac{| A \cap B|}{A \cup B|}.\]</div>
+<p>For example, the Jaccard distance between set {A, C, D, E} and set {A, D, E} is 1/4.</p>
+<p>This can measure similarity between two sentences by converting each into a set of stemmed words.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>“Cluster analysis arranges similar objects in the same group.”</p></li>
+<li><p>“Cluster analysis divides data into groups.”</p></li>
+</ul>
+</div></blockquote>
+<p>It’s also applicable to movies or restaurants by considering their sets of fans.</p>
+<p>The <strong>Hamming distance</strong> calculates differences between two strings of equal length, counting mismatching positions. For example, the Hamming distance between ‘Karolin’ and ‘Kathrin’ is 3, and between 1011101 and 1001001 is 2. This is practical for texts of similar length or even DNA sequences.</p>
+<p><strong>Edit distance</strong> denotes the number of insertions or deletions needed to transform one string into another. For instance, converting x = abcde to y = bcduve might necessitate three edits.</p>
+<p>Lastly, <strong>cosine distance</strong> is the angle between two vectors, ranging from 0 to 180 degrees or 0 to pi radians.</p>
+</section>
+<section id="multidimensional-scaling">
+<h2><span class="section-number">6.1.2. </span>Multidimensional Scaling<a class="headerlink" href="#multidimensional-scaling" title="Link to this heading"></a></h2>
+<p>Clustering algorithms typically accept two kinds of inputs.
+- The first is the original data matrix, denoted by an n-by-p matrix X, where ‘n’ represents the number of samples and ‘p’ stands for the features.
+- The second kind of input is an n-by-n distance or dissimilarity matrix D, which, for simplicity, we assume to be always symmetric.</p>
+<p>There are methods to convert one type of input into the other. If provided with the data matrix X, we can easily compute the distance matrix D once a distance measure is chosen. However, converting in the opposite direction—deriving the data matrix X from an n-by-n distance matrix D—poses a more intricate challenge.</p>
+<p>One method we’ll employ is known as multi-dimensional scaling (MDS). Let’s assume we have a pairwise squared l2 distance matrix D, where each entry <span class="math notranslate nohighlight">\(d_{ij}\)</span> is the squared l2 distance between two vectors, <span class="math notranslate nohighlight">\(d_{ij} = \sum_{l=1}^p (x_{il} - x_{jl})^2\)</span>
+Given D, can we retrieve the original n data points <span class="math notranslate nohighlight">\(x_i\)</span>?</p>
+<p>It’s unrealistic to expect an exact retrieval of the original data points due to the invariant nature of distances; regardless of changes like shifting the origin or rotating coordinates, distances between two points remain constant. Thus, using the n-by-n pairwise distance matrix D, our aim is to reconstruct the n data points, modulo a translation or rotational transformation.</p>
+<p>Can this be achieved? Absolutely. The procedure consists of two main steps, typically referred to as classical multi-dimensional scaling:</p>
+<ol class="arabic simple">
+<li><p><strong>Double Centering Transformation</strong>: Begin by transforming the matrix D. Each entry <span class="math notranslate nohighlight">\(d_{ij}\)</span> undergoes a change – subtract the row mean, subtract the column mean, then add the overall mean, followed by multiplying by -1/2. The resulting matrix <span class="math notranslate nohighlight">\(\tilde{D}\)</span>, remains symmetric, and is semi-positive definite.</p></li>
+</ol>
+<a class="reference internal image-reference" href="../_images/w6_mds_double_centering.png"><img alt="../_images/w6_mds_double_centering.png" src="../_images/w6_mds_double_centering.png" style="width: 539.25px; height: 367.5px;" /></a>
+<ol class="arabic simple" start="2">
+<li><p><strong>Retrieval using Decomposition</strong>: The double centering on D to get <span class="math notranslate nohighlight">\(\tilde{D}\)</span> makes <span class="math notranslate nohighlight">\(\tilde{D}\)</span> equivalent to <span class="math notranslate nohighlight">\(X X^t\)</span>. This equivalence allows us to retrieve X through decomposition.</p></li>
+</ol>
+<p>For dimensionality reduction, rather than employing all p dimensions of X derived from the decomposition of <span class="math notranslate nohighlight">\(\tilde{D}\)</span>, one might opt to use only the top k dimensions, providing an approximation of the original data matrix X.</p>
+<p>There are variations to the classical multidimensional scaling approach. Students interested in diving deeper can explore these alternative methods.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="w6_index.html" class="btn btn-neutral float-left" title="6. Clustering Analysis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="w6_2_kmeans.html" class="btn btn-neutral float-right" title="6.2. K-means and K-medoids" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Feng Liang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

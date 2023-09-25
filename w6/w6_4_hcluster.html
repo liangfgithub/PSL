@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>7. Latent Structure Models &mdash; PSL_Book 0.1 documentation</title>
+  <title>6.4. Hierarchical Clustering &mdash; PSL_Book 0.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="8. TBA" href="../w8/w8_index.html" />
-    <link rel="prev" title="6.4. Hierarchical Clustering" href="../w6/w6_4_hcluster.html" /> 
+    <link rel="next" title="7. Latent Structure Models" href="../w7/w7_index.html" />
+    <link rel="prev" title="6.3. Hierarchical Clustering" href="w6_3_choice_of_k.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -48,16 +48,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../w3/w3_index.html">3. Variable Selection and Regularization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../w4/w4_index.html">4. Regression Trees and Ensemble</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../w5/w5_index.html">5. Nonlinear Regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../w6/w6_index.html">6. Clustering Analysis</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">7. Latent Structure Models</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#model-based-clustering">7.1. Model-based Clustering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#mixture-models">7.2. Mixture Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#two-component-gaussian-mixtures">7.3. Two-component Gaussian Mixtures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#the-em-algorithm">7.4. The EM Algorithm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#latent-dirichlet-allocation-model">7.5. Latent Dirichlet Allocation Model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#hidden-markov-models">7.6. Hidden Markov Models</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="w6_index.html">6. Clustering Analysis</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="w6_1_distance.html">6.1. Distance Measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w6_2_kmeans.html">6.2. K-means and K-medoids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w6_3_choice_of_k.html">6.3. Hierarchical Clustering</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">6.4. Hierarchical Clustering</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../w7/w7_index.html">7. Latent Structure Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../w8/w8_index.html">8. TBA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../w9/w9_index.html">9. Discriminant Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../w10/w10_index.html">10. Logistic Regression</a></li>
@@ -80,7 +78,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active"><span class="section-number">7. </span>Latent Structure Models</li>
+          <li class="breadcrumb-item"><a href="w6_index.html"><span class="section-number">6. </span>Clustering Analysis</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">6.4. </span>Hierarchical Clustering</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -89,34 +88,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="latent-structure-models">
-<h1><span class="section-number">7. </span>Latent Structure Models<a class="headerlink" href="#latent-structure-models" title="Link to this heading"></a></h1>
-<section id="model-based-clustering">
-<h2><span class="section-number">7.1. </span>Model-based Clustering<a class="headerlink" href="#model-based-clustering" title="Link to this heading"></a></h2>
-</section>
-<section id="mixture-models">
-<h2><span class="section-number">7.2. </span>Mixture Models<a class="headerlink" href="#mixture-models" title="Link to this heading"></a></h2>
-</section>
-<section id="two-component-gaussian-mixtures">
-<h2><span class="section-number">7.3. </span>Two-component Gaussian Mixtures<a class="headerlink" href="#two-component-gaussian-mixtures" title="Link to this heading"></a></h2>
-</section>
-<section id="the-em-algorithm">
-<h2><span class="section-number">7.4. </span>The EM Algorithm<a class="headerlink" href="#the-em-algorithm" title="Link to this heading"></a></h2>
-</section>
-<section id="latent-dirichlet-allocation-model">
-<h2><span class="section-number">7.5. </span>Latent Dirichlet Allocation Model<a class="headerlink" href="#latent-dirichlet-allocation-model" title="Link to this heading"></a></h2>
-</section>
-<section id="hidden-markov-models">
-<h2><span class="section-number">7.6. </span>Hidden Markov Models<a class="headerlink" href="#hidden-markov-models" title="Link to this heading"></a></h2>
-</section>
+  <section id="hierarchical-clustering">
+<h1><span class="section-number">6.4. </span>Hierarchical Clustering<a class="headerlink" href="#hierarchical-clustering" title="Link to this heading"></a></h1>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../w6/w6_4_hcluster.html" class="btn btn-neutral float-left" title="6.4. Hierarchical Clustering" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../w8/w8_index.html" class="btn btn-neutral float-right" title="8. TBA" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="w6_3_choice_of_k.html" class="btn btn-neutral float-left" title="6.3. Hierarchical Clustering" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../w7/w7_index.html" class="btn btn-neutral float-right" title="7. Latent Structure Models" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

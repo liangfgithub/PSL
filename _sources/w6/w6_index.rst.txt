@@ -1,21 +1,10 @@
 Clustering Analysis
 ====================================
 
-Choice of Distance Measures
---------------------------------------
+.. toctree::
+   :maxdepth: 1
 
-Multidimensional Scaling
---------------------------------------
-
-K-means and K-medoids
---------------------------------------
-
-Choice of K
---------------------------------------
-
-Hierarchical Clustering
---------------------------------------
-
-Vector Quantization
---------------------------------------
- 
+   w6_1_distance.rst
+   w6_2_kmeans.rst
+   w6_3_choice_of_k.rst
+   w6_4_hcluster.rst
