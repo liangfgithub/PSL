@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>6.4. Hierarchical Clustering &mdash; PSL_Book 0.1 documentation</title>
+  <title>6.5. R/Python Code &mdash; PSL_Book 0.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="6.5. R/Python Code" href="w6_5_code.html" />
-    <link rel="prev" title="6.3. Choice of K" href="w6_3_choice_of_k.html" /> 
+    <link rel="next" title="7. Latent Structure Models" href="../w7/w7_index.html" />
+    <link rel="prev" title="6.4. Hierarchical Clustering" href="w6_4_hcluster.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -52,8 +52,8 @@
 <li class="toctree-l2"><a class="reference internal" href="w6_1_distance.html">6.1. Distance Measures</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w6_2_kmeans.html">6.2. K-means and K-medoids</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w6_3_choice_of_k.html">6.3. Choice of K</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">6.4. Hierarchical Clustering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="w6_5_code.html">6.5. R/Python Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w6_4_hcluster.html">6.4. Hierarchical Clustering</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">6.5. R/Python Code</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../w7/w7_index.html">7. Latent Structure Models</a></li>
@@ -80,7 +80,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="w6_index.html"><span class="section-number">6. </span>Clustering Analysis</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">6.4. </span>Hierarchical Clustering</li>
+      <li class="breadcrumb-item active"><span class="section-number">6.5. </span>R/Python Code</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -89,42 +89,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="hierarchical-clustering">
-<h1><span class="section-number">6.4. </span>Hierarchical Clustering<a class="headerlink" href="#hierarchical-clustering" title="Link to this heading"></a></h1>
-<p>K-means is a popular clustering algorithm. However, a limitation is the need to predefine k, which represents the number of clusters.</p>
-<p>Conversely, with hierarchical clustering, you’re not constrained by having to determine K upfront. Instead, the primary input is an n×n distance matrix, supplemented by a specific rule to calculate the distance between sets of observations. This rule becomes pivotal as the clustering evolves, and I’ll delve into why shortly.</p>
-<p>When executing a hierarchical clustering algorithm, the resulting structure, often visualized as a dendrogram, is constructed from the bottom up. See the output of a hierarchical clustering process on the sportsranks data (used in our code page) below. Initially, each observation stands as its own cluster, totaling n clusters. Subsequently, the two closest observations are merged, reducing the count to n−1 clusters. This process iterates, gradually consolidating clusters until only one remains.</p>
-<a class="reference internal image-reference" href="../_images/w6_hist_complete.png"><img alt="../_images/w6_hist_complete.png" src="../_images/w6_hist_complete.png" style="width: 400.2px; height: 206.4px;" /></a>
-<p>However, as clusters amalgamate, a challenge arises when determining the distance between a single point and a cluster or between two clusters. Several methods can address this:</p>
+  <section id="r-python-code">
+<h1><span class="section-number">6.5. </span>R/Python Code<a class="headerlink" href="#r-python-code" title="Link to this heading"></a></h1>
 <ul class="simple">
-<li><dl class="simple">
-<dt>Single-linkage:</dt><dd><p>The distance between clusters A and B is the shortest pairwise distance from any point in A to any point in B.</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>Complete-linkage:</dt><dd><p>The distance is gauged by the farthest point in A from any point in B.</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>Average-linkage:</dt><dd><p>This method calculates the mean of all pairwise distances from points in A to points in B.</p>
-</dd>
-</dl>
-</li>
+<li><p>Rcode: [<a href="#id1"><span class="problematic" id="id2">`</span></a>Rcode_W6_Cluster</p></li>
 </ul>
-<p>The chosen method can significantly influence the resulting cluster structure. For instance, using the sportsranks data, complete linkage results in a balanced hierarchy (shown above), while single-linkage (shown below) produces a ‘tailed’ effect.</p>
-<a class="reference internal image-reference" href="../_images/w6_hist_single.png"><img alt="../_images/w6_hist_single.png" src="../_images/w6_hist_single.png" style="width: 406.2px; height: 213.6px;" /></a>
-<p>A significant benefit of hierarchical clustering is the flexibility it offers post clustering. After crafting the dendrogram (tree representation of clustering), any value of K can be chosen. This choice dictates where to cut the dendrogram to form the desired clusters. For instance, a cut at a specific height could yield two clusters: all observations below one node as one cluster, and another observation as the second.</p>
-<p>A unique characteristic of hierarchical clustering is its nested clustering nature. When you opt for K=3, one of the clusters formed at K=2 gets divided. This nesting can be viewed as either an advantage or a limitation, depending on the specific use-case.</p>
+<p>&lt;<a class="reference external" href="https://liangfgithub.github.io/Rcode_W6_Cluster.html">https://liangfgithub.github.io/Rcode_W6_Cluster.html</a>&gt;`_]</p>
+<ul class="simple">
+<li><p>Python: [<a href="#id3"><span class="problematic" id="id4">`</span></a>Python_W6_Cluster</p></li>
+</ul>
+<p>&lt;<a class="reference external" href="https://liangfgithub.github.io/Python_W6_Clusterhtml">https://liangfgithub.github.io/Python_W6_Clusterhtml</a>&gt;`_]</p>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="w6_3_choice_of_k.html" class="btn btn-neutral float-left" title="6.3. Choice of K" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="w6_5_code.html" class="btn btn-neutral float-right" title="6.5. R/Python Code" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="w6_4_hcluster.html" class="btn btn-neutral float-left" title="6.4. Hierarchical Clustering" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../w7/w7_index.html" class="btn btn-neutral float-right" title="7. Latent Structure Models" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

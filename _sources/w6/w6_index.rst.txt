@@ -8,3 +8,4 @@ Clustering Analysis
    w6_2_kmeans.rst
    w6_3_choice_of_k.rst
    w6_4_hcluster.rst
+   w6_5_code.rst

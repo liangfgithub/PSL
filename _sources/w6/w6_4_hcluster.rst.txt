@@ -1,7 +1,6 @@
 Hierarchical Clustering
 ====================================
 
-
 K-means is a popular clustering algorithm. However, a limitation is the need to predefine k, which represents the number of clusters.
 
 Conversely, with hierarchical clustering, you're not constrained by having to determine K upfront. Instead, the primary input is an n×n distance matrix, supplemented by a specific rule to calculate the distance between sets of observations. This rule becomes pivotal as the clustering evolves, and I'll delve into why shortly.
