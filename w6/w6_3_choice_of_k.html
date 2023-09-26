@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>6.3. Hierarchical Clustering &mdash; PSL_Book 0.1 documentation</title>
+  <title>6.3. Choice of K &mdash; PSL_Book 0.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -16,6 +16,7 @@
         <script src="../_static/documentation_options.js?v=2709fde1"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -51,7 +52,17 @@
 <li class="toctree-l1 current"><a class="reference internal" href="w6_index.html">6. Clustering Analysis</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="w6_1_distance.html">6.1. Distance Measures</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w6_2_kmeans.html">6.2. K-means and K-medoids</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">6.3. Hierarchical Clustering</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">6.3. Choice of K</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">6.3.1. Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gap-statistics">6.3.2. Gap Statistics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#generating-reference-distribution-data">Generating Reference Distribution Data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#determining-optimal-k-with-gap-statistic">Determining Optimal K with Gap Statistic</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#silhouette-statistics">6.3.3. Silhouette Statistics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prediction-strength">6.3.4. Prediction Strength</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="w6_4_hcluster.html">6.4. Hierarchical Clustering</a></li>
 </ul>
 </li>
@@ -79,7 +90,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="w6_index.html"><span class="section-number">6. </span>Clustering Analysis</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">6.3. </span>Hierarchical Clustering</li>
+      <li class="breadcrumb-item active"><span class="section-number">6.3. </span>Choice of K</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -88,8 +99,50 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="hierarchical-clustering">
-<h1><span class="section-number">6.3. </span>Hierarchical Clustering<a class="headerlink" href="#hierarchical-clustering" title="Link to this heading"></a></h1>
+  <section id="choice-of-k">
+<h1><span class="section-number">6.3. </span>Choice of K<a class="headerlink" href="#choice-of-k" title="Link to this heading"></a></h1>
+<section id="introduction">
+<h2><span class="section-number">6.3.1. </span>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+<p>In supervised learning, the goal is clear: make accurate predictions for the target variable, Y. But unsupervised learning, such as clustering, doesn’t have a Y variable, making it challenging to evaluate its accuracy or effectiveness. This lack of a clear target introduces complexities when determining the optimal number of clusters, K.</p>
+<p>In supervised scenarios like regression, the go-to method for tuning parameters is cross-validation. However, applying cross-validation directly to clustering isn’t straightforward. Despite these challenges, several techniques aid in determining the optimal K. Key among them are gap statistics, silhouette statistics, and prediction strength.</p>
+</section>
+<section id="gap-statistics">
+<h2><span class="section-number">6.3.2. </span>Gap Statistics<a class="headerlink" href="#gap-statistics" title="Link to this heading"></a></h2>
+<p>When examining clustering effectiveness, many measures gauge the compactness or tightness of clusters. A common metric is the within cluster sum of squares, which, when based on the L2 distance, matches the objective function of K-means.</p>
+<div class="math notranslate nohighlight">
+\[SS(K) = \sum_{k=1}^K \sum_{z_i=k} \| x_i - m_k\|^2.\]</div>
+<p>It’s natural to aim for a smaller SS, indicating tighter clusters. However, as the number of clusters (K) increases, the SS inherently decreases for the same dataset. Thus, relying solely on SS can be misleading when selecting the optimal K.</p>
+<p>To determine the optimal K, researchers often use the “elbow method.” Here, the sum of squares is plotted against K. If a curve is observed with a distinct “elbow” point, that point often signifies the best K value. However, in real-world data, identifying the precise elbow can be challenging due to noise and complexity.</p>
+<p>The <strong>gap statistic</strong> (Tibshirani, Walther and Hastie, 2001)</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}G(K) &amp;= \textcolor{red}{\EE_0} \Big [ \log SS^*(K) \Big ]- \log SS_{\text{obs}}(K) \\
+        &amp; \approx &amp;  \frac{1}{B} \sum_{b=1}^B \log SS^*_b(K) - \log SS_{\text{obs}}(K)\end{split}\]</div>
+<p>compares the clustering of actual data against a random clustering from a reference distribution. It’s calculated by measuring the SS from the observed data against the expected log sum of squares from a reference set. This reference set is derived from a distribution that has no intrinsic clustering, meaning an ideal number of clusters would be one.</p>
+<p>To estimate the gap statistic, multiple samples from the reference distribution are taken, and the average over these samples provides an expectation. As K grows, even though the sum of squares shrinks, the difference (or gap) may not always decrease. A high gap statistic suggests that the SS for the observed data at a particular K is notably smaller than its reference counterpart, indicating good clustering.</p>
+<section id="generating-reference-distribution-data">
+<h3>Generating Reference Distribution Data<a class="headerlink" href="#generating-reference-distribution-data" title="Link to this heading"></a></h3>
+<p>There are two proposed methods:</p>
+<ol class="arabic simple">
+<li><p><strong>Uniform Sampling</strong>: Here, the reference data is uniformly sampled over the range of the observed data. This method may not be effective if the observed data has distinct shapes.</p></li>
+<li><p><strong>Principal Component Based Sampling</strong>: This method samples over the range of the principal components of the observed data, ensuring better alignment with the data’s structure.</p></li>
+</ol>
+</section>
+<section id="determining-optimal-k-with-gap-statistic">
+<h3>Determining Optimal K with Gap Statistic<a class="headerlink" href="#determining-optimal-k-with-gap-statistic" title="Link to this heading"></a></h3>
+<p>Plot the gap statistic values for different K.</p>
+<p>The optimal K is determined either by identifying the highest gap statistic or, in a sequential approach, by selecting the first K where its gap statistic exceeds that of K+1.</p>
+<p>Since the gap statistic is based on random sampling, there’s inherent variability. One-standard-error principle is used to account for this uncertainty. We compare the gap statistic at K to the lower bound of the gap statistic for K+1 (subtracting one standard error). If the former is greater, we consider that K as optimal.</p>
+<div class="math notranslate nohighlight">
+\[K_{\text{opt}} = \arg\min_K \{K : G(K) \ge G(K+1) - s_{K+1} \}\]</div>
+<p>where <span class="math notranslate nohighlight">\(s_K = \text{sd}_0(\log SS(K)) \sqrt{1+1/B}\)</span>.</p>
+</section>
+</section>
+<section id="silhouette-statistics">
+<h2><span class="section-number">6.3.3. </span>Silhouette Statistics<a class="headerlink" href="#silhouette-statistics" title="Link to this heading"></a></h2>
+</section>
+<section id="prediction-strength">
+<h2><span class="section-number">6.3.4. </span>Prediction Strength<a class="headerlink" href="#prediction-strength" title="Link to this heading"></a></h2>
+</section>
 </section>
 
 

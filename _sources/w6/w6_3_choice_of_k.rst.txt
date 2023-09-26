@@ -1,2 +1,70 @@
-Hierarchical Clustering
+Choice of K
 ====================================
+
+
+Introduction
+----------------------------
+
+In supervised learning, the goal is clear: make accurate predictions for the target variable, Y. But unsupervised learning, such as clustering, doesn't have a Y variable, making it challenging to evaluate its accuracy or effectiveness. This lack of a clear target introduces complexities when determining the optimal number of clusters, K.
+
+In supervised scenarios like regression, the go-to method for tuning parameters is cross-validation. However, applying cross-validation directly to clustering isn't straightforward. Despite these challenges, several techniques aid in determining the optimal K. Key among them are gap statistics, silhouette statistics, and prediction strength.
+
+
+Gap Statistics
+----------------------------
+
+
+When examining clustering effectiveness, many measures gauge the compactness or tightness of clusters. A common metric is the within cluster sum of squares, which, when based on the L2 distance, matches the objective function of K-means. 
+
+.. math::
+	SS(K) = \sum_{k=1}^K \sum_{z_i=k} \| x_i - m_k\|^2.
+
+It's natural to aim for a smaller SS, indicating tighter clusters. However, as the number of clusters (K) increases, the SS inherently decreases for the same dataset. Thus, relying solely on SS can be misleading when selecting the optimal K.
+
+
+To determine the optimal K, researchers often use the "elbow method." Here, the sum of squares is plotted against K. If a curve is observed with a distinct "elbow" point, that point often signifies the best K value. However, in real-world data, identifying the precise elbow can be challenging due to noise and complexity.
+
+The **gap statistic** (Tibshirani, Walther and Hastie, 2001)
+
+.. math::
+	G(K) &= \textcolor{red}{\EE_0} \Big [ \log SS^*(K) \Big ]- \log SS_{\text{obs}}(K) \\
+		& \approx &  \frac{1}{B} \sum_{b=1}^B \log SS^*_b(K) - \log SS_{\text{obs}}(K)
+
+compares the clustering of actual data against a random clustering from a reference distribution. It's calculated by measuring the SS from the observed data against the expected log sum of squares from a reference set. This reference set is derived from a distribution that has no intrinsic clustering, meaning an ideal number of clusters would be one.
+
+
+To estimate the gap statistic, multiple samples from the reference distribution are taken, and the average over these samples provides an expectation. As K grows, even though the sum of squares shrinks, the difference (or gap) may not always decrease. A high gap statistic suggests that the SS for the observed data at a particular K is notably smaller than its reference counterpart, indicating good clustering.
+
+
+Generating Reference Distribution Data
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+There are two proposed methods:
+
+1. **Uniform Sampling**: Here, the reference data is uniformly sampled over the range of the observed data. This method may not be effective if the observed data has distinct shapes.
+
+2. **Principal Component Based Sampling**: This method samples over the range of the principal components of the observed data, ensuring better alignment with the data's structure.
+
+Determining Optimal K with Gap Statistic
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Plot the gap statistic values for different K.
+
+The optimal K is determined either by identifying the highest gap statistic or, in a sequential approach, by selecting the first K where its gap statistic exceeds that of K+1.
+
+Since the gap statistic is based on random sampling, there's inherent variability. One-standard-error principle is used to account for this uncertainty. We compare the gap statistic at K to the lower bound of the gap statistic for K+1 (subtracting one standard error). If the former is greater, we consider that K as optimal.
+
+.. math::
+	K_{\text{opt}} = \arg\min_K \{K : G(K) \ge G(K+1) - s_{K+1} \} 
+
+where :math:`s_K = \text{sd}_0(\log SS(K)) \sqrt{1+1/B}`.
+
+
+
+
+
+Silhouette Statistics
+----------------------------
+
+Prediction Strength
+----------------------------

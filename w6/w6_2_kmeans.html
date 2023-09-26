@@ -16,10 +16,11 @@
         <script src="../_static/documentation_options.js?v=2709fde1"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="6.3. Hierarchical Clustering" href="w6_3_choice_of_k.html" />
+    <link rel="next" title="6.3. Choice of K" href="w6_3_choice_of_k.html" />
     <link rel="prev" title="6.1. Distance Measures" href="w6_1_distance.html" /> 
 </head>
 
@@ -51,13 +52,18 @@
 <li class="toctree-l1 current"><a class="reference internal" href="w6_index.html">6. Clustering Analysis</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="w6_1_distance.html">6.1. Distance Measures</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">6.2. K-means and K-medoids</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#the-k-means-algorithm">6.2.1. The K-means Algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-k-means-algorithm">6.2.1. The K-means Algorithm</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#algorithm-procedure">Algorithm Procedure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#objective-function">Objective Function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#a-note-on-convergence">A Note on Convergence</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#dimension-reduction">6.2.2. Dimension Reduction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#other-distance-measures">6.2.3. Other Distance Measures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#the-k-medoids-algorithm">6.2.4. The K-medoids Algorithm</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="w6_3_choice_of_k.html">6.3. Hierarchical Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w6_3_choice_of_k.html">6.3. Choice of K</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w6_4_hcluster.html">6.4. Hierarchical Clustering</a></li>
 </ul>
 </li>
@@ -98,15 +104,98 @@
 <h1><span class="section-number">6.2. </span>K-means and K-medoids<a class="headerlink" href="#k-means-and-k-medoids" title="Link to this heading"></a></h1>
 <section id="the-k-means-algorithm">
 <h2><span class="section-number">6.2.1. </span>The K-means Algorithm<a class="headerlink" href="#the-k-means-algorithm" title="Link to this heading"></a></h2>
+<p>K-means is arguably the most widely-used clustering algorithm. It necessitates two primary inputs:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mathbf{X}\)</span>: A data matrix of size n-by-p;</p></li>
+<li><p><span class="math notranslate nohighlight">\(K\)</span>: the number of desired clusters.</p></li>
+</ul>
+<section id="algorithm-procedure">
+<h3>Algorithm Procedure<a class="headerlink" href="#algorithm-procedure" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Step 0 (Initialization)</strong>: Make an initial estimate of the K cluster centers.</p></li>
+<li><p><strong>Step 1 (Partition)</strong>: For each data point, identify the nearest cluster center and assign the data point to that specific cluster.</p></li>
+<li><p><strong>Step 2 (Update)</strong>: Once all data points have been assigned to their respective clusters, update each cluster center by calculating the mean of the data points within that cluster.</p></li>
+</ul>
+<p>Repeat Steps 1 and 2 until convergence is achieved.</p>
+</section>
+<section id="objective-function">
+<h3>Objective Function<a class="headerlink" href="#objective-function" title="Link to this heading"></a></h3>
+<p>The primary goal of the K-means algorithm is to optimize a specific objective function, often termed the ‘within-cluster dissimilarity measure’. By default, this measure is the squared Euclidean distance. The function is formuated as:</p>
+<div class="math notranslate nohighlight">
+\[\Omega (z_{1:n}, m_{1:K}) = \sum_{i=1}^n  \| x_i - m_{z_i} \|^2\]</div>
+<p>where <span class="math notranslate nohighlight">\(z_1, \dots, z_n \in \{1, 2, \dots, K)\)</span> are the class labels for the n data points and <span class="math notranslate nohighlight">\(m_1, \dots, m_K\)</span> are the p-dimensional centers for the K clusters.</p>
+<p>The within-cluster sum of squares can also be represented with a double summation over clusters and observations.</p>
+<div class="math notranslate nohighlight">
+\[\Omega (z_{1:n}, m_{1:K}) = \sum_{k=1}^K \sum_{i: z_i=k} \| x_i - m_k \|^2,\]</div>
+<p>K-means aims to find a local minimum of this objective function by iterating the aforementioned steps. For a given set of cluster centers, the optimal label for a data point is the one corresponding to the nearest center. Once a partition is decided, the cluster centers are updated by computing the mean of the data points in each cluster.</p>
+<a class="reference internal image-reference" href="../_images/w6_kmeans.png"><img alt="../_images/w6_kmeans.png" src="../_images/w6_kmeans.png" style="width: 547.92px; height: 264.96px;" /></a>
+</section>
+<section id="a-note-on-convergence">
+<h3>A Note on Convergence<a class="headerlink" href="#a-note-on-convergence" title="Link to this heading"></a></h3>
+<p>It’s essential to understand that K-means may converge to a local minimum, meaning it might not always find the optimal clustering. The algorithm’s effectiveness can be sensitive to the initial placement of cluster centers. To address this, run the algorithm with multiple starting values or initializations, and then choose the clustering solution with the lowest within-cluster sum of squares.</p>
+<p>For instance, in a two-dimensional case with four points, choosing the initial cluster centers in specific locations can lead to a local minimum that isn’t the optimal clustering for the data.</p>
+<a class="reference internal image-reference" href="../_images/w6_kmeans_local_minimal.png"><img alt="../_images/w6_kmeans_local_minimal.png" src="../_images/w6_kmeans_local_minimal.png" style="width: 363.6px; height: 171.0px;" /></a>
+</section>
 </section>
 <section id="dimension-reduction">
 <h2><span class="section-number">6.2.2. </span>Dimension Reduction<a class="headerlink" href="#dimension-reduction" title="Link to this heading"></a></h2>
+<p>The computational cost of K-means is determined by four factors:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(I\)</span>: Number of iterations</p></li>
+<li><p><span class="math notranslate nohighlight">\(n\)</span>: Number of data points</p></li>
+<li><p><span class="math notranslate nohighlight">\(p\)</span>: Number of features</p></li>
+<li><p><span class="math notranslate nohighlight">\(K\)</span>: Number of clusters</p></li>
+</ul>
+<p>Each iteration’s computational cost is n×p×K, as distances for all n points to all K centers across p dimensions must be assessed.</p>
+<p>To alleviate the computational demand, especially when p (dimensionality) is significant, dimension reduction methods can be employed.</p>
+<ul class="simple">
+<li><p><strong>Principal Component Analysis</strong> (PCA): PCA can reduce the original dimensionality p to a smaller dimension d by using the top d principal component directions. These directions best approximate the pairwise distances on average. However, this is an average guarantee, and for some specific pairs, the approximation may not be optimal.</p></li>
+<li><p><strong>Random Projection</strong>: This method involves projecting data to a lower-dimensional space using a random matrix. Based on the Johnson-Lindenstrauss lemma, which suggests that high-dimensional data can be projected into a much lower-dimensional space in such a way that distances between the data points are approximately preserved.</p></li>
+</ul>
+<a class="reference internal image-reference" href="../_images/w6_random_projection.png"><img alt="../_images/w6_random_projection.png" src="../_images/w6_random_projection.png" style="width: 549.75px; height: 137.25px;" /></a>
+<p>An advantage is that the projection matrix is data-agnostic, constructed without using any data insights. It’s also less sensitive to the original dimension p. However, it might not capture data-specific patterns like PCA does.</p>
+<p>Both PCA and Random Projection are popular methods for dimensionality reduction, and they can significantly reduce the computational burden of K-means, especially when dealing with high-dimensional data.</p>
 </section>
 <section id="other-distance-measures">
 <h2><span class="section-number">6.2.3. </span>Other Distance Measures<a class="headerlink" href="#other-distance-measures" title="Link to this heading"></a></h2>
+<p>When venturing beyond the standard K-means approach, it’s natural to wonder if we can use alternative distance measures. The answer is yes, but the implementation needs modification, particularly in the step updating the centers.</p>
+<p>If you replace the squared Euclidean distance in K-means with a more generic distance measure, the objective function’s definition changes. The arguments remain the same: the cluster labels for n observations, <span class="math notranslate nohighlight">\(z_1\)</span> to <span class="math notranslate nohighlight">\(z_n\)</span>, and the K centers, <span class="math notranslate nohighlight">\(m_1\)</span> to <span class="math notranslate nohighlight">\(m_K\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\Omega (z_{1:n}, m_{1:K}) =  \sum_{k=1}^K \sum_{i: z_i=k} d(x_i,  m_k)\]</div>
+<p>To minimize this new objective function, two iterative steps follow post-initialization:</p>
+<ol class="arabic simple">
+<li><p><strong>Assignment of Observations to Clusters</strong>: Given the cluster centers, each observation is associated with the nearest cluster. This decision is based on the chosen distance measure, which should be explicitly defined.</p></li>
+<li><p><strong>Updating Cluster Centers</strong>: Here, each cluster’s center is recalculated to minimize the within-cluster dissimilarity. With squared Euclidean distance, this step is straightforward: each new center is the mean of all observations in its cluster. With a generic distance measure, however, this optimization is less direct and can vary depending on the specific measure in use.</p></li>
+</ol>
+<p>Consider an illustrative example with two features: <span class="math notranslate nohighlight">\(x = (x_1, x_2)\)</span> where <span class="math notranslate nohighlight">\(x_1\)</span> is a numerical attribute, and <span class="math notranslate nohighlight">\(x_2\)</span> is a categorical attribute with values A, B, or C. If our distance measure combines the L1 distance for the numerical feature and the Hamming distance for the categorical feature, the center update process varies for each feature. For <span class="math notranslate nohighlight">\(x_1\)</span>, the optimal center is the median of the observations. For <span class="math notranslate nohighlight">\(x_2\)</span>, the center is the mode, or most frequent category, of the observations.</p>
+<div class="math notranslate nohighlight">
+\[d(x, y) = (0.4) \cdot |x_1 - y_1| + (0.6) \cdot \mathbf{I}(x_2 \ne  y_2).\]</div>
+<p>When the features are more complex, like if <span class="math notranslate nohighlight">\(x_2\)</span> is a string and we use the edit distance, the optimization becomes challenging. For many non-Euclidean distance measures, optimization requires assessing all potential center values—a computationally intensive process.</p>
+<p>One way to mitigate computational demands is to restrict cluster centers to existing data points. This not only simplifies the calculation but also eliminates the need for the original data, as only the pairwise distance matrix remains relevant. This approach leads us to an extended version of K-means known as K-medoids.</p>
 </section>
 <section id="the-k-medoids-algorithm">
 <h2><span class="section-number">6.2.4. </span>The K-medoids Algorithm<a class="headerlink" href="#the-k-medoids-algorithm" title="Link to this heading"></a></h2>
+<p>K-medoids operates on principles akin to k-means but with a crucial distinction in its input requirements. Rather than using the original data matrix, X, K-medoids needs only a d-by-d distance matrix and the desired number of clusters, K.</p>
+<p>Given that only the pairwise distances among data points are known, without access to the actual distance function, it becomes impossible to compute distances for newly generated points. In K-means, while we start with n data points, we also generate new data points - the
+K centers. K-medoids, however, cannot follow this approach due to its input constraints.</p>
+<p>This limitation leads us to a defining characteristic of K-medoids: the cluster centers must belong to the set of actual data points. Specifically, for any given partition, the cluster center (or “medoid”) is identified as the data point whose cumulative distance to all other points within the same cluster is minimized.</p>
+<p>The prevalent algorithm to implement K-medoids is called <strong>PAM</strong> (Partitioning Around Medoids). The objective function for PAM mirrors what was earlier described, with distances directly sourced from the pairwise distance matrix. This is because both the sample data and the centers are drawn from the original n data points.</p>
+<p>The main steps of the PAM algorithm are:</p>
+<ol class="arabic simple">
+<li><p><strong>Initialization</strong>: Randomly select K data points as the initial cluster centers.</p></li>
+<li><p><strong>Cluster Assignment</strong>: Given the current cluster centers, or medoids, data points are assigned to their nearest cluster.</p></li>
+<li><dl class="simple">
+<dt><strong>Medoid Update</strong>: For each medoid m and non-medoid data point x:</dt><dd><ul class="simple">
+<li><p>Swap m and x, and compute the total cost of the configuration (i.e., the sum of the distances of points to their nearest medoids).</p></li>
+<li><p>If the total cost of the new configuration is lower than the current one, update it to have x as the new medoid.</p></li>
+<li><p>Repeat this process until there’s no change in medoids.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ol>
+<p>The algorithm stops when there’s no change in medoids after a full iteration.</p>
+<p>Like K-means, the final result can depend on the initial choice of medoids, so multiple runs with different initializations may be necessary.</p>
 </section>
 </section>
 
@@ -115,7 +204,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="w6_1_distance.html" class="btn btn-neutral float-left" title="6.1. Distance Measures" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="w6_3_choice_of_k.html" class="btn btn-neutral float-right" title="6.3. Hierarchical Clustering" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="w6_3_choice_of_k.html" class="btn btn-neutral float-right" title="6.3. Choice of K" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
