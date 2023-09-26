@@ -55,12 +55,15 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">6.3. Choice of K</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#introduction">6.3.1. Introduction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gap-statistics">6.3.2. Gap Statistics</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#generating-reference-distribution-data">Generating Reference Distribution Data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#generating-data-from-the-reference-distribution">Generating Data from the Reference Distribution</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#determining-optimal-k-with-gap-statistic">Determining Optimal K with Gap Statistic</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#silhouette-statistics">6.3.3. Silhouette Statistics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#prediction-strength">6.3.4. Prediction Strength</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prediction-strength">6.3.4. Prediction Strength</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#defining-prediction-strength">Defining Prediction Strength</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="w6_4_hcluster.html">6.4. Hierarchical Clustering</a></li>
@@ -113,18 +116,25 @@
 \[SS(K) = \sum_{k=1}^K \sum_{z_i=k} \| x_i - m_k\|^2.\]</div>
 <p>It’s natural to aim for a smaller SS, indicating tighter clusters. However, as the number of clusters (K) increases, the SS inherently decreases for the same dataset. Thus, relying solely on SS can be misleading when selecting the optimal K.</p>
 <p>To determine the optimal K, researchers often use the “elbow method.” Here, the sum of squares is plotted against K. If a curve is observed with a distinct “elbow” point, that point often signifies the best K value. However, in real-world data, identifying the precise elbow can be challenging due to noise and complexity.</p>
-<p>The <strong>gap statistic</strong> (Tibshirani, Walther and Hastie, 2001)</p>
+<p>The <strong>gap statistic</strong> (Tibshirani, Walther and Hastie, 2001) compares the clustering of actual data against a random clustering from a reference distribution. It’s calculated by measuring the SS from the observed data against the expected log sum of squares from a reference set. This reference set is derived from a distribution that has no intrinsic clustering, meaning an ideal number of clusters would be one.</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}G(K) &amp;= \textcolor{red}{\EE_0} \Big [ \log SS^*(K) \Big ]- \log SS_{\text{obs}}(K) \\
-        &amp; \approx &amp;  \frac{1}{B} \sum_{b=1}^B \log SS^*_b(K) - \log SS_{\text{obs}}(K)\end{split}\]</div>
-<p>compares the clustering of actual data against a random clustering from a reference distribution. It’s calculated by measuring the SS from the observed data against the expected log sum of squares from a reference set. This reference set is derived from a distribution that has no intrinsic clustering, meaning an ideal number of clusters would be one.</p>
+\[\begin{split}G(K) &amp;= \textcolor{red}{\mathbb{E}_0} \Big [ \log SS^*(K) \Big ]- \log SS_{\text{obs}}(K) \\
+        &amp; \approx  \frac{1}{B} \sum_{b=1}^B \log SS^*_b(K) - \log SS_{\text{obs}}(K)\end{split}\]</div>
 <p>To estimate the gap statistic, multiple samples from the reference distribution are taken, and the average over these samples provides an expectation. As K grows, even though the sum of squares shrinks, the difference (or gap) may not always decrease. A high gap statistic suggests that the SS for the observed data at a particular K is notably smaller than its reference counterpart, indicating good clustering.</p>
-<section id="generating-reference-distribution-data">
-<h3>Generating Reference Distribution Data<a class="headerlink" href="#generating-reference-distribution-data" title="Link to this heading"></a></h3>
+<section id="generating-data-from-the-reference-distribution">
+<h3>Generating Data from the Reference Distribution<a class="headerlink" href="#generating-data-from-the-reference-distribution" title="Link to this heading"></a></h3>
 <p>There are two proposed methods:</p>
 <ol class="arabic simple">
-<li><p><strong>Uniform Sampling</strong>: Here, the reference data is uniformly sampled over the range of the observed data. This method may not be effective if the observed data has distinct shapes.</p></li>
-<li><p><strong>Principal Component Based Sampling</strong>: This method samples over the range of the principal components of the observed data, ensuring better alignment with the data’s structure.</p></li>
+<li><dl class="simple">
+<dt>Uniform Sampling:</dt><dd><p>Here, the reference data is uniformly sampled over the range of the observed data. This method may not be effective if the observed data has distinct shapes.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Principal Component Based Sampling:</dt><dd><p>This method samples over the range of the principal components of the observed data, ensuring better alignment with the data’s structure.</p>
+</dd>
+</dl>
+</li>
 </ol>
 </section>
 <section id="determining-optimal-k-with-gap-statistic">
@@ -139,9 +149,52 @@
 </section>
 <section id="silhouette-statistics">
 <h2><span class="section-number">6.3.3. </span>Silhouette Statistics<a class="headerlink" href="#silhouette-statistics" title="Link to this heading"></a></h2>
+<p>The Silhouette statistic (Rousseeuw, 1987) of the i-th obs measures how well it fits in its own cluster versus how well it fits in its next closest cluster.</p>
+<a class="reference internal image-reference" href="../_images/w6_sil_def.png"><img alt="../_images/w6_sil_def.png" src="../_images/w6_sil_def.png" style="width: 562.5px; height: 186.0px;" /></a>
+<p>For well-clustered observations where <span class="math notranslate nohighlight">\(a_i\)</span> is significantly smaller than <span class="math notranslate nohighlight">\(b_i\)</span>, <span class="math notranslate nohighlight">\(s_i\)</span> approaches 1. However, if the i-th observation lies on the borderline of two clusters, both <span class="math notranslate nohighlight">\(a_i\)</span> and <span class="math notranslate nohighlight">\(b_i\)</span>, will be similar, rendering <span class="math notranslate nohighlight">\(s_i\)</span> close to 0.
+In the K-means scenario, <span class="math notranslate nohighlight">\(b_i\)</span> should be greater than <span class="math notranslate nohighlight">\(a_i\)</span>; otherwise, the observation would belong to a different cluster. However, using other clustering algorithms, <span class="math notranslate nohighlight">\(b_i\)</span> could be smaller than <span class="math notranslate nohighlight">\(a_i\)</span>, potentially resulting in a negative silhouette statistic. Even then, the value of <span class="math notranslate nohighlight">\(s_i\)</span> would remain above -1. Extremely negative silhouette statistics indicate poor clustering for the i-th observation.</p>
+<p>To evaluate the overall quality of the clustering, we seek a large silhouette statistic across all observations. The Silhouette Coefficient (SC), sometimes referred to as the silhouette width, is defined as the average silhouette statistic over all samples.</p>
+<p>There are established benchmarks for the silhouette coefficient to gauge the quality of the identified clustering. For example, a rule of thumb from Anja et al. “Clustering in an Object-Oriented Environment ”:</p>
+<ul class="simple">
+<li><p>SC &gt; 70%:  A strong structure has been found.</p></li>
+<li><p>SC &gt; 50%: A reasonable structure has been found.</p></li>
+<li><p>SC &gt; 26% : The structure is weak and could be artificial, try additional methods.</p></li>
+<li><p>SC &lt; 26%: No substantial structure has been found.</p></li>
+</ul>
+<p>We can also plot the silhouette coefficient against varying K values. The optimal K can either be the one yielding the largest silhouette coefficient or a K surpassing a specific threshold.</p>
+<p>For a comprehensive look into our methodology, including the specific R commands and outputs, please refer to our code page.</p>
 </section>
 <section id="prediction-strength">
 <h2><span class="section-number">6.3.4. </span>Prediction Strength<a class="headerlink" href="#prediction-strength" title="Link to this heading"></a></h2>
+<p>The Prediction Strength method is another strategy for choosing the optimal number of clusters K. Here’s how it works:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Step 0:</dt><dd><p>Split the dataset into two subsets: A (the training set) and B (the test set).</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Step 1:</dt><dd><p>Assume there are m observations in test set B. Cluster these m samples into K clusters using your chosen clustering algorithm. Label these clusters as <span class="math notranslate nohighlight">\(C_1, \dots, C_K\)</span>. Each cluster <span class="math notranslate nohighlight">\(C_j\)</span> contains <span class="math notranslate nohighlight">\(m_j\)</span> observations. The sum of the sizes of these clusters <span class="math notranslate nohighlight">\(m_1, \dots, m_K\)</span> is equal to m. This step determines the <strong>true</strong> clustering structure for the test data.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Step 2:</dt><dd><p>Cluster the training data A into K clusters. Use the resultant clustering rule to allocate the m observations from test set B into these K clusters. This essentially means <strong>predicting</strong> the cluster membership for the test set based on the cluster centers determined from the training data. Denote these predicted clusters as <span class="math notranslate nohighlight">\(C'_1, \dots, C'_K\)</span>.</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p>A direct comparison between the true clusters (<span class="math notranslate nohighlight">\(C_j\)</span>) and predicted clusters (<span class="math notranslate nohighlight">\(C'_j\)</span>) is challenging due to the relabeling problem. The identity of clusters may change between datasets, so the clusters from Step 1 and Step 2 might not correspond directly.</p>
+<p>A technique to address this is to assess prediction error using the association or co-membership matrix. This matrix for m observations is m-by-m. An entry in this matrix is “1” if observations ‘i’ and ‘j’ belong to the same cluster, otherwise “0”. For both steps, an association matrix can be generated.</p>
+<section id="defining-prediction-strength">
+<h3>Defining Prediction Strength<a class="headerlink" href="#defining-prediction-strength" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>For each cluster <span class="math notranslate nohighlight">\(C_j\)</span> obtained in Step 1, examine every pair of observations within that cluster. Check if those pairs remain in the same cluster in Step 2.</p></li>
+<li><p>Calculate the average accuracy for each cluster, indicating how often pairs of observations remain together.</p></li>
+<li><p>The “prediction strength” (Tibshirani and Walther 2005) for K clusters is the worst (smallest) accuracy among these clusters.</p></li>
+</ul>
+<p>Choosing the worst accuracy avoids potential biases. If one were to take the average accuracy, the method might be skewed by predominantly classifying many observations into one cluster, artificially inflating the average.</p>
+</section>
 </section>
 </section>
 
