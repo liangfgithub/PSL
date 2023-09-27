@@ -112,7 +112,9 @@ An Iterative Algorithm
 
 Recall the two-component Gaussian mixture model. Imagine that in addition to the data points x_i, we are also given z_i, which indicate which component x_i came from. As discussed before, estimating the model's parameters would be straightforward. 
 
-The heart of our dilemma is that these z_i values are unobserved, or latent. To address this, we can devise an iterative strategy. Starting with an initial guess of our parameters, which encompass the means, variances, and mixing weight π of the Gaussians, we can probabilistically estimate the distribution of Z_i. Then instead of committing a data point entirely to one component, we attribute a fractional count, gamma_i, based on its computed probability. This fraction, lying between 0 and 1, represents the likelihood that belongs to the first Gaussian component. 
+At the core of our challenge is the fact that these Z_i values are unobserved, or latent. To maintain clarity in the subsequent sections, I'll denote random variables with Z_i (uppercase), given that lowercase often denotes observed data.
+
+To navigate this challenge, we'll employ an iterative approach. Starting with an initial guess of our parameters, which encompass the means, variances, and mixing weight π of the Gaussians, we can probabilistically estimate the distribution of Z_i. Then instead of committing a data point entirely to one component, we attribute a fractional count, gamma_i, based on its computed probability. This fraction, lying between 0 and 1, represents the likelihood that belongs to the first Gaussian component. 
 
 
 The process is cyclical: (a) compute the distribution of Z_i, (b) update parameters using weighted counts, then re-estimate the distribution of Z_i using the updated parameters, and so on until convergence. 
