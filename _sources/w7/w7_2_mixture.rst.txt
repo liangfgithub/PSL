@@ -107,5 +107,22 @@ This concept becomes important when we are dealing with continuous distributions
 
 
 An Iterative Algorithm
-----------------------
+-------------------------------
+
+
+Recall the two-component Gaussian mixture model. Imagine that in addition to the data points x_i, we are also given z_i, which indicate which component x_i came from. As discussed before, estimating the model's parameters would be straightforward. 
+
+The heart of our dilemma is that these z_i values are unobserved, or latent. To address this, we can devise an iterative strategy. Starting with an initial guess of our parameters, which encompass the means, variances, and mixing weight π of the Gaussians, we can probabilistically estimate the distribution of Z_i. Then instead of committing a data point entirely to one component, we attribute a fractional count, gamma_i, based on its computed probability. This fraction, lying between 0 and 1, represents the likelihood that belongs to the first Gaussian component. 
+
+
+The process is cyclical: (a) compute the distribution of Z_i, (b) update parameters using weighted counts, then re-estimate the distribution of Z_i using the updated parameters, and so on until convergence. 
+
+.. image:: ../images/w7_EM_a.png
+	:scale: 70 %
+.. image:: ../images/w7_EM_b.png
+	:scale: 70 %
+
+At the heart of this methodology lies a pivotal question: does this iterative procedure yield the Maximum Likelihood Estimator (MLE) that maximizes the marginal likelihood of our observed data?
+
+This elegant cycle of expectation and maximization forms the basis of the Expectation-Maximization (EM) algorithm. In subsequent sections, we'll delve into the two main steps of the EM algorithm and demonstrate that this iterative procedure indeed optimizes the marginal likelihood.
 
