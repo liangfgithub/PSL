@@ -170,7 +170,7 @@ Software packages and libraries handle rank deficiency differently.
 * Python's Scikit-learn returns coefficients with the minimum Euclidean norm (L2 norm) among all possible solutions. Typically, coefficients for all predictors are non-zero.  This approach has connections to the way scikit-learn addresses the least squares problem in the context of rank deficiency: Python uses the Moore-Penrose pseudoinverse of X^t X when it's singular; this approach, when applied to the normal equations, minimizes the Euclidean norm of the coefficient vector.
 
 
-For instance, suppose you want to build a linear model predicting store sales at Walmart using 'Year' as a predictor, yet the training dataset only contains data from a single year (e.g., 2020), predicting sales for 2021 can yield differing results between linear models from R and Python.
+For instance, suppose you want to build a linear model predicting store sales at Walmart using 'Year' as a predictor, yet the training dataset only contains data from a single year (e.g., 2020), predicting sales for 2021 can yield different results between linear models from R and Python.
 
 The minimum norm solution has some desirable properties, like being unique and stable with respect to small perturbations in the data, but it lacks sparsity. Conversely, R's solution champions sparsity but isn't unique. It consistently excludes redundant features listed last. Therefore, reshuffling predictor order can modify the solution.
 
