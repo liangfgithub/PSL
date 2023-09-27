@@ -16,6 +16,7 @@
         <script src="../_static/documentation_options.js?v=2709fde1"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -100,9 +101,36 @@
 <h1><span class="section-number">7.3. </span>The EM Algorithm<a class="headerlink" href="#the-em-algorithm" title="Link to this heading"></a></h1>
 <section id="id1">
 <h2><span class="section-number">7.3.1. </span>The EM Algorithm<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>The Expectation-Maximization (EM) algorithm is an iterative technique designed to compute the Maximum Likelihood Estimation (MLE) by augmenting the sample data with unobserved latent variables.  For instance, in the context of a two-component Gaussian distribution, while we observe x_i, the algorithm suggests an iterative method incorporating a latent variable Z_i that denotes which component x_i originates from. It’s essential to note that Z_i itself isn’t observed; we exclusively observe x_i.</p>
+<p>Let’s denote our data as <span class="math notranslate nohighlight">\(\mathbf{x}=(x_1, ... x_n)\)</span> with a corresponding log-likelihood expressed by a function of unknown parameters <span class="math notranslate nohighlight">\(\theta\)</span>.  Utilizing the latent variables <span class="math notranslate nohighlight">\(\mathbf{Z} = (Z_1, ..., Z_n)\)</span>, the log-likelihood can be expressed as the logarithm of a summation. Specifically, in the case of the two-component Gaussian distribution, this sum iterates over all z_i either taking the value one or two. A direct maximization of this function proves challenging due to the presence of the sum within the logarithm.</p>
+<div class="math notranslate nohighlight">
+\[\log p(\mathbf{x} | \theta) = \log \sum_{\mathbf{z}} p(\mathbf{x}, \mathbf{z}| \theta) = \log \sum_{\mathbf{z}} p(\mathbf{z} | \theta) p(\mathbf{x} | \mathbf{z} , \theta).\]</div>
+<p>The EM algorithm circumvents this difficulty, by operating under the assumption that if <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span> were known and subsequently working with the log of the joint likelihood:</p>
+<div class="math notranslate nohighlight">
+\[\log p(\mathbf{x}, \mathbf{Z} | \theta) = \log p(\mathbf{Z} | \theta) + \log p(\mathbf{x} | \mathbf{Z}, \theta).\]</div>
+<p>Throughout the derivations, I consistently utilize uppercase Z to emphasize that it is a random variable, given that it’s not directly observed.</p>
+<p>The EM algorithm consists of two iterative steps.</p>
+<a class="reference internal image-reference" href="../_images/w7_EM_alg.png"><img alt="../_images/w7_EM_alg.png" src="../_images/w7_EM_alg.png" style="width: 506.09999999999997px; height: 268.79999999999995px;" /></a>
+<p>The first, known as the E-step, involves taking an expectation. While our aim is to work with the log of the joint likelihood, the absence of observed Z values compels us to begin with an initial parameter value, <span class="math notranslate nohighlight">\(\theta_0\)</span>, and compute the expectation of Z given both the data and the initial <span class="math notranslate nohighlight">\(\theta_0\)</span>. In scenarios like the two-component Gaussian distribution, the conditional distribution of <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span> given <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and <span class="math notranslate nohighlight">\(\theta_0\)</span> can be factored and computed independently for each Z_i. The expectation can be computed as a sum or integral, resulting in a function g.</p>
+<p>Our next task is to find a <span class="math notranslate nohighlight">\(\theta_1\)</span> value that
+maximizes g, subsequently replacing <span class="math notranslate nohighlight">\(\theta_0\)</span> with <span class="math notranslate nohighlight">\(\theta_1\)</span>. This iterative process, alternating between the E and M steps, continues until convergence is achieved.</p>
+<p>The heuristic iterative approach we’ve proposed for the two-component normal essentially mirrors the EM (Expectation-Maximization) algorithm.</p>
 </section>
 <section id="why-it-works">
 <h2><span class="section-number">7.3.2. </span>Why It Works<a class="headerlink" href="#why-it-works" title="Link to this heading"></a></h2>
+<p>One essential proof remains: After each iteration, the EM algorithm improves the marginal likelihood of X. This means that for every iteration, the new parameter value <span class="math notranslate nohighlight">\(\theta_1\)</span> should yield a larger marginal likelihood than the previous value <span class="math notranslate nohighlight">\(\theta_0\)</span>.</p>
+<p>To establish this, start by recalling the definition of <span class="math notranslate nohighlight">\(g(\theta)\)</span>, which is the expected value of the logarithm of the joint likelihood of <span class="math notranslate nohighlight">\((\mathbf{x}, \mathbf{Z})\)</span>, where expectation is calculated with respect to <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span>, conditional upon data <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and <span class="math notranslate nohighlight">\(\theta_0\)</span>. Note that regardless of the <span class="math notranslate nohighlight">\(\theta\)</span> value in <span class="math notranslate nohighlight">\(g(\theta)\)</span>, expectations are consistently taken with respect to <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span> given <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and <span class="math notranslate nohighlight">\(\theta_0\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[g(\theta) = \mathbb{E}_{\mathbf{Z} | \mathbf{x}, \theta_0} \log p(\mathbf{x}, \mathbf{Z} | \theta)\]</div>
+<p>Now consider <span class="math notranslate nohighlight">\(g(\theta_1) - g(\theta_0).\)</span> Since the expectation remains consistent, this difference can be expressed as the logarithm of a ratio with <span class="math notranslate nohighlight">\(\theta_1\)</span> in the numerator and <span class="math notranslate nohighlight">\(\theta_0\)</span> in the denominator. Next, factor the joint likelihood of <span class="math notranslate nohighlight">\((\mathbf{x}, \mathbf{Z})\)</span> into the marginal likelihood of the marginal likelihood of <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and the conditional likelihood of <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span> given <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and whatever <span class="math notranslate nohighlight">\(\theta\)</span> value.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}g(\theta_1) - g(\theta_0) &amp;= \mathbb{E}_ {\mathbf{Z} | \mathbf{x}, \theta_0} \log \frac{p(\mathbf{x}, \mathbf{Z} | \theta_1)}{p(\mathbf{x}, \mathbf{Z} | \theta_0)}  = \mathbb{E}_ {\mathbf{Z} | \mathbf{x}, \theta_0} \log \frac{p(\mathbf{x} | \theta_1) p (\mathbf{Z} | \mathbf{x}, \theta_1)}{p(\mathbf{x} | \theta_0) p(\mathbf{Z} | \mathbf{x}, \theta_0)}  \\
+&amp;= \log \frac{p(\mathbf{x} | \theta_1)}{p(\mathbf{x} | \theta_0)} - \mathbb{E}_ {\mathbf{Z} | \mathbf{x}, \theta_0} \log \frac{p(\mathbf{Z} | \mathbf{x}, \theta_0)}{p( \mathbf{Z} | \mathbf{x}, \theta_1)}\end{split}\]</div>
+<p>We arrive at the final result by decomposing the terms inside the logarithm into two separate ratios. The ratio to the left, independent of Z, can be pulled outside of the expectation, while the ratio to the right is inverted and negated.</p>
+<p>Rearranging these terms, we reach a specific expression:</p>
+<div class="math notranslate nohighlight">
+\[\log \frac{p(\mathbf{x}| \theta_1)}{p(\mathbf{x} | \theta_0)}  = \underbrace{g(\theta_1) - g(\theta_0)}_{\ge 0} +  \underbrace{\mathbb{E}_ {\mathbf{Z} | \mathbf{x}, \theta_0} \log \frac{p(\mathbf{Z} | \mathbf{x}, \theta_0)}{p( \mathbf{Z} | \mathbf{x}, \theta_1)}}_{\ge 0}.\]</div>
+<p>We can infer that the left-hand side is non-negative, since 1) the non-negativity of the KL-divergence between the two distributions over Z; and 2) our algorithm ensures that the difference <span class="math notranslate nohighlight">\(g(\theta_1) - g(\theta_0)\)</span> remains non-negative. Hence, we confirm that the iterative process indeed improves the marginal likelihood with each step.</p>
 </section>
 <section id="connection-with-k-means">
 <h2><span class="section-number">7.3.3. </span>Connection with K-means<a class="headerlink" href="#connection-with-k-means" title="Link to this heading"></a></h2>

@@ -4,9 +4,62 @@ The EM Algorithm
 The EM Algorithm
 -----------------------
 
+The Expectation-Maximization (EM) algorithm is an iterative technique designed to compute the Maximum Likelihood Estimation (MLE) by augmenting the sample data with unobserved latent variables.  For instance, in the context of a two-component Gaussian distribution, while we observe x_i, the algorithm suggests an iterative method incorporating a latent variable Z_i that denotes which component x_i originates from. It's essential to note that Z_i itself isn't observed; we exclusively observe x_i. 
+
+Let's denote our data as :math:`\mathbf{x}=(x_1, ... x_n)` with a corresponding log-likelihood expressed by a function of unknown parameters :math:`\theta`.  Utilizing the latent variables :math:`\mathbf{Z} = (Z_1, ..., Z_n)`, the log-likelihood can be expressed as the logarithm of a summation. Specifically, in the case of the two-component Gaussian distribution, this sum iterates over all z_i either taking the value one or two. A direct maximization of this function proves challenging due to the presence of the sum within the logarithm. 
+
+.. math::
+	\log p(\mathbf{x} | \theta) = \log \sum_{\mathbf{z}} p(\mathbf{x}, \mathbf{z}| \theta) = \log \sum_{\mathbf{z}} p(\mathbf{z} | \theta) p(\mathbf{x} | \mathbf{z} , \theta).
+
+The EM algorithm circumvents this difficulty, by operating under the assumption that if :math:`\mathbf{Z}` were known and subsequently working with the log of the joint likelihood: 
+
+.. math::
+	\log p(\mathbf{x}, \mathbf{Z} | \theta) = \log p(\mathbf{Z} | \theta) + \log p(\mathbf{x} | \mathbf{Z}, \theta). 
+
+Throughout the derivations, I consistently utilize uppercase Z to emphasize that it is a random variable, given that it's not directly observed.
+
+
+The EM algorithm consists of two iterative steps. 
+
+
+.. image:: ../images/w7_EM_alg.png
+	:scale: 70 %
+
+
+The first, known as the E-step, involves taking an expectation. While our aim is to work with the log of the joint likelihood, the absence of observed Z values compels us to begin with an initial parameter value, :math:`\theta_0`, and compute the expectation of Z given both the data and the initial :math:`\theta_0`. In scenarios like the two-component Gaussian distribution, the conditional distribution of :math:`\mathbf{Z}` given :math:`\mathbf{x}` and :math:`\theta_0` can be factored and computed independently for each Z_i. The expectation can be computed as a sum or integral, resulting in a function g. 
+
+Our next task is to find a :math:`\theta_1` value that 
+maximizes g, subsequently replacing :math:`\theta_0` with :math:`\theta_1`. This iterative process, alternating between the E and M steps, continues until convergence is achieved.
+
+The heuristic iterative approach we've proposed for the two-component normal essentially mirrors the EM (Expectation-Maximization) algorithm. 
 
 Why It Works
 -----------------------
+
+One essential proof remains: After each iteration, the EM algorithm improves the marginal likelihood of X. This means that for every iteration, the new parameter value :math:`\theta_1` should yield a larger marginal likelihood than the previous value :math:`\theta_0`. 
+
+To establish this, start by recalling the definition of :math:`g(\theta)`, which is the expected value of the logarithm of the joint likelihood of :math:`(\mathbf{x}, \mathbf{Z})`, where expectation is calculated with respect to :math:`\mathbf{Z}`, conditional upon data :math:`\mathbf{x}` and :math:`\theta_0`. Note that regardless of the :math:`\theta` value in :math:`g(\theta)`, expectations are consistently taken with respect to :math:`\mathbf{Z}` given :math:`\mathbf{x}` and :math:`\theta_0`. 
+
+.. math::
+	g(\theta) = \mathbb{E}_{\mathbf{Z} | \mathbf{x}, \theta_0} \log p(\mathbf{x}, \mathbf{Z} | \theta)
+
+Now consider :math:`g(\theta_1) - g(\theta_0).` Since the expectation remains consistent, this difference can be expressed as the logarithm of a ratio with :math:`\theta_1` in the numerator and :math:`\theta_0` in the denominator. Next, factor the joint likelihood of :math:`(\mathbf{x}, \mathbf{Z})` into the marginal likelihood of the marginal likelihood of :math:`\mathbf{x}` and the conditional likelihood of :math:`\mathbf{Z}` given :math:`\mathbf{x}` and whatever :math:`\theta` value.  
+
+.. math::
+	g(\theta_1) - g(\theta_0) &= \mathbb{E}_ {\mathbf{Z} | \mathbf{x}, \theta_0} \log \frac{p(\mathbf{x}, \mathbf{Z} | \theta_1)}{p(\mathbf{x}, \mathbf{Z} | \theta_0)}  = \mathbb{E}_ {\mathbf{Z} | \mathbf{x}, \theta_0} \log \frac{p(\mathbf{x} | \theta_1) p (\mathbf{Z} | \mathbf{x}, \theta_1)}{p(\mathbf{x} | \theta_0) p(\mathbf{Z} | \mathbf{x}, \theta_0)}  \\
+	&= \log \frac{p(\mathbf{x} | \theta_1)}{p(\mathbf{x} | \theta_0)} - \mathbb{E}_ {\mathbf{Z} | \mathbf{x}, \theta_0} \log \frac{p(\mathbf{Z} | \mathbf{x}, \theta_0)}{p( \mathbf{Z} | \mathbf{x}, \theta_1)}
+
+
+We arrive at the final result by decomposing the terms inside the logarithm into two separate ratios. The ratio to the left, independent of Z, can be pulled outside of the expectation, while the ratio to the right is inverted and negated.
+
+
+Rearranging these terms, we reach a specific expression:
+
+.. math::
+	\log \frac{p(\mathbf{x}| \theta_1)}{p(\mathbf{x} | \theta_0)}  = \underbrace{g(\theta_1) - g(\theta_0)}_{\ge 0} +  \underbrace{\mathbb{E}_ {\mathbf{Z} | \mathbf{x}, \theta_0} \log \frac{p(\mathbf{Z} | \mathbf{x}, \theta_0)}{p( \mathbf{Z} | \mathbf{x}, \theta_1)}}_{\ge 0}. 
+
+We can infer that the left-hand side is non-negative, since 1) the non-negativity of the KL-divergence between the two distributions over Z; and 2) our algorithm ensures that the difference :math:`g(\theta_1) - g(\theta_0)` remains non-negative. Hence, we confirm that the iterative process indeed improves the marginal likelihood with each step.
+
 
 
 Connection with K-means
@@ -14,7 +67,7 @@ Connection with K-means
 
 
 An Alternative View of EM
------------------------
+------------------------------
 
 
 Variational EM
