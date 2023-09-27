@@ -26,9 +26,9 @@ The primary concern in supervised learning is that the training error (how well 
 **Subtle Differences Between Learning and Optimization**
 
 
-	While optimization plays a crucial role in the learning process, it is essential to distinguish between learning and optimization. Central to this is our characterization of the objective function. Rather than denoting it simply as F(w), it's more apt to represent it as F_n(w). The importance of this distinction lies in the fact that F_n(w) is a metric we get from a random training sample of size n. As the sample size grows, the average loss F_n(w)/n converges to the expected loss over an infinite number of samples. This expected loss is the genuine objective function we aim to minimize. 
+	While optimization plays a crucial role in the learning process, it is essential to distinguish between learning and optimization. Central to this is our characterization of the objective function. Rather than denoting it simply as :math:`F(w)`, it's more apt to represent it as :math:`F_n(w)`. The importance of this distinction lies in the fact that :math:`F_n(w)` is a metric we get from a random training sample of size n. As the sample size grows, the average loss :math:`F_n(w)/n` converges to the expected loss over an infinite number of samples. This expected loss is the genuine objective function we aim to minimize. 
 
-	The fact that F_n(w) is merely an approximation of the true objective function is pivotal. In many situations, it might not be necessary, or even advisable, to push for a stringent optimization of F_n(w). This is particularly evident when we observe that sometimes suboptimal solutions, like those yielded by gradient descent, can still deliver good results. 
+	The fact that :math:`F_n(w)` is merely an approximation of the true objective function is pivotal. In many situations, it might not be necessary, or even advisable, to push for a stringent optimization of :math:`F_n(w)`. This is particularly evident when we observe that sometimes suboptimal solutions, like those yielded by gradient descent, can still deliver good results. 
 
 
 
