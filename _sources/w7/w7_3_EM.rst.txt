@@ -1,0 +1,22 @@
+The EM Algorithm
+================================
+
+The EM Algorithm
+-----------------------
+
+
+Why It Works
+-----------------------
+
+
+Connection with K-means
+-----------------------
+
+
+An Alternative View of EM
+-----------------------
+
+
+Variational EM
+-----------------------
+

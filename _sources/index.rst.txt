@@ -7,10 +7,10 @@
 Practical Statistical Learning (PSL)
 ====================================
 
+(Often humorously dubbed "Pumpkin Spice Latte" by our online students.)
 
-These notes are based on a course in statistical learning developed by **John Marden** (jimarden AT illinois DOT edu) and **Feng Liang** (liangf AT illinois DOT edu) at UIUC using the text `The Elements of 
-Statistical Learning <https://hastie.su.domains/ElemStatLearn/>`_ by 
-Hastie, Tibshirani and Friedman.
+These materials have been curated from a course in statistical learning, developed by Professors **John Marden** (jimarden AT illinois DOT edu) and **Feng Liang** (liangf AT illinois DOT edu) at the University of Illinois Urbana-Champaign (UIUC). The course predominantly draws upon the seminal text `The Elements of Statistical Learning <https://hastie.su.domains/ElemStatLearn/>`_ by Hastie, Tibshirani, and Friedman.
+
 
  .. note::
 

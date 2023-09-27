@@ -1,0 +1,22 @@
+Hidden Markov Models
+===================================
+
+
+Introduction
+--------------------------
+
+
+Forward Probabilities
+--------------------------
+
+Backward Probabilities
+--------------------------
+
+
+The Baum-Welch Algorithm
+--------------------------
+
+
+The Viterbi Algorithm
+--------------------------
+

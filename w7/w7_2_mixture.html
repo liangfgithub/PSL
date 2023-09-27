@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>7.2. Mixture Models &mdash; PSL_Book 0.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=2709fde1"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="7.3. The EM Algorithm" href="w7_3_EM.html" />
+    <link rel="prev" title="7.1. Model-based Clustering" href="w7_1_intro.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PSL_Book
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../w1/w1_index.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w2/w2_index.html">2. Linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w3/w3_index.html">3. Variable Selection and Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w4/w4_index.html">4. Regression Trees and Ensemble</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w5/w5_index.html">5. Nonlinear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w6/w6_index.html">6. Clustering Analysis</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="w7_index.html">7. Latent Structure Models</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="w7_1_intro.html">7.1. Model-based Clustering</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">7.2. Mixture Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">7.2.1. Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#two-component-gaussian-mixture">7.2.2. Two-Component Gaussian Mixture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kl-distance">7.2.3. KL Distance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#an-iterative-algorithm">7.2.4. An Iterative Algorithm</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="w7_3_EM.html">7.3. The EM Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w7_4_LDA.html">7.4. Latent Dirichlet Allocation Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w7_5_hmm.html">7.5. Hidden Markov Models</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../w8/w8_index.html">8. TBA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w9/w9_index.html">9. Discriminant Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w10/w10_index.html">10. Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w11/w11_index.html">11. Support Vector Machine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w12/w12_index.html">12. Classification Trees and Boosting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w13/w13_index.html">13. Recommender System</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PSL_Book</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="w7_index.html"><span class="section-number">7. </span>Latent Structure Models</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">7.2. </span>Mixture Models</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="mixture-models">
+<h1><span class="section-number">7.2. </span>Mixture Models<a class="headerlink" href="#mixture-models" title="Link to this heading"></a></h1>
+<section id="introduction">
+<h2><span class="section-number">7.2.1. </span>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+<p>A mixture model, with K components, describes a distribution whose probability density function (pdf) is formulated</p>
+<div class="math notranslate nohighlight">
+\[f(x) = \sum_{k=1}^K \pi_k f_k(x \mid \theta_k),\]</div>
+<p>This pdf can be interpreted as a weighted sum of K different pdfs, where each weight, denoted by <span class="math notranslate nohighlight">\(\pi_k\)</span> lies between 0 and 1. The sum of all these weights is equal to one. Each <span class="math notranslate nohighlight">\(f_k(\cdot \mid \theta_k)\)</span> is a specific probability density function parameterized by <span class="math notranslate nohighlight">\(\theta_k\)</span>.</p>
+<p>Now, how do we generate data from such a mixture model?</p>
+<p>To clarify, consider a hypothetical data generation process where K observations are drawn from each of the components <span class="math notranslate nohighlight">\(f_k\)</span> and averaged, given that each weight is <span class="math notranslate nohighlight">\(\pi_k\)</span>. However, this depiction is inaccurate. In reality, for a mixture model, each observation stems exclusively from one component.</p>
+<p>A more accurate portrayal of the data generation process for a mixture model would involve two steps:</p>
+<ul class="simple">
+<li><p>First, generate a lable Z that ranges from 1 to K. This label is derived from a multinomial distribution with <span class="math notranslate nohighlight">\(P(Z=k) = \pi_k\)</span> where k = 1, …, K.</p></li>
+<li><p>Given Z=k, then generate the observation X from that specific k-th component, <span class="math notranslate nohighlight">\(f_k(x \mid \theta_k)\)</span>.</p></li>
+</ul>
+</section>
+<section id="two-component-gaussian-mixture">
+<h2><span class="section-number">7.2.2. </span>Two-Component Gaussian Mixture<a class="headerlink" href="#two-component-gaussian-mixture" title="Link to this heading"></a></h2>
+<p>Consider a simple Gaussian mixture model with two components in a one-dimensional space. The probability density function (pdf) of our model is a linear combination of two normal distributions:</p>
+<div class="math notranslate nohighlight">
+\[p(x | \theta) = \pi \phi_{\mu_1, \sigma_1^2} (x) + (1- \pi) \phi_{\mu_2, \sigma_2^2}(x).\]</div>
+<p>where <span class="math notranslate nohighlight">\(\phi_{\mu, \sigma^2} (x)\)</span> represents the (one-dimensional) normal distribution with mean <span class="math notranslate nohighlight">\(\mu\)</span> and variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>.</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\phi_{\mu, \sigma^2} (x) = \frac{1}{\sqrt{2 \pi \sigma^2}} \exp \Big \{ - \frac{(x- \mu)^2}{2 \sigma^2} \Big  \}\]</div>
+</div></blockquote>
+<p>In such a model, the unknown parameters are collectively represented by <span class="math notranslate nohighlight">\(\theta = (\mu_1, \mu_2, \sigma^2_1, \sigma^2_2, \pi)\)</span>, consisting of five values: the means and variances for each component, and the mixing weight <span class="math notranslate nohighlight">\(\pi\)</span>.</p>
+<p>Moving forward, let’s discuss deriving the Maximum Likelihood Estimate (MLE) for these parameters. Given
+n one-dimensional training samples x_1, …, x_n, the log-likelihood of these samples can be described as the sum of log values of their individual pdfs. The challenge arises when trying to maximize this log-likelihood. While doing so for a single normal distribution yields a closed-form solution, the task becomes complex for a mixture model.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\log p(x_{1:n} | \theta) &amp; = \sum_{i=1}^n \log \Big [ \pi \phi_{\mu_1, \sigma_1^2} (x_i) + (1- \pi) \phi_{\mu_2, \sigma_2^2}(x_i)\Big ] \\
+\hat{\theta}_{\text{MLE}} &amp; = \arg\max_{\theta} \log p(x_{1:n} | \theta)\end{split}\]</div>
+<p>Interestingly, if we knew which component each sample came from, the MLE computation would be straightforward. To simplify, let’s introduce a latent variable Z_i for each observation. This Z_i can be either 1 or 2, indicating which component the observation originates from. As mentioned before, the mixture model can be viewed as a two-stage process:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Z_i &amp; \sim \text{Bernoulli}(\pi) \\
+X_i | Z_i = k &amp; \sim \text{Normal}(\mu_k, \sigma^2_k)\end{split}\]</div>
+<p>The likelihood of observing both x_i and z_i can be represented as a product form:</p>
+<div class="math notranslate nohighlight">
+\[\prod_{i=1}^n \Big [ \pi \phi_{\mu_1, \sigma_1^2} (x_i) \Big ]^{\{z_i =1\}}  \Big [ (1-\pi) \phi_{\mu_2, \sigma_2^2} (x_i) \Big ]^{\{z_i =2\}}.\]</div>
+<p>The log-likelihood is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp;  \sum_{i} \mathbf{1}_{\{ z_i = 1\}} \big [ \log \phi_{\mu_1, \sigma_1^2} (x_i) + \log \pi \big ] +  \mathbf{1}_{\{ z_i=2\}} \big [ \log \phi_{\mu_2, \sigma_2^2} (x_i) + \log (1-\pi) \big ] \\
+= &amp;  \sum_{i: z_i =1} \big [ \log \phi_{\mu_1, \sigma_1^2} (x_i) + \log \pi \big ] +  \sum_{i: z_i =2}  \big [ \log \phi_{\mu_2, \sigma_2^2} (x_i) + \log (1-\pi) \big ].\end{split}\]</div>
+<p>This allows us to segment our data based on the components they come from. When estimating parameters for each normal distribution, we essentially revert to the simpler case of single normals.</p>
+<p>For example, the MLE for <span class="math notranslate nohighlight">\(\mu_1\)</span>, the mean of the first component, is just the average of observations from that component. The variance can be similarly computed. The same logic applies to the second component.</p>
+<p>Lastly, the mixing weight <span class="math notranslate nohighlight">\(\pi\)</span> can intuitively be represented as the proportion of observations from the first component. While formal derivation can be achieved through Lagrangian methods, an insightful perspective reveals that this value is essentially the Negative Kullback-Leibler (KL) divergence between two Bernoulli distributions, one with parameter :math:<cite>pi</cite> and the other with parameter n_1/n. The maximum value for this divergence is zero, which can be achieved by aligning the two distributions. This leads us to <span class="math notranslate nohighlight">\(\hat{\pi} = n_1/n\)</span>.</p>
+</section>
+<section id="kl-distance">
+<h2><span class="section-number">7.2.3. </span>KL Distance<a class="headerlink" href="#kl-distance" title="Link to this heading"></a></h2>
+<p>Consider two distributions, p(x) and q(x), defined over the same domain. These distributions might represent continuous density functions across the real line or discrete distributions spanning a finite set of values.</p>
+<p>A metric called the Kullback-Leibler (KL) Divergence can be employed to determine the distance between these distributions. It’s given by:</p>
+<div class="math notranslate nohighlight">
+\[KL(p \| q) = \mathbb{E}_{X \sim p} \log \Big [ \frac{p(X)}{q(X)} \Big ].\]</div>
+<p>Here, the idea is to compare the likelihood ratio, p(x)/q(x), across  the data points and compute their average, using the expectation taken with respect to p. In the case of continuous distributions, this expectation translates to an integral <span class="math notranslate nohighlight">\(\int p(x) \log \frac{p(x)}{q(x)} d x\)</span>, whereas for discrete distributions, it’s a summation <span class="math notranslate nohighlight">\(\sum_{j=1}^m p_j \log \frac{p_j}{q_j}\)</span>, operating under the governing influence of the numerator’s distribution.</p>
+<p>Notably, KL divergence is asymmetrical; switching p and q alters its value. While it’s not a true distance in the mathematical sense, it is a commonly employed metric in statistics and machine learning to gauge the difference between two distributions. Furthermore, it’s always non-negative and reaches zero exclusively when the two distributions are identical (almost surely).</p>
+<p>To show that the KL divergence is always non-negative, we employ Jensen’s Inequality, which pertains to expectations of functions. In particular, when a function g is convex, Jensen’s inequality holds:</p>
+<div class="math notranslate nohighlight">
+\[\mathbb{E}\big[g(X) \big ] \ge g \big ( \mathbb{E}[X]\big)\]</div>
+<p>The equality is achieved when g is linear. By manipulating the KL divergence, we can utilize this inequality and the convexity of the negative logarithm to deduce that the divergence is always greater than or equal to zero. Furthermore, when it equals zero, it implies that the distributions p and q are essentially the same (up to a measure zero set).</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}KL(p \| q) &amp; = \mathbb{E} _{X \sim p} \Big [ - \log \frac{q(X)}{p(X)} \Big ] \\
+&amp; \ge - \log \Big [ \mathbb{E}_{X \sim p}  \frac{q(X)}{p(X)} \Big ] =0,\end{split}\]</div>
+<p>since <span class="math notranslate nohighlight">\(\mathbb{E}_{X \sim p}  \frac{q(X)}{p(X)} = \int p(x) \cdot q(x)/p(x) dx = \int q(x) d x = 1\)</span> and <span class="math notranslate nohighlight">\(\log (1) =0\)</span>.</p>
+<p>The phrase “up to a measure zero set” refers to the concept in measure theory where certain subsets of the domain have “no size” or “no volume.” In simpler terms, a set having measure zero means that its total length, area, volume, etc., is zero, even if it contains an infinite number of points. For instance, in the real line, any single point or a finite collection of points has a measure (length) of zero.</p>
+<p>This concept becomes important when we are dealing with continuous distributions. For continuous distributions, asserting that two distributions are identical requires precision. Their density functions might differ at a set of points,, but if that set has a measure of zero, it doesn’t influence the integrals (like the expected value) computed from the functions. Hence, for most practical applications, the two distributions are considered identical.</p>
+</section>
+<section id="an-iterative-algorithm">
+<h2><span class="section-number">7.2.4. </span>An Iterative Algorithm<a class="headerlink" href="#an-iterative-algorithm" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="w7_1_intro.html" class="btn btn-neutral float-left" title="7.1. Model-based Clustering" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="w7_3_EM.html" class="btn btn-neutral float-right" title="7.3. The EM Algorithm" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Feng Liang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

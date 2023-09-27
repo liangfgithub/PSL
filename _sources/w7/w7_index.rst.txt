@@ -1,24 +1,12 @@
 Latent Structure Models
 ====================================
 
-Model-based Clustering
---------------------------------------
 
+.. toctree::
+   :maxdepth: 1
 
-Mixture Models
---------------------------------------
- 
-
-Two-component Gaussian Mixtures
---------------------------------------
-
-
-The EM Algorithm
---------------------------------------
-
-Latent Dirichlet Allocation Model
---------------------------------------
-
-Hidden Markov Models
---------------------------------------
-
+   w7_1_intro.rst
+   w7_2_mixture.rst
+   w7_3_EM.rst
+   w7_4_LDA.rst
+   w7_5_hmm.rst

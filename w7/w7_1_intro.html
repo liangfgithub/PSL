@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>7. Latent Structure Models &mdash; PSL_Book 0.1 documentation</title>
+  <title>7.1. Model-based Clustering &mdash; PSL_Book 0.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="7.1. Model-based Clustering" href="w7_1_intro.html" />
-    <link rel="prev" title="6.5. R/Python Code" href="../w6/w6_5_code.html" /> 
+    <link rel="next" title="7.2. Mixture Models" href="w7_2_mixture.html" />
+    <link rel="prev" title="7. Latent Structure Models" href="w7_index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -49,8 +49,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../w4/w4_index.html">4. Regression Trees and Ensemble</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../w5/w5_index.html">5. Nonlinear Regression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../w6/w6_index.html">6. Clustering Analysis</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">7. Latent Structure Models</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="w7_1_intro.html">7.1. Model-based Clustering</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="w7_index.html">7. Latent Structure Models</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">7.1. Model-based Clustering</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w7_2_mixture.html">7.2. Mixture Models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w7_3_EM.html">7.3. The EM Algorithm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w7_4_LDA.html">7.4. Latent Dirichlet Allocation Model</a></li>
@@ -79,7 +79,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active"><span class="section-number">7. </span>Latent Structure Models</li>
+          <li class="breadcrumb-item"><a href="w7_index.html"><span class="section-number">7. </span>Latent Structure Models</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">7.1. </span>Model-based Clustering</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -88,25 +89,22 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="latent-structure-models">
-<h1><span class="section-number">7. </span>Latent Structure Models<a class="headerlink" href="#latent-structure-models" title="Link to this heading"></a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="w7_1_intro.html">7.1. Model-based Clustering</a></li>
-<li class="toctree-l1"><a class="reference internal" href="w7_2_mixture.html">7.2. Mixture Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="w7_3_EM.html">7.3. The EM Algorithm</a></li>
-<li class="toctree-l1"><a class="reference internal" href="w7_4_LDA.html">7.4. Latent Dirichlet Allocation Model</a></li>
-<li class="toctree-l1"><a class="reference internal" href="w7_5_hmm.html">7.5. Hidden Markov Models</a></li>
-</ul>
-</div>
+  <section id="model-based-clustering">
+<h1><span class="section-number">7.1. </span>Model-based Clustering<a class="headerlink" href="#model-based-clustering" title="Link to this heading"></a></h1>
+<p>Model-based clustering involves a process wherein a mixture model is fitted, and each resulting cluster corresponds to a component of that mixture model. For illustration, consider the “Old Faithful Geyser” data, for which you can locate the code on our R code page. This data is two-dimensional. On the left, we fit a mixture model with two Gaussian components, while on the right, the same data is fitted with three normal components.</p>
+<a class="reference internal image-reference" href="../_images/w7_geyser_2.png"><img alt="../_images/w7_geyser_2.png" src="../_images/w7_geyser_2.png" style="width: 285.3px; height: 247.05px;" /></a>
+<a class="reference internal image-reference" href="../_images/w7_geyser_3.png"><img alt="../_images/w7_geyser_3.png" src="../_images/w7_geyser_3.png" style="width: 277.2px; height: 247.5px;" /></a>
+<p>In essence, clustering is framed as fitting a mixture model to the data, enabling us to understand the distribution of the variable, X. To determine the appropriate number of clusters, or ‘K’, metrics like AIC or BIC can be employed.</p>
+<p>However, a primary challenge in model-based clustering, or more generally when fitting a mixture model, is the estimation of the relevant parameters. To address this, the EM (Expectation-Maximization) algorithm is introduced as the primary method for obtaining the Maximum Likelihood Estimation (MLE) of these parameters in mixture models.</p>
+<p>It’s worth noting that while our discussion centers on clustering, mixture models are part of a broader class of statistical models known as hierarchical models. The applications of mixture models extend far beyond just clustering.</p>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../w6/w6_5_code.html" class="btn btn-neutral float-left" title="6.5. R/Python Code" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="w7_1_intro.html" class="btn btn-neutral float-right" title="7.1. Model-based Clustering" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="w7_index.html" class="btn btn-neutral float-left" title="7. Latent Structure Models" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="w7_2_mixture.html" class="btn btn-neutral float-right" title="7.2. Mixture Models" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
