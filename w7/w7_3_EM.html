@@ -110,7 +110,7 @@
 \[\log p(\mathbf{x}, \mathbf{Z} | \theta) = \log p(\mathbf{Z} | \theta) + \log p(\mathbf{x} | \mathbf{Z}, \theta).\]</div>
 <p>Throughout the derivations, I consistently utilize uppercase Z to emphasize that it is a random variable, given that it’s not directly observed.</p>
 <p>The EM algorithm consists of two iterative steps.</p>
-<a class="reference internal image-reference" href="../_images/w7_EM_alg.png"><img alt="../_images/w7_EM_alg.png" src="../_images/w7_EM_alg.png" style="width: 506.09999999999997px; height: 268.79999999999995px;" /></a>
+<a class="reference internal image-reference" href="../_images/w7_EM_alg.png"><img alt="../_images/w7_EM_alg.png" src="../_images/w7_EM_alg.png" style="width: 542.25px; height: 288.0px;" /></a>
 <p>The first, known as the E-step, involves taking an expectation. While our aim is to work with the log of the joint likelihood, the absence of observed Z values compels us to begin with an initial parameter value, <span class="math notranslate nohighlight">\(\theta_0\)</span>, and compute the expectation of Z given both the data and the initial <span class="math notranslate nohighlight">\(\theta_0\)</span>. In scenarios like the two-component Gaussian distribution, the conditional distribution of <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span> given <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and <span class="math notranslate nohighlight">\(\theta_0\)</span> can be factored and computed independently for each Z_i. The expectation can be computed as a sum or integral, resulting in a function g.</p>
 <p>Our next task is to find a <span class="math notranslate nohighlight">\(\theta_1\)</span> value that
 maximizes g, subsequently replacing <span class="math notranslate nohighlight">\(\theta_0\)</span> with <span class="math notranslate nohighlight">\(\theta_1\)</span>. This iterative process, alternating between the E and M steps, continues until convergence is achieved.</p>
@@ -134,12 +134,51 @@ maximizes g, subsequently replacing <span class="math notranslate nohighlight">\
 </section>
 <section id="connection-with-k-means">
 <h2><span class="section-number">7.3.3. </span>Connection with K-means<a class="headerlink" href="#connection-with-k-means" title="Link to this heading"></a></h2>
+<p>The EM algorithm for Gaussian mixtures bears a resemblance to the K-means algorithm. Let’s dive deeper into their similarities and differences.</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>In the EM algorithm:</dt><dd><p>The <span class="math notranslate nohighlight">\(\gamma_i\)</span>’s are probabilities that lie between zero and one.’</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>In the K-means algorithm:</dt><dd><p>The <span class="math notranslate nohighlight">\(\gamma_i\)</span>’s take on only two values: one or zero. This means each observation is assigned to the single cluster it is closest to.</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p>A natural question that arises is: under what circumstances would the EM algorithm mimic the k-means algorithm? In other words, when would our <span class="math notranslate nohighlight">\(\gamma_i\)</span>’s be close to either one or zero?</p>
+<p>To explore this, let’s consider the ratio <span class="math notranslate nohighlight">\(\gamma_i/(1- \gamma_i)\)</span>. For the sake of simplicity, let’s make an assumption that the variance of two normals are identical. Under this assumption, our ratio can be expressed as:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\pi}{1-\pi} \times \exp \Big ( -\frac{1}{\sigma^2}\big [ (x_i - \mu_1)^2 - (x_i - \mu_2)^2 \big ] \Big ).\]</div>
+<p>Now, let’s think of a scenario where <span class="math notranslate nohighlight">\(\sigma^2\)</span> is very small, close to one. This implies that  <span class="math notranslate nohighlight">\(\frac{1}{\sigma^2}\)</span> is very large. If <span class="math notranslate nohighlight">\(x_i\)</span> is just marginally closer to <span class="math notranslate nohighlight">\(\mu_1\)</span>, the resulting product inside the exponential function is a large negative number, making the ratio <span class="math notranslate nohighlight">\(\gamma_i/(1- \gamma_i)\)</span> very large. Consequently, <span class="math notranslate nohighlight">\(\gamma_i\)</span> approaches one. By the same logic, if <span class="math notranslate nohighlight">\(x_i\)</span> is slightly closer to <span class="math notranslate nohighlight">\(\mu_2\)</span>, <span class="math notranslate nohighlight">\(\gamma_i\)</span> nears zero.</p>
+<p>In summary, the K-means algorithm can be perceived as a special case of the EM algorithm for Gaussian mixtures, where the error variance approaches zero.</p>
 </section>
 <section id="an-alternative-view-of-em">
 <h2><span class="section-number">7.3.4. </span>An Alternative View of EM<a class="headerlink" href="#an-alternative-view-of-em" title="Link to this heading"></a></h2>
+<p>Let’s explore an alternative perspective on the EM algorithm, drawing from a paper by Neal and Hinton in 1998.</p>
+<p>Envision the following objective function where the numerator represents the joint likelihood of <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span> given <span class="math notranslate nohighlight">\(\theta\)</span> and the denominator is a distribution on <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span> – a pdf for continuous values or a probability mass function for discrete ones. On the right-hand side, we have our known data <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>, with <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span> being integrated over (since we’re taking the external expectation with respect to q). Both <span class="math notranslate nohighlight">\(\theta\)</span> and the distribution q are unknown, making this a function of these two variables.</p>
+<div class="math notranslate nohighlight">
+\[F(q, \theta) = \mathbb{E}_{q(\mathbf{Z})} \log \frac{p(\mathbf{x}, \mathbf{Z} | \theta)}{q(\mathbf{Z})}.\]</div>
+<p>To manipulate this objective function, we’ll employ a familiar technique. We’ll factorize the numerator as a combination of the marginal of x and the conditional of Z given x. Since the marginal of x is independent of Z, we can extract this term from the  expectation.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}F(q, \theta) &amp; = \mathbb{E}_{q(\mathbf{Z})} \log \frac{p(\mathbf{x} | \theta) p(\mathbf{Z}| \mathbf{x}, \theta)}{q(\mathbf{Z})} \\
+&amp; =  \log p(\mathbf{x} | \theta) - \mathbb{E}_{q(\mathbf{Z})} \log \frac{q(\mathbf{Z})}{p(\mathbf{Z} | \mathbf{x}, \theta)}\end{split}\]</div>
+<p>This process divides our function into two segments: The first is the logarithm of the marginal of x, and the second, a negative KL divergence between two distributions over Z. To optimize F, we should maximize each segment individually. For the first term, we can attain its peak value by setting <span class="math notranslate nohighlight">\(\theta\)</span> to its Maximum Likelihood Estimate (MLE), thereby maximizing <span class="math notranslate nohighlight">\(\log p(\mathbf{x} | \theta)\)</span>. For the second term, the goal is to minimize the KL divergence, ideally to zero, achieved by setting <span class="math notranslate nohighlight">\(q(\mathbf{z}) = p(\mathbf{z} | \mathbf{x}, \hat{\theta}_{\text{mle}})\)</span>. Essentially, we can deduce the MLE of <span class="math notranslate nohighlight">\(\theta\)</span> by optimizing this function, F.</p>
+<p>Now, how do we go about optimizing F? It becomes evident that the EM algorithm operates like a coordinate ascent on F. At each t-th iteration, given the current value of <span class="math notranslate nohighlight">\(\theta^t\)</span>, we determine the optimal q. As discussed, the ideal q minimizes the KL divergence, leading to <span class="math notranslate nohighlight">\(q(\mathbf{z}) = p(\mathbf{z} | \mathbf{x}, \theta^t)\)</span>. Subsequently, using the optimal q, we update <span class="math notranslate nohighlight">\(\theta\)</span>.</p>
+<a class="reference internal image-reference" href="../_images/w7_EM_alternative.png"><img alt="../_images/w7_EM_alternative.png" src="../_images/w7_EM_alternative.png" style="width: 558.0px; height: 96.75px;" /></a>
+<p>From this perspective, the EM algorithm’s E-step and M-step are indistinguishable. They’re both essentially M-steps, iteratively optimizing function F. This viewpoint offers a rationale for certain EM algorithm variants that may only partially implement the E or M steps, provided the ensuing q or <span class="math notranslate nohighlight">\(\theta\)</span> values improve the function F.</p>
+<p>Furthermore, in some applications, constraints are imposed on the q function, as highlighted in <a class="reference external" href="https://papers.nips.cc/paper_files/paper/2007/hash/73e5080f0f3804cb9cf470a8ce895dac-Abstract.html">Ganchev et al. (2007)</a>. Given the E-step can be seen as an M-step in this alternative view, integrating these constraints becomes more straightforward.</p>
+<p>A significant advantage of this approach is its seamless transition to the variational version of the EM algorithm.</p>
 </section>
 <section id="variational-em">
 <h2><span class="section-number">7.3.5. </span>Variational EM<a class="headerlink" href="#variational-em" title="Link to this heading"></a></h2>
+<p>In the conventional EM algorithm, given a parameter <span class="math notranslate nohighlight">\(\theta\)</span>, the goal is to determine q that maximizes F by setting <span class="math notranslate nohighlight">\(q(\mathbf{z})\)</span> to exactly match <span class="math notranslate nohighlight">\(p(\mathbf{z} | \mathbf{x}, \theta^t)\)</span>. However, this function might be computationally challenging to evaluate.</p>
+<p>To make computations more manageable, we introduce an approximation to this function. For instance, <span class="math notranslate nohighlight">\(q(\mathbf{z})\)</span> might be represented in a factorized manner, decomposing it into n different q functions, each corresponding to an individual latent variable Z_i. Using this form of q, our objective function now depends on <span class="math notranslate nohighlight">\(\theta\)</span> and a series of q’s ranging from q_1 to q_n:</p>
+<div class="math notranslate nohighlight">
+\[F(\theta, q_1, \cdots, q_n) = \mathbb{E}_{q_1, \dots, q_n} \log \frac{p(\mathbf{x} | \theta) p(\mathbf{Z} | \mathbf{x}, \theta)}{q_1(Z_1) \cdots q_n(Z_n)}.\]</div>
+<p>Employing coordinate descent, we iteratively optimize <span class="math notranslate nohighlight">\(\theta\)</span> and each q. In many machine learning and statistical contexts, the updates in each iteration of the coordinate descent/ascent are straightforward, often possessing closed-form solutions. This ensures rapid algorithm convergence.</p>
+<p>In the following section, I will introduce a more intricate mixture model than previously discussed. Due to its complexity, its parameters necessitate estimation through the variational EM, rather than the standard EM.</p>
 </section>
 </section>
 

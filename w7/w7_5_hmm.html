@@ -16,6 +16,7 @@
         <script src="../_static/documentation_options.js?v=2709fde1"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -55,11 +56,12 @@
 <li class="toctree-l2"><a class="reference internal" href="w7_3_EM.html">7.3. The EM Algorithm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w7_4_LDA.html">7.4. Latent Dirichlet Allocation Model</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">7.5. Hidden Markov Models</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#introduction">7.5.1. Introduction</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#forward-probabilities">7.5.2. Forward Probabilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#backward-probabilities">7.5.3. Backward Probabilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#the-baum-welch-algorithm">7.5.4. The Baum-Welch Algorithm</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#the-viterbi-algorithm">7.5.5. The Viterbi Algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#basics-of-hmm">7.5.1. Basics of HMM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-dishonest-casino-example">7.5.2. The Dishonest Casino Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#structure-of-hmm">7.5.3. Structure of HMM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphical-representation-of-hmm">7.5.4. Graphical Representation of HMM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#key-parameters-of-hmm">7.5.5. Key Parameters of HMM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#computational-challenges">7.5.6. Computational Challenges</a></li>
 </ul>
 </li>
 </ul>
@@ -98,20 +100,103 @@
              
   <section id="hidden-markov-models">
 <h1><span class="section-number">7.5. </span>Hidden Markov Models<a class="headerlink" href="#hidden-markov-models" title="Link to this heading"></a></h1>
-<section id="introduction">
-<h2><span class="section-number">7.5.1. </span>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+<p>In this series, we delve into the Hidden Markov Model (HMM). While its applications span across numerous fields, I won’t dwell on its vast applications. I’d suggest a quick Google search to discover the fascinating applications of HMM.</p>
+<section id="basics-of-hmm">
+<h2><span class="section-number">7.5.1. </span>Basics of HMM<a class="headerlink" href="#basics-of-hmm" title="Link to this heading"></a></h2>
+<p>In HMM, we sequentially observe <span class="math notranslate nohighlight">\(X_1, \dots, X_n\)</span>. The distribution of these observed variables is influenced by a corresponding set of latent variables <span class="math notranslate nohighlight">\(Z_1, \dots, Z_n\)</span>, which we do not observe. The latent variables, Zs, follow a Markovian process. Both X and Z can be continuous or discrete. HMM with discrete Z continuous X is often referred to as a State-space model. In our discussion, we’ll focus on instances where both X and Z are discrete. Nonetheless, the principles apply to continuous scenarios as well.</p>
 </section>
-<section id="forward-probabilities">
-<h2><span class="section-number">7.5.2. </span>Forward Probabilities<a class="headerlink" href="#forward-probabilities" title="Link to this heading"></a></h2>
+<section id="the-dishonest-casino-example">
+<h2><span class="section-number">7.5.2. </span>The Dishonest Casino Example<a class="headerlink" href="#the-dishonest-casino-example" title="Link to this heading"></a></h2>
+<p>Consider an illustrative example from our code page: A deceitful casino uses two dice. One is fair, producing all numbers with equal probability, while the other is loaded, having a 50% likelihood of showing a six.  Observers can see the roll results but don’t know which die is in play. Given this observed data, our objective is to infer the hidden state Z, which represents the dice being used - either fair or loaded.</p>
+<p>Our algorithms can approximate when the loaded die was in play based on observed patterns. For instance, periods with a high frequency of sixes suggest the loaded die’s use. Once we understand the interplay between X and Z, we can even make predictions about future outcomes. In essence, HMM enables us not just to decipher hidden states but also to forecast future observations.</p>
+<a class="reference internal image-reference" href="../_images/w7_dice.png"><img alt="../_images/w7_dice.png" src="../_images/w7_dice.png" style="width: 647.25px; height: 213.0px;" /></a>
 </section>
-<section id="backward-probabilities">
-<h2><span class="section-number">7.5.3. </span>Backward Probabilities<a class="headerlink" href="#backward-probabilities" title="Link to this heading"></a></h2>
+<section id="structure-of-hmm">
+<h2><span class="section-number">7.5.3. </span>Structure of HMM<a class="headerlink" href="#structure-of-hmm" title="Link to this heading"></a></h2>
+<p>To deepen our understanding of Hidden Markov Models (HMMs), let’s consider the process of generating one.</p>
+<a class="reference internal image-reference" href="../_images/w7_hmm_graph_with_edge.png"><img alt="../_images/w7_hmm_graph_with_edge.png" src="../_images/w7_hmm_graph_with_edge.png" style="width: 380.4px; height: 137.4px;" /></a>
+<ol class="arabic simple">
+<li><dl class="simple">
+<dt>Determining Hidden States Z:</dt><dd><p>Initially, decide on the number of hidden states, represented by the variable Z. We use <span class="math notranslate nohighlight">\(m_z\)</span> to denote the unique values Z can assume. Analogous to selecting the number of clusters K in a mixture model, <span class="math notranslate nohighlight">\(m_z\)</span> serves as a tuning parameter. To determine its optimal value, one might employ model selection criteria.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Determining Observable Values X:</dt><dd><p>We also need to understand the potential values for X. Hhowever, this isn’t a tuning parameter as it becomes evident upon observing the data. For our current discussion, we assume X is also discrete, taking <span class="math notranslate nohighlight">\(m_x\)</span> unique values.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Initiating the Model:</dt><dd><p>Begin with an initial distribution <span class="math notranslate nohighlight">\(w\)</span>, a probability vector of dimensions <span class="math notranslate nohighlight">\(m_z \times 1\)</span>. This defines the distribution for the initial hidden state Z_1. Once Z_1 is generated, using the subsequent Z values (<span class="math notranslate nohighlight">\(Z_2, Z_3, \dots\)</span>) are generated.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Markovian Process:</dt><dd><p>The essence of the Markovian property is that Z operates as a Markovian sequence. To transition from one Z value to the next, a transition probability matrix A of size <span class="math notranslate nohighlight">\(m_z \times m_z\)</span> is essential. In the casino example, A is a 2-by-2 matrix. Each row of A sums to one, reflecting the probabilities of transitioning between states.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Generating Observable Values:</dt><dd><p>With the latent sequence Z in place, we generate X. Distinct distributions over X are denoted by the emission probability matrix, denoted by B (of size <span class="math notranslate nohighlight">\(m_z \times m_x\)</span>). Each row in B represents a probability distribution summing to one. Depending on the value of Z, an appropriate row from B determines the corresponding X value.</p>
+</dd>
+</dl>
+</li>
+</ol>
+<p>In essence, an HMM can be thought of as a clustering mechanism or a mixture model. It clusters the observed X values into <span class="math notranslate nohighlight">\(m_z\)</span> clusters, each with a distinct distribution. However, unlike typical clustering, due to the temporal nature of data (indexed from 1 to n), the X values aren’t independent. Their inherent sequential relationship necessitates modeling the latent variable Z, not as a simple random draw from some distribution but as a Markovian process.</p>
 </section>
-<section id="the-baum-welch-algorithm">
-<h2><span class="section-number">7.5.4. </span>The Baum-Welch Algorithm<a class="headerlink" href="#the-baum-welch-algorithm" title="Link to this heading"></a></h2>
+<section id="graphical-representation-of-hmm">
+<h2><span class="section-number">7.5.4. </span>Graphical Representation of HMM<a class="headerlink" href="#graphical-representation-of-hmm" title="Link to this heading"></a></h2>
+<p>Previously, in representing HMMs, I used arrows to illustrate the data generation process. Now, I aim to replace these arrows with undirected edges, where each edge indicates dependency. This shift aligns with HMM’s association with the broader category of statistical models called graphical models.</p>
+<a class="reference internal image-reference" href="../_images/w7_hmm_graph.png"><img alt="../_images/w7_hmm_graph.png" src="../_images/w7_hmm_graph.png" style="width: 374.4px; height: 136.2px;" /></a>
+<ol class="arabic simple">
+<li><dl class="simple">
+<dt>Nodes and Edges:</dt><dd><p>Each variable (both observed and hidden) in the HMM can be represented as a node in the graph. The presence of an edge (or link) between two nodes symbolizes a dependence between them.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Conditional Independence:</dt><dd><p>In this graphical interpretation, the absence of an edge between two nodes (e.g., two observed variables like X1 and X2) means that they are conditionally independent, given all other variables.</p>
+</dd>
+</dl>
+</li>
+</ol>
+<p>For instance, the absence of an edge between X1 and X2 signals conditional independence, given all other variables. This assertion is intuitive since distributions of X1 and X2 are primarily dictated by their respective latent states, Z1 and Z2. With Z1 and Z2 conditioned, X1 and X2 are independent. Conversely, an edge between variables (like Z2 and Z3) implies dependency, even when conditioning on other variables. This conditional independence or dependence structure aids in factorizing the joint distribution of X and Z.</p>
 </section>
-<section id="the-viterbi-algorithm">
-<h2><span class="section-number">7.5.5. </span>The Viterbi Algorithm<a class="headerlink" href="#the-viterbi-algorithm" title="Link to this heading"></a></h2>
+<section id="key-parameters-of-hmm">
+<h2><span class="section-number">7.5.5. </span>Key Parameters of HMM<a class="headerlink" href="#key-parameters-of-hmm" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(m_z\)</span> - the number of unique values Z can take.</p></li>
+<li><p><span class="math notranslate nohighlight">\(m_x\)</span> - the number of unique values X can take.</p></li>
+<li><p><span class="math notranslate nohighlight">\(w_{m_z \times 1}\)</span> - the initial distribution for Z_1.</p></li>
+<li><p><span class="math notranslate nohighlight">\(A_{m_z \times m_z}\)</span> - the transition probability matrix that models the progression from <span class="math notranslate nohighlight">\(Z_t\)</span> to <span class="math notranslate nohighlight">\(Z_{t+1}\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(B_{m_z \times m_z}\)</span> - the emission probability matrix, indicating how X is produced from Z.</p></li>
+</ul>
+</section>
+<section id="computational-challenges">
+<h2><span class="section-number">7.5.6. </span>Computational Challenges<a class="headerlink" href="#computational-challenges" title="Link to this heading"></a></h2>
+<p>Please refer to our videos for a detailed walkthrough on computing the four primary quantities associated with HMM.</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Forward Probability:</dt><dd><p>The forward probability <span class="math notranslate nohighlight">\(\alpha_t(i) = p_{\theta}(x_1, \dots, x_{t}, Z_{t}=i)\)</span> can be used to quantify the uncertainty of the latent state at time t, given all observed data up until that point. Calculating the marginal likelihood of the data under an HMM even if we know the parameters is non-trivial. However, it can be obtained by summing the forward probabilities at the final time point.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Backward Probability:</dt><dd><p>This probability <span class="math notranslate nohighlight">\(\beta_{t}(i) =  p_{\theta}(x_{t+1},\dots, x_n | Z_{t}=i)\)</span> represents the likelihood of observing future outcomes given the latent state at time ‘t’. It informs predictions or distributions on future data, provided we know the hidden state at time ‘t’.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Parameter Estimation:</dt><dd><p>The estimation of HMM parameters is a crucial task, often achieved using Maximum Likelihood Estimation (MLE). Since direct computation is challenging, algorithms like the Expectation-Maximization (EM) algorithm (aka, the Baum-Welch algorithm) are employed.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Latent State Inference:</dt><dd><p>Once we’ve estimated the parameters, our subsequent move is to infer the latent states using the observed data. To determine the most probable sequence of latent states Z, we employ the Viterbi algorithm.</p>
+</dd>
+</dl>
+</li>
+</ul>
 </section>
 </section>
 

@@ -120,9 +120,9 @@ To navigate this challenge, we'll employ an iterative approach. Starting with an
 The process is cyclical: (a) compute the distribution of Z_i, (b) update parameters using weighted counts, then re-estimate the distribution of Z_i using the updated parameters, and so on until convergence. 
 
 .. image:: ../images/w7_EM_a.png
-	:scale: 70 %
+	:scale: 75 %
 .. image:: ../images/w7_EM_b.png
-	:scale: 70 %
+	:scale: 75 %
 
 At the heart of this methodology lies a pivotal question: does this iterative procedure yield the Maximum Likelihood Estimator (MLE) that maximizes the marginal likelihood of our observed data?
 
