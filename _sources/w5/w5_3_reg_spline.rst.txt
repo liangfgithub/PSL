@@ -33,7 +33,7 @@ Regression Splines in R/Python
 
 *  Rcode: [`Rcode_W5_RegressionSpline <https://liangfgithub.github.io/Rcode_W5_RegressionSpline.html>`_] (html)
 
-*  Python: [`Python_W5_RegressionSpline <https://liangfgithub.github.io/Python_W5_PolynomialRegression.ipynb>`_] (ipynb)
+*  Python: [`Python_W5_RegressionSpline <https://liangfgithub.github.io/Python_W5_PolynomialRegression.html>`_] (ipynb)
 
 
 Choice of Knots
