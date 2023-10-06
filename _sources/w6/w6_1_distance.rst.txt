@@ -8,7 +8,7 @@ In clustering, the primary objective is to categorize samples or objects into cl
 
 In mathematical terms, a distance measure :math:`d(x,z)` is a function between two points and must meet certain criteria:
 
-1. It should always be non-negative, equating to zero only if the two samples are identical or equivalent: :math:`d(x,z) \ge 0` and :math: `d(x,z)=0` if and only if :math:`x = z`. 
+1. It should always be non-negative, equating to zero only if the two samples are identical or equivalent: :math:`d(x,z) \ge 0` and :math:`d(x,z)=0` if and only if :math:`x = z`. 
 2. It must be symmetric: :math:`d(x,z) = d(z,x)`.
 3. It should adhere to the triangle inequality: :math:`d(x,y) \le d(x,z) + d(z,y)`. This means the distance between points x and y should not exceed the combined distances of x to z and z to y. This essentially means the distance measures the shortest path between two points.
 
