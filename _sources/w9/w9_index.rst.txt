@@ -4,6 +4,13 @@ Discriminant Analysis
 .. toctree::
    :maxdepth: 1
 
-   w9_1_intro_classification
+   w9_1_intro_classification.rst
+   w9_2_DA.rst
+   w9_3_QDA.rst
+   w9_4_LDA.rst
+   w9_5_FDA.rst
+   w9_6_NB.rst
+   w9_7_summ.rst
+
 
  

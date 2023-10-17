@@ -1,37 +1,115 @@
 Introduction to Classification
-====================================
+=======================================
 
-Over the next few weeks, we will transition our focus to **classification** problems. In classification, we encounter situations where we have n observations, each consisting of p measurements or features. These observations belong to different distinct classes. This differs from regression problems, where we predict numerical outcomes. In classification, our goal is to predict class labels. 
+Over the next few weeks, we will transition our focus to **classification** problems. But first, what exactly is a classification problem?
 
-For simplicity, let's assume binary classification with two classes. Our aim is to find a classification rule that takes the p measurements as input and outputs a class label. We aim not only to make accurate predictions on the 'n' training samples but also on future observations. 
+Imagine having :math:`n` observations, each consisting of :math:`p` measurements or features. These observations belong to different distinct classes, making this different from regression problems where our goal is to predict a numerical outcome. In classification, our goal is to predict class labels. To simplify our discussion, we'll consider **binary** classification where there are just **two** classes.
 
-In Project 3, the sentiment analysis project, for example, the p measurements are word frequencies (or TF-IDF) extracted from movie reviews, and the goal was to predict whether a review was positive or negative. 
+Our aim is to establish a classification rule. This rule will use the :math:`p` measurements as input and yield the class label as its output. We not only want this rule to be accurate for our training data but also for future, unseen observations.
+
+Consider these examples:
+
+- Lending Club Project: Here, :math:`p` measurements could be various details about the loan or the borrower. Our goal? Predict if a loan was defaulted or paid off.
+
+- Sentiment Analysis Project: The :math:`p` measurements could relate to aspects of a movie review, and our objective is to determine if the review is positive or negative.
+
+
+Steps to Develop a Classifier
+------------------------------------
+
 
 To learn a classifier, we follow a set of steps that are similar to those we've used for regression problems. Here's our typical approach for solving supervised machine learning problems:
 
-1. **Data Collection**: Collect training samples (xi, yi), where xi is a vector of p-dimensional features, and yi is a binary response. For our convenience, we'll label the two classes as 0 and 1.
+1. **Data Collection**: Collect training samples, denoted by  :math:`x_i` (for p-dimensionalfeatures) and :math:`y_i` (for binary response). For our discussions, assume the two classes are labeled 0 and 1.
 
-2. **Function Selection**: Choose a collection of functions f that take p-dimensional inputs and produce binary outputs. For instance, we can index these functions using a parameter theta.
+.. math::
+	 (x_i, y_i)_{i=1}^n, \quad x_i \in \mathbb{R}^p, \ y_i \in \{0, 1\}
 
-3. **Loss Function**: Define a loss function that quantifies how well our prediction f(x) aligns with the true response y. In the case of binary classification, a commonly used loss function is the 0-1 loss.
+2. **Function Selection**: Choose a collection of functions :math:`f` that take 'p' measurements as input and return a binary response. We can index these functions using a parameter :math:`\theta`. For instance, if we decide on a linear function, the parameter :math:`\theta` would be the linear coefficients. 
 
-4. **Optimization**: Optimize the chosen loss function by minimizing the average loss over the n training samples. This process leads us to the optimal classifier f that minimizes the empirical loss.
-
-Now, let's imagine an ideal scenario where we have an infinite number of samples, or in other words, we completely understand how the data (X, Y) is generated. In this situation, there's no distinction between training and test samples, as we possess complete knowledge of the data. As 'n' approaches infinity, the loss function transforms into an expectation over all possible functions :math:`f`. This expectation is computed with respect to the true data-generating process, which involves a joint distribution over both 'X' and 'Y'. The expected loss in this context is often referred to as the "risk" function of the classifier 'f'. Naturally, we define the optimal classifier 'f*' as the one that minimizes this risk function.
-
-Assuming we use the 0-1 loss function and can use any function f, what is the optimal f*? Let's examine the risk function to find out.
-
-The risk function involves an expectation over both 'X' and 'Y'. Recall that the expectation over a continuous random variable is an integral weighted by the density function. For discrete random variables, we replace the integral with a summation. We can factorize the joint distribution as the product of the marginal of 'X' and the conditional of 'Y' given 'X'. This simplifies the risk function. 
-
-The challenge of finding the optimal 'f*' that minimizes the risk function can be broken down into a series of subproblems. For each value of X, 
-we need to determine the optimal value for a in 'f(X)=a' that minimizes the expression inside the integral. The blue integral signifies the loss of function 'f' at a specific 'X', and the outer integral computes the average loss over all possible 'X' values. If we can find a function 'f' that achieves minimal loss at every 'X', then its average loss should be small, making it an optimal classifier. This process leads us to the optimal classifier 'f*', even if it's not necessarily continuous.
+.. math::
+ f: \mathbb{R}^p \longrightarrow \{0, 1\} 
 
 
-Since Y is a discrete random variable taking only two possible values. The inside expectation integral transforms into a summation due to the discrete nature of 'Y'. The distribution of 'Y' given 'X' follows a Bernoulli distribution with parameter eta(x). This parameter varies with 'X', and it represents the conditional probability of 'Y' being 1. Evaluating the expectation involves summing up probabilities for both 'Y = 1' and 'Y = 0'. Based on whether eta(x) is greater or less than 0.5, the optimal classifier predicts 1 if eta(x) > 0.5 and  0 otherwise.
+3. **Loss Function**: Define a loss function :math:`L(f(x), y)` that quantifies how well our prediction :math:`f(x)` aligns with the true response 'y'. In the case of binary classification, a commonly used loss function is the 0-1 loss: 
 
-This optimal classifier, often known as the "Bayes rule," minimizes the 0-1 loss and corresponds to the "Bayes risk" or "Bayes error." We confirmed this computation during Coding Assignment 1. This approach can be extended to multiclass problems, where 'Y' can take K different values. In such cases, the optimal classifier predicts the class label with the highest conditional probability.
+.. math::
+	L(f(x), y) = 0, \text { if } y=f(x); \quad 1, \text { if } y \ne f(x). 
 
-Before concluding this introduction, let's introduce some terminology. Our classifiers are functions that take p-dimensional feature vectors 'X' and output binary labels 0 or 1. Visualizing these functions in the feature space can be insightful. For instance, shading the regions where predictions are 1 gives us an understanding of the classifier's behavior. Decision boundaries are key, representing the locations where the classifier's output is exactly 0.5. In cases where the decision boundary is linear, we refer to the classifier as a linear classifier.
+4. **Optimization**: Optimize the chosen loss function by minimizing the average loss over the 'n' training samples. This process leads us to the optimal classifier :math:`f` that minimizes the empirical loss.
+
+
+.. math::
+	\min_f \frac{1}{n} \sum_{i=1}^n L(f(x_i), y_i)
+
+
+Optimal Classifier
+------------------------------------
+
+Let's imagine an ideal scenario where we have an infinite number of samples, or in other words, we completely understand how our data :math:`(X, Y)` is generated. In this situation, there's no distinction between training and test samples, as we possess complete knowledge of the data. As our sample size 'n' approaches infinity, our loss function tends toward its expectation. This expectation is computed with respect to the true data-generating process, which involves a joint distribution over both 'X' and 'Y'. The expected loss in this context is often referred to as the "risk" function of the classifier 'f'.
+
+.. math::
+	\frac{1}{n} \sum_{i=1}^n L(f(x_i), y_i) \to \mathbb{E} {X, Y} L(f(X), Y) := \text{Risk}[f] 
+
+It's logical to then define the optimal classifier, :math:`f^*`, as the function that minimizes this risk function. 
+
+.. math::
+	f^* = \arg\min_f  \text{Risk}[f].
+
+Assuming we adopt the 0-1 loss function and permit the use of any function 'f', the next question arises: What exactly is this optimal :math:`f^*`?
+
+
+The risk function involves an expectation over the joint distribution of features 'X' and the target variable 'Y'. We can factorize the joint distribution as the product of the marginal of 'X' and the conditional of 'Y' given 'X'. This simplifies the risk function. 
+
+.. math::
+	\text{Risk}[f] & =  \mathbb{E}_{X, Y} L(f(X), Y) =  \int_{\mathcal{X}}  \int_{\mathcal{Y}} L(y, f(x)) p(x, y) dy dx \\
+	&= \int_{\mathcal{X}}  \int_{\mathcal{Y}} L(y, f(x)) p(y | x ) p(x)   dy dx \\
+	&= \int_{\mathcal{X}} \Big [ \textcolor{blue}{\int_{\mathcal{Y}} L(y, f(x)) p(y| x)  dy} \Big ] p(x) d x 
+
+
+where
+
+- :math:`p(x)` is the marginal distribution function of 'X'; 
+- :math:`p(y | x)` is the conditional distribution function of 'Y' given 'X=x';
+- :math:`p(x) p(y|x)` is the joint distribution function of (X, Y). 
+
+
+The challenge of finding the optimal :math:`f^*` that minimizes the risk function can be broken down into a series of subproblems. 
+
+1. The inner integration (in blue) gives us the expected loss at a specific 'x'.
+2. The outer integration then calculates the average of these expectations over all possible values of 'X'. 
+
+This implies that if we find an :math:`f` that minimizes the expected loss at each specific 'x', its average expected loss (i.e., the risk) will also be minimized. 
+
+
+Since 'Y' is a discrete random variable taking only two possible values. The inside expectation integral transforms into a summation due to the discrete nature of 'Y'. The distribution of 'Y' given 'X=x' follows a Bernoulli distribution with parameter :math:`P(Y=1|X=x) := \eta(x)`. 
+
+Evaluate the expectation involves summing up probabilities for both 'Y = 1' and 'Y = 0'. 
+
+.. math::
+	\int_{\mathcal{Y}} L(y, f(x)) p(y| x)  dy &= L(1, f(x)) \cdot P(Y=1|x) + L(0, f(x)) \cdot P(Y=0|x) \\
+	&= L(1, f(x)) \cdot \eta(x) + L(0, f(x)) \cdot (1 - \eta(x)) \\
+	&=   \begin{cases}
+			1 - \eta(x), &  \text{ if } f(x) = 1 \\
+			\eta(x), &  \text{ if } f(x) = 0 \end{cases} 
+
+
+Thus, the optimal classifier hinges on  :math:`\eta(x)`:
+
+.. math::
+	f^*(x) = \arg\min_f R[f] = \begin{cases} 
+			1 , &  \text{ if } \eta(x) \ge 0.5 \\
+			0, & \text{ if }  \eta(x) < 0.5 \end{cases} 
+
+
+This optimal classifier, often known as the "Bayes rule," minimizes the 0-1 loss and corresponds to the "Bayes risk" or "Bayes error." We confirmed this computation during Coding Assignment 1. The above logic extends to multi-class problems, where 'Y' can take K different values. In such cases, the optimal classifier predicts the class label with the highest conditional probability.
+
+Decision Boundaries
+------------------------
+
+A helpful way to comprehend classifiers is by visualizing decision boundaries. The decision boundary defines where the classifier switches its prediction. Specifically, for the Bayes classifier using 0-1 loss, the decision boundary is where the conditional probability is exactly 0.5. In cases where the decision boundary is linear, we refer to the classifier as a linear classifier.
+
+
 
 
 
