@@ -16,6 +16,7 @@
         <script src="../_static/documentation_options.js?v=2709fde1"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -53,7 +54,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../w8/w8_index.html">8. TBA</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="w9_index.html">9. Discriminant Analysis</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="w9_1_intro_classification.html">9.1. Introduction to Classification</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">9.2. Discriminant Analysis</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">9.2. Discriminant Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#bayes-theorem">9.2.1. Bayes’ Theorem</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="w9_3_QDA.html">9.3. Linear Discriminant Analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w9_4_LDA.html">9.4. Linear Discriminant Analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w9_5_FDA.html">9.5. Fisher Discriminant Analysis</a></li>
@@ -93,6 +97,37 @@
              
   <section id="discriminant-analysis">
 <h1><span class="section-number">9.2. </span>Discriminant Analysis<a class="headerlink" href="#discriminant-analysis" title="Link to this heading"></a></h1>
+<p>In our previous discussions, we explored the essentials of crafting an optimal classifier. To achieve this, our primary focus lies in understanding the conditional probability <span class="math notranslate nohighlight">\(P(Y = k|X=x)\)</span>.</p>
+<p>A logical starting point would involve estimating the joint distribution of (X, Y) based on the available data. Subsequently, we can calculate the conditional probability of Y given X=x.</p>
+<p>We aim to learn the joint distribution <span class="math notranslate nohighlight">\(p(x,y)\)</span> by breaking it down into two parts:</p>
+<div class="math notranslate nohighlight">
+\[p(x,y) = p(y) \cdot p(x | y)\]</div>
+<p>Estimating <span class="math notranslate nohighlight">\(p(y)\)</span>, the marginal distribution of Y, is relatively straightforward since Y is a discrete random variable. Essentially, we determine the frequency of each class in the dataset. Then proceed to estimate <span class="math notranslate nohighlight">\(p(x|y)\)</span>, the distribution of the feature vector x in each class.</p>
+<p>Once these two components are acquired, we can reconstruct the joint distribution and subsequently compute the conditional probabilities of Y give x (aka, Bayes’s Theorem). This approach, which involves learning the classifications in this manner, is commonly referred to as <strong>discriminant analysis</strong>.</p>
+<p>Specifically, we will discuss three classification rules falling under this discriminant analysis umbrella:</p>
+<ul class="simple">
+<li><p>Quadratic dDscriminant Analysis (QDA),</p></li>
+<li><p>Linear Discriminant Dnalysis (LDA), and</p></li>
+<li><p>Naive Bayes.</p></li>
+</ul>
+<p>Additionally, we will explore the relationship between LDA and Fisher’s Discriminant Analysis (FDA).</p>
+<section id="bayes-theorem">
+<h2><span class="section-number">9.2.1. </span>Bayes’ Theorem<a class="headerlink" href="#bayes-theorem" title="Link to this heading"></a></h2>
+<p>First, let’s refresh our memory regarding the derivation of the optimal classifier using Bayes’ Theorem. Our primary objective is to calculate the posterior probability <span class="math notranslate nohighlight">\(P(Y=k | X=x)\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}P(Y = k | X=x) &amp;=   \frac{P(X=x, Y=k)}{P(X=x)}  \\
+&amp;= \frac{P(X=x | Y=k) \cdot P(Y =k)}{P(X=x)} \\
+&amp;= \frac{ \pi_k f_k(x)}{ P(X=x)}  \propto  \pi_k f_k(x)\end{split}\]</div>
+<p>where</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(f_k(x) = p (x | Y=k)\)</span>: conditional density function of <span class="math notranslate nohighlight">\(X|Y=k\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\pi_k = P(Y=k)\)</span>: the marginal probability or prior probability for class ‘k’.</p></li>
+</ul>
+<p>As mentioned earlier, our goal is to identify ‘k’ that maximizes the conditional probability. This is equivalent to finding ‘k’ that maximizes the numerator <span class="math notranslate nohighlight">\(\pi_k f_k(x)\)</span>, as the denominator remains constant. When maximizing a product, we can achieve the same result by taking the logarithm of the product. Therefore, we can write the decision function as</p>
+<div class="math notranslate nohighlight">
+\[f(x) =  \arg\max_k \pi_k f_k(x) = \arg\max_k \Big [ \log \pi_k + \log f_k(x) \Big ].\]</div>
+<p>In constructing the optimal classifier, our sole requirements are estimating <span class="math notranslate nohighlight">\(\pi_k\)</span> and <span class="math notranslate nohighlight">\(f_k(x)\)</span>.</p>
+</section>
 </section>
 
 

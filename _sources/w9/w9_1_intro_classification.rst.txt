@@ -102,7 +102,11 @@ Thus, the optimal classifier hinges on  :math:`\eta(x)`:
 			0, & \text{ if }  \eta(x) < 0.5 \end{cases} 
 
 
-This optimal classifier, often known as the "Bayes rule," minimizes the 0-1 loss and corresponds to the "Bayes risk" or "Bayes error." We confirmed this computation during Coding Assignment 1. The above logic extends to multi-class problems, where 'Y' can take K different values. In such cases, the optimal classifier predicts the class label with the highest conditional probability.
+This optimal classifier, often known as the "Bayes rule," minimizes the 0-1 loss and corresponds to the "Bayes risk" or "Bayes error." We confirmed this computation during Coding Assignment 1. The above logic extends to multi-class problems, where 'Y' can take K different values. In such cases, the optimal classifier predicts the class label with the highest conditional probability:
+
+.. math::
+	 f^*(x) = \arg\max_k P(Y=k | X=x).
+
 
 Decision Boundaries
 ------------------------

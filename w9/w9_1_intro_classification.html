@@ -170,7 +170,9 @@
 \[\begin{split}f^*(x) = \arg\min_f R[f] = \begin{cases}
                 1 , &amp;  \text{ if } \eta(x) \ge 0.5 \\
                 0, &amp; \text{ if }  \eta(x) &lt; 0.5 \end{cases}\end{split}\]</div>
-<p>This optimal classifier, often known as the “Bayes rule,” minimizes the 0-1 loss and corresponds to the “Bayes risk” or “Bayes error.” We confirmed this computation during Coding Assignment 1. The above logic extends to multi-class problems, where ‘Y’ can take K different values. In such cases, the optimal classifier predicts the class label with the highest conditional probability.</p>
+<p>This optimal classifier, often known as the “Bayes rule,” minimizes the 0-1 loss and corresponds to the “Bayes risk” or “Bayes error.” We confirmed this computation during Coding Assignment 1. The above logic extends to multi-class problems, where ‘Y’ can take K different values. In such cases, the optimal classifier predicts the class label with the highest conditional probability:</p>
+<div class="math notranslate nohighlight">
+\[f^*(x) = \arg\max_k P(Y=k | X=x).\]</div>
 </section>
 <section id="decision-boundaries">
 <h2><span class="section-number">9.1.3. </span>Decision Boundaries<a class="headerlink" href="#decision-boundaries" title="Link to this heading"></a></h2>
