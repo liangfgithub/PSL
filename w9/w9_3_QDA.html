@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>9.3. Linear Discriminant Analysis &mdash; PSL_Book 0.1 documentation</title>
+  <title>9.3. Quadratic Discriminant Analysis &mdash; PSL_Book 0.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -16,6 +16,7 @@
         <script src="../_static/documentation_options.js?v=2709fde1"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -54,7 +55,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="w9_index.html">9. Discriminant Analysis</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="w9_1_intro_classification.html">9.1. Introduction to Classification</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w9_2_DA.html">9.2. Discriminant Analysis</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">9.3. Linear Discriminant Analysis</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">9.3. Quadratic Discriminant Analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w9_4_LDA.html">9.4. Linear Discriminant Analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w9_5_FDA.html">9.5. Fisher Discriminant Analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w9_6_NB.html">9.6. Naive Bayes Classifiers</a></li>
@@ -82,7 +83,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="w9_index.html"><span class="section-number">9. </span>Discriminant Analysis</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">9.3. </span>Linear Discriminant Analysis</li>
+      <li class="breadcrumb-item active"><span class="section-number">9.3. </span>Quadratic Discriminant Analysis</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -91,8 +92,42 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="linear-discriminant-analysis">
-<h1><span class="section-number">9.3. </span>Linear Discriminant Analysis<a class="headerlink" href="#linear-discriminant-analysis" title="Link to this heading"></a></h1>
+  <section id="quadratic-discriminant-analysis">
+<h1><span class="section-number">9.3. </span>Quadratic Discriminant Analysis<a class="headerlink" href="#quadratic-discriminant-analysis" title="Link to this heading"></a></h1>
+<p>In our previous discussion, we explored the process of constructing a classification rule. To do this effectively, we need to estimate two key components:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(f_k(x)\)</span>: conditional density function of <span class="math notranslate nohighlight">\(X|Y=k\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\pi_k\)</span>: the marginal probability or prior probability for class ‘k’.</p></li>
+</ul>
+<p>Estimating <span class="math notranslate nohighlight">\(\pi_k\)</span> is straightforward, as it involves calculating the frequency of occurrence for a discrete random variable Y.</p>
+<p>On the other hand, estimating <span class="math notranslate nohighlight">\(f_k(x)\)</span>, which represents the distribution of the p-dimensional feature vector x, requires a bit more consideration. When X is continuous, a natural choice is to assume a normal distribution. So, let’s assume that given Y = k, we model the p-dimensional feature vector x for this particular class as a multivariate normal distribution.</p>
+<p>This distribution has two crucial parameters: <span class="math notranslate nohighlight">\(\mu_k\)</span>, a p-dimensional mean vector, and <span class="math notranslate nohighlight">\(\Sigma_k\)</span>, a p-by-p covariance matrix. It’s worth noting that we’ll represent the inverse of the covariance matrix as <span class="math notranslate nohighlight">\(\Theta\)</span>. This inverse covariance matrix is often referred to as the precision matrix.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mu_k = \left ( \begin{array}{c} \mu_{k,1} \\ \mu_{k,2} \\ \vdots \\ \mu_{k,p} \end{array} \right )_{p \times 1}, \quad
+\Theta = \Sigma_k^{-1} = \left ( \begin{array}{ccc} \theta_{k,11} &amp; \cdots &amp; \theta_{k, 1p} \\ &amp; &amp; \\ \theta_{k, p1} &amp; \cdots &amp; \theta_{k, pp} \end{array} \right)_{p \times p}.\end{split}\]</div>
+<p>For a multivariate normal distribution with these parameters, the density function takes the following form:</p>
+<div class="math notranslate nohighlight">
+\[f_k(x) = \frac{1}{(\sqrt{2 \pi})^p} \frac{1}{| \Sigma_k|^{1/2}} \exp \Big [ - \frac{1}{2} (x- \mu_k)^t \Sigma_k^{-1} (x - \mu_k) \Big ]\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[(x- \mu_k)^t \Sigma_k^{-1} (x - \mu_k)  = \sum_{j=1}^p \sum_{l=1}^p \theta_{k, jl} (x_{j}- \mu_{k,j}) (x_{l} - \mu_{k,l}).\]</div>
+<p>Now, move on to computing the Bayes rule for our model. If we assume that <span class="math notranslate nohighlight">\(f_k\)</span> follows a normal distribution, we have</p>
+<div class="math notranslate nohighlight">
+\[P(Y = k \mid x)  \propto  \pi_k f_k(x) \propto e^{-d_k(x)/2}\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}d_k(x) &amp;=  2 \Big [ - \log f_k(x) - \log \pi_k  \Big ]  - \text{ Constant} \\
+&amp;=  (x-\mu_k)^t \Sigma_k^{-1} (x-\mu_k)  + \log |\Sigma_k| -2  \log \pi_k,\end{split}\]</div>
+<p>Since our objective is to maximize <span class="math notranslate nohighlight">\(P(Y = k \mid x)\)</span>, we can equivalently minimize the quantity <span class="math notranslate nohighlight">\(d_k\)</span>. Breaking down d_k, it consists of three terms:</p>
+<ul class="simple">
+<li><p>the 1st term is the quadratic term mentioned earlier, representing the <strong>Mahalanobis distance</strong> between data point <span class="math notranslate nohighlight">\(x\)</span> and the center <span class="math notranslate nohighlight">\(\mu_k\)</span>;</p></li>
+<li><p>the 2nd term is the log of the determinant of the covariance matrix, and</p></li>
+<li><p>the  term involves the frequency of the class.</p></li>
+</ul>
+<p>This classification rule, described here, is known as <strong>quadratic discriminant analysis (QDA)</strong>. The key characteristic of QDA is that the function used to make decisions is quadratic in terms of the feature vector <span class="math notranslate nohighlight">\(x\)</span>.</p>
+<p>For example, if we have two classes (K = 2), the decision boundary would be where <span class="math notranslate nohighlight">\(d_k(x) = 1/2\)</span>, indicating equal likelihood for both classes. Due to the quadratic nature of <span class="math notranslate nohighlight">\(d_k(x)\)</span>, the decision boundary will also be quadratic in terms of <span class="math notranslate nohighlight">\(x\)</span>.</p>
+<p>In practice, estimating the three sets of parameters <span class="math notranslate nohighlight">\((\pi_k, \mu_k, \Sigma_k)\)</span> involves straightforward calculations. <span class="math notranslate nohighlight">\(\pi_k\)</span> can be computed as the frequency of class k in the training data; <span class="math notranslate nohighlight">\(\mu_k\)</span> and <span class="math notranslate nohighlight">\(\Sigma_k\)</span> can be estimated by the sample mean and sample covariance matrix of the data points belonging to each class separately. Once these parameters are estimated, we can calculate <span class="math notranslate nohighlight">\(d_k(x)\)</span> for every class k and select the class that minimizes d_k as our prediction.</p>
+<p>It’s important to note that in these calculations, the focus is not on <span class="math notranslate nohighlight">\(\Sigma_k\)</span> itself but on its inverse. In cases where <span class="math notranslate nohighlight">\(\Sigma_k\)</span> is not invertible, typically due to a large number of dimensions (p), a simple solution is to add a small constant (<span class="math notranslate nohighlight">\(\epsilon\)</span>) times the identity matrix to <span class="math notranslate nohighlight">\(\Sigma_k\)</span> and then take its inverse <span class="math notranslate nohighlight">\((\Sigma_k + \epsilon \mathbf{I}_p)^{-1}\)</span>, ensuring invertibility.</p>
 </section>
 
 
