@@ -16,6 +16,7 @@
         <script src="../_static/documentation_options.js?v=2709fde1"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -93,6 +94,17 @@
              
   <section id="summary">
 <h1><span class="section-number">9.7. </span>Summary<a class="headerlink" href="#summary" title="Link to this heading"></a></h1>
+<p>In Discriminant Analysis, we initially find the optimal decision rule for classification based on conditional probabilities. The approach in Discriminant Analysis is to estimate these probabilities by following a different factorization method. We estimate the margins of Y and the conditional distribution of X given Y and combine them to obtain the joint distribution. From this joint distribution, we can derive the marginal distribution. Depending on how we model the conditional distribution of X given Y, several Discriminant Analysis methods like Quadratic Discriminant Analysis (QDA), Linear Discriminant Analysis (LDA), or Naive Bayes can be employed.</p>
+<a class="reference internal image-reference" href="../_images/w9_summ_1.png"><img alt="../_images/w9_summ_1.png" src="../_images/w9_summ_1.png" style="width: 350.0px; height: 134.0px;" /></a>
+<p>Discriminant Analysis is conceptually straightforward and is effective for low-dimensional problems, particularly QDA and LDA. However, it may not be the most efficient method for building classifiers. Let’s take a closer look at binary LDA, where k can take only two different values, and the discriminant function or decision function is a linear function of X with coefficients determined by <span class="math notranslate nohighlight">\((\Sigma, \mu_k, \pi_k)\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[d_k (x) =   - 2 x^t \Sigma^{-1} \mu_k +  \mu_k^T \Sigma^{-1} \mu_k -2  \log \pi_k\]</div>
+<p>In binary classification, our main concern is the difference between <span class="math notranslate nohighlight">\(d_1(x)\)</span> and <span class="math notranslate nohighlight">\(d_2(x)\)</span>, which is a linear function of <span class="math notranslate nohighlight">\(x\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}d_1(x) - d_2(x) &amp; = - 2 x^t \Sigma^{-1} (\mu_1 - \mu_2) + \text{(Const-not-depend-on-x)} \\
+&amp; = x^t \textcolor{blue}{\boldsymbol{\beta}} +  \textcolor{blue}{\beta_0}.\end{split}\]</div>
+<p>So what truly matters is the linear function’s p-dimensional coefficient vector <span class="math notranslate nohighlight">\(\boldsymbol{\beta}\)</span>, along with the intercept <span class="math notranslate nohighlight">\(\beta_0\)</span>. However, LDA estimates these p + 1 parameters using a much larger collection of parameters, including a p-by-p covariance matrix <span class="math notranslate nohighlight">\(\Sigma\)</span>, two p-dimensional vectors <span class="math notranslate nohighlight">\(\mu_1\)</span> and <span class="math notranslate nohighlight">\(\mu_2\)</span>, and a mixing weight <span class="math notranslate nohighlight">\(\pi_1\)</span>.</p>
+<p>In the upcoming weeks, we’ll delve into methods that directly learn the conditional probability/decision boundary  as a function of <span class="math notranslate nohighlight">\(x\)</span>, such as logistic regression or tree models, which directly learn probabilities, or support vector machines (SVMs), which directly learn the decision boundary.</p>
 </section>
 
 
