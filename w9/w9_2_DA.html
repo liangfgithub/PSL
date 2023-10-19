@@ -125,7 +125,10 @@
 </ul>
 <p>As mentioned earlier, our goal is to identify ‘k’ that maximizes the conditional probability. This is equivalent to finding ‘k’ that maximizes the numerator <span class="math notranslate nohighlight">\(\pi_k f_k(x)\)</span>, as the denominator remains constant. When maximizing a product, we can achieve the same result by taking the logarithm of the product. Therefore, we can write the decision function as</p>
 <div class="math notranslate nohighlight">
-\[f(x) =  \arg\max_k \pi_k f_k(x) = \arg\max_k \Big [ \log \pi_k + \log f_k(x) \Big ].\]</div>
+\[\arg\max_k \pi_k f_k(x) = \arg\max_k \Big [ \log \pi_k + \log f_k(x) \Big ],\]</div>
+<p>or equivalently</p>
+<div class="math notranslate nohighlight">
+\[\arg\min_k = - \Big [ \log \pi_k + \log f_k(x) \Big ].\]</div>
 <p>In constructing the optimal classifier, our sole requirements are estimating <span class="math notranslate nohighlight">\(\pi_k\)</span> and <span class="math notranslate nohighlight">\(f_k(x)\)</span>.</p>
 </section>
 </section>

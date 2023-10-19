@@ -41,7 +41,13 @@ where
 As mentioned earlier, our goal is to identify 'k' that maximizes the conditional probability. This is equivalent to finding 'k' that maximizes the numerator :math:`\pi_k f_k(x)`, as the denominator remains constant. When maximizing a product, we can achieve the same result by taking the logarithm of the product. Therefore, we can write the decision function as
 
 .. math::
-	f(x) =  \arg\max_k \pi_k f_k(x) = \arg\max_k \Big [ \log \pi_k + \log f_k(x) \Big ]. 
+	 \arg\max_k \pi_k f_k(x) = \arg\max_k \Big [ \log \pi_k + \log f_k(x) \Big ], 
+
+or equivalently
+
+.. math::
+	 \arg\min_k = - \Big [ \log \pi_k + \log f_k(x) \Big ].
+
 
 In constructing the optimal classifier, our sole requirements are estimating :math:`\pi_k` and :math:`f_k(x)`.
 
