@@ -59,6 +59,7 @@
 <li class="toctree-l2"><a class="reference internal" href="w9_4_LDA.html">9.4. Linear Discriminant Analysis</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">9.5. Fisher Discriminant Analysis</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#lda-vs-fda">9.5.1. LDA vs. FDA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#some-remedies">9.5.2. Some Remedies</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="w9_6_NB.html">9.6. Naive Bayes Classifiers</a></li>
@@ -139,6 +140,22 @@ x_n &amp;= \textcolor{magenta}{x_n - \mu_{y_n}} + \textcolor{blue}{\mu_{y_n}}\en
 <p>The goal is to find a regression coefficient vector <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> to predict the response using the design matrix. Given the nature of regression, you can always find such a vector. When you project the data onto this one-dimensional space determined by <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>, you obtain one-dimensional values for each observation.</p>
 <p>In this specific example, the projection results in a clear separation between the two classes. Class one points project to one, while class zero points project to zero. However, this separation arises not due to meaningful features but because the feature dimension matches the sample size (n). When the feature dimension equals the sample size, you can generate an n-by-n design matrix and find a direction in the n-dimensional space that effectively separates the classes, even if the features are random noise.</p>
 <p>In conclusion, it’s essential to be aware of the potential for overfitting in FDA and similar methods, where seemingly impressive separation may be driven by high-dimensional features rather than meaningful patterns in the data.</p>
+</section>
+<section id="some-remedies">
+<h2><span class="section-number">9.5.2. </span>Some Remedies<a class="headerlink" href="#some-remedies" title="Link to this heading"></a></h2>
+<p>To address this problem, there are two common remedies:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>L1 Penalty:</dt><dd><p>Add L1 regularization to the optimization problem when estimating covariance matrices or their inverses and mean vectors. This encourages sparsity in the estimated parameters.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Assume Independence:</dt><dd><p>Assume that the p-dimensional density function is composed of independent components. This implies that the covariance matrix (sigma) becomes diagonal. This approach is known as Naive Bayes and can help address high-dimensional overfitting.</p>
+</dd>
+</dl>
+</li>
+</ul>
 </section>
 </section>
 
