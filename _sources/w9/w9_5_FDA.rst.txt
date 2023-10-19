@@ -72,7 +72,11 @@ Now, let's delve further into dimension reduction algorithms.
 
 FDA qualifies as a supervised dimension reduction algorithm since it leverages label information, denoted as Y. This differs from Principal Component Analysis (PCA), which is an unsupervised dimension reduction method. In PCA, if you change the labels or add irrelevant high-pigment labels to Y, the PCA directions remain unaffected.
 
-It's worth noting that FDA, originally designed for classification problems, can also be applied to regression. In regression, the response variable Y is continuous, unlike the discrete labels used in classification. However, you can discretize Y, for instance, by dividing it into quantiles. These quantile-based labels can then be employed for supervised dimension reduction using FDA.
+It's worth noting that FDA, originally designed for classification problems, can also be applied to regression. In regression, the response variable Y is continuous, unlike the discrete labels used in classification. However, you can discretize Y, for instance, by dividing it into quantiles. These quantile-based labels can then be employed for supervised dimension reduction using FDA. A similar algorithm is called SIR (Sliced Inverse Regression).
+
+
+Risk of Overfitting
+-----------------------------
 
 However, when working with FDA, particularly in classification tasks, there's a risk of overfitting. Let's illustrate this concern with a simple example:
 
@@ -87,8 +91,7 @@ In this specific example, the projection results in a clear separation between t
 
 In conclusion, it's essential to be aware of the potential for overfitting in FDA and similar methods, where seemingly impressive separation may be driven by high-dimensional features rather than meaningful patterns in the data.
 
-Some Remedies
------------------------------
+
 
 To address this problem, there are two common remedies:
 

@@ -59,7 +59,7 @@
 <li class="toctree-l2"><a class="reference internal" href="w9_4_LDA.html">9.4. Linear Discriminant Analysis</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">9.5. Fisher Discriminant Analysis</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#lda-vs-fda">9.5.1. LDA vs. FDA</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#some-remedies">9.5.2. Some Remedies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#risk-of-overfitting">9.5.2. Risk of Overfitting</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="w9_6_NB.html">9.6. Naive Bayes Classifiers</a></li>
@@ -133,16 +133,16 @@ x_n &amp;= \textcolor{magenta}{x_n - \mu_{y_n}} + \textcolor{blue}{\mu_{y_n}}\en
 <p>Despite their differences, FDA and LDA share a similarity: the subspaces they produce are equivalent. In fact, in software like R, there isn’t a specific FDA command; you can extract FDA directions from LDA outputs.</p>
 <p>Now, let’s delve further into dimension reduction algorithms.</p>
 <p>FDA qualifies as a supervised dimension reduction algorithm since it leverages label information, denoted as Y. This differs from Principal Component Analysis (PCA), which is an unsupervised dimension reduction method. In PCA, if you change the labels or add irrelevant high-pigment labels to Y, the PCA directions remain unaffected.</p>
-<p>It’s worth noting that FDA, originally designed for classification problems, can also be applied to regression. In regression, the response variable Y is continuous, unlike the discrete labels used in classification. However, you can discretize Y, for instance, by dividing it into quantiles. These quantile-based labels can then be employed for supervised dimension reduction using FDA.</p>
+<p>It’s worth noting that FDA, originally designed for classification problems, can also be applied to regression. In regression, the response variable Y is continuous, unlike the discrete labels used in classification. However, you can discretize Y, for instance, by dividing it into quantiles. These quantile-based labels can then be employed for supervised dimension reduction using FDA. A similar algorithm is called SIR (Sliced Inverse Regression).</p>
+</section>
+<section id="risk-of-overfitting">
+<h2><span class="section-number">9.5.2. </span>Risk of Overfitting<a class="headerlink" href="#risk-of-overfitting" title="Link to this heading"></a></h2>
 <p>However, when working with FDA, particularly in classification tasks, there’s a risk of overfitting. Let’s illustrate this concern with a simple example:</p>
 <p>Imagine six observations, where the first three belong to class one (in blue) and the remaining three to class zero (in red). The features are six-dimensional, although they could be higher-dimensional. The dataset is structured for linear regression with a binary response (1 or 0).</p>
 <a class="reference internal image-reference" href="../_images/w9_LDA_overfit.png"><img alt="../_images/w9_LDA_overfit.png" src="../_images/w9_LDA_overfit.png" style="width: 309.5px; height: 268.0px;" /></a>
 <p>The goal is to find a regression coefficient vector <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> to predict the response using the design matrix. Given the nature of regression, you can always find such a vector. When you project the data onto this one-dimensional space determined by <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>, you obtain one-dimensional values for each observation.</p>
 <p>In this specific example, the projection results in a clear separation between the two classes. Class one points project to one, while class zero points project to zero. However, this separation arises not due to meaningful features but because the feature dimension matches the sample size (n). When the feature dimension equals the sample size, you can generate an n-by-n design matrix and find a direction in the n-dimensional space that effectively separates the classes, even if the features are random noise.</p>
 <p>In conclusion, it’s essential to be aware of the potential for overfitting in FDA and similar methods, where seemingly impressive separation may be driven by high-dimensional features rather than meaningful patterns in the data.</p>
-</section>
-<section id="some-remedies">
-<h2><span class="section-number">9.5.2. </span>Some Remedies<a class="headerlink" href="#some-remedies" title="Link to this heading"></a></h2>
 <p>To address this problem, there are two common remedies:</p>
 <ul class="simple">
 <li><dl class="simple">
