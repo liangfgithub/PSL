@@ -79,12 +79,12 @@ The challenge of finding the optimal :math:`f^*` that minimizes the risk functio
 1. The inner integration (in blue) gives us the expected loss at a specific :math:`x`.
 2. The outer integration then calculates the average of these expectations over all possible values of :math:`X`. 
 
-This implies that if we find an :math:`f` that minimizes the expected loss at each specific 'x', its average expected loss (i.e., the risk) will also be minimized. 
+This implies that if we find an :math:`f` that minimizes the expected loss at each specific :math:`x`, its average expected loss (i.e., the risk) will also be minimized. 
 
 
-Since 'Y' is a discrete random variable taking only two possible values. The inside expectation integral transforms into a summation due to the discrete nature of 'Y'. The distribution of 'Y' given 'X=x' follows a Bernoulli distribution with parameter :math:`P(Y=1|X=x) := \eta(x)`. 
+Since :math:`Y` is a discrete random variable taking only two possible values. The inside expectation integral transforms into a summation due to the discrete nature of :math:`Y`. The distribution of :math:`Y` given :math:`X=x` follows a Bernoulli distribution with parameter :math:`P(Y=1|X=x) := \eta(x)`. 
 
-Evaluate the expectation involves summing up probabilities for both 'Y = 1' and 'Y = 0'. 
+Evaluate the expectation involves summing up probabilities for both :math:`Y = 1` and :math:`Y = 0`. 
 
 .. math::
 	\int_{\mathcal{Y}} L(y, f(x)) p(y| x)  dy &= L(1, f(x)) \cdot P(Y=1|x) + L(0, f(x)) \cdot P(Y=0|x) \\

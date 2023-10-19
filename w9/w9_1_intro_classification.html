@@ -156,9 +156,9 @@
 <li><p>The inner integration (in blue) gives us the expected loss at a specific <span class="math notranslate nohighlight">\(x\)</span>.</p></li>
 <li><p>The outer integration then calculates the average of these expectations over all possible values of <span class="math notranslate nohighlight">\(X\)</span>.</p></li>
 </ol>
-<p>This implies that if we find an <span class="math notranslate nohighlight">\(f\)</span> that minimizes the expected loss at each specific ‘x’, its average expected loss (i.e., the risk) will also be minimized.</p>
-<p>Since ‘Y’ is a discrete random variable taking only two possible values. The inside expectation integral transforms into a summation due to the discrete nature of ‘Y’. The distribution of ‘Y’ given ‘X=x’ follows a Bernoulli distribution with parameter <span class="math notranslate nohighlight">\(P(Y=1|X=x) := \eta(x)\)</span>.</p>
-<p>Evaluate the expectation involves summing up probabilities for both ‘Y = 1’ and ‘Y = 0’.</p>
+<p>This implies that if we find an <span class="math notranslate nohighlight">\(f\)</span> that minimizes the expected loss at each specific <span class="math notranslate nohighlight">\(x\)</span>, its average expected loss (i.e., the risk) will also be minimized.</p>
+<p>Since <span class="math notranslate nohighlight">\(Y\)</span> is a discrete random variable taking only two possible values. The inside expectation integral transforms into a summation due to the discrete nature of <span class="math notranslate nohighlight">\(Y\)</span>. The distribution of <span class="math notranslate nohighlight">\(Y\)</span> given <span class="math notranslate nohighlight">\(X=x\)</span> follows a Bernoulli distribution with parameter <span class="math notranslate nohighlight">\(P(Y=1|X=x) := \eta(x)\)</span>.</p>
+<p>Evaluate the expectation involves summing up probabilities for both <span class="math notranslate nohighlight">\(Y = 1\)</span> and <span class="math notranslate nohighlight">\(Y = 0\)</span>.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\int_{\mathcal{Y}} L(y, f(x)) p(y| x)  dy &amp;= L(1, f(x)) \cdot P(Y=1|x) + L(0, f(x)) \cdot P(Y=0|x) \\
 &amp;= L(1, f(x)) \cdot \eta(x) + L(0, f(x)) \cdot (1 - \eta(x)) \\
