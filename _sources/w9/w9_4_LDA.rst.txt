@@ -76,7 +76,7 @@ For instance, consider a special case where K equals two, representing a binary 
 It's important to note that our derivations thus far assume an identity covariance matrix. However, the conclusions remain consistent even when the covariance matrix deviates from identity. A normalization step is needed to transform the data from the ellipsoid shape to a spherical shape. This transformation involves scaling by the square root of the covariance matrix.	
 
 .. image:: ../images/w9_LDA_normalize.png
-	:scale: 75 %
+	:scale: 80 %
 
 
 Consider a scenario with a tilted, ellipsoid-shaped contour plot of data clouds. In this case, LDA still leads to the same outcome. Whether in the original two-dimensional space or projected onto a one-dimensional black line, the results will be consistent. 
@@ -85,5 +85,6 @@ Consider a scenario with a tilted, ellipsoid-shaped contour plot of data clouds.
 	:scale: 75 %
 
 
+However, it's essential to recognize that each of the 'K minus one' dimensions learned from LDA is, in fact, a linear combination of all the original p dimensions. This implies that overfitting can occur when p is significantly larger than K. In such cases, while the LDA projection may seem to provide excellent separation in the low-dimensional space during training, it may not generalize well to test data; see our code page. 
 
-However, it's essential to recognize that each of the 'K minus one' dimensions learned from LDA is, in fact, a linear combination of all the original p dimensions. This implies that overfitting can occur when p is significantly larger than K. In such cases, while the LDA projection may seem to provide excellent separation in the low-dimensional space during training, it may not generalize well to test data, as demonstrated in our code page. 
+
