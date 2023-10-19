@@ -121,7 +121,7 @@
 <div class="math notranslate nohighlight">
 \[f: \mathbb{R}^p \longrightarrow \{0, 1\}\]</div>
 <ol class="arabic simple" start="3">
-<li><p><strong>Loss Function</strong>: Define a loss function <span class="math notranslate nohighlight">\(L(f(x), y)\)</span> that quantifies how well our prediction <span class="math notranslate nohighlight">\(f(x)\)</span> aligns with the true response ‘y’. In the case of binary classification, a commonly used loss function is the 0-1 loss:</p></li>
+<li><p><strong>Loss Function</strong>: Define a loss function <span class="math notranslate nohighlight">\(L(f(x), y)\)</span> that quantifies how well our prediction <span class="math notranslate nohighlight">\(f(x)\)</span> aligns with the true response <span class="math notranslate nohighlight">\(y\)</span>. In the case of binary classification, a commonly used loss function is the 0-1 loss:</p></li>
 </ol>
 <div class="math notranslate nohighlight">
 \[L(f(x), y) = 0, \text { if } y=f(x); \quad 1, \text { if } y \ne f(x).\]</div>
@@ -133,28 +133,28 @@
 </section>
 <section id="optimal-classifier">
 <h2><span class="section-number">9.1.2. </span>Optimal Classifier<a class="headerlink" href="#optimal-classifier" title="Link to this heading"></a></h2>
-<p>Let’s imagine an ideal scenario where we have an infinite number of samples, or in other words, we completely understand how our data <span class="math notranslate nohighlight">\((X, Y)\)</span> is generated. In this situation, there’s no distinction between training and test samples, as we possess complete knowledge of the data. As our sample size ‘n’ approaches infinity, our loss function tends toward its expectation. This expectation is computed with respect to the true data-generating process, which involves a joint distribution over both ‘X’ and ‘Y’. The expected loss in this context is often referred to as the “risk” function of the classifier ‘f’.</p>
+<p>Let’s imagine an ideal scenario where we have an infinite number of samples, or in other words, we completely understand how our data <span class="math notranslate nohighlight">\((X, Y)\)</span> is generated. In this situation, there’s no distinction between training and test samples, as we possess complete knowledge of the data. As our sample size ‘n’ approaches infinity, our loss function tends toward its expectation. This expectation is computed with respect to the true data-generating process, which involves a joint distribution over both X and Y. The expected loss in this context is often referred to as the “risk” function of the classifier <span class="math notranslate nohighlight">\(f\)</span>.</p>
 <div class="math notranslate nohighlight">
 \[\frac{1}{n} \sum_{i=1}^n L(f(x_i), y_i) \to \mathbb{E} {X, Y} L(f(X), Y) := \text{Risk}[f]\]</div>
 <p>It’s logical to then define the optimal classifier, <span class="math notranslate nohighlight">\(f^*\)</span>, as the function that minimizes this risk function.</p>
 <div class="math notranslate nohighlight">
 \[f^* = \arg\min_f  \text{Risk}[f].\]</div>
-<p>Assuming we adopt the 0-1 loss function and permit the use of any function ‘f’, the next question arises: What exactly is this optimal <span class="math notranslate nohighlight">\(f^*\)</span>?</p>
-<p>The risk function involves an expectation over the joint distribution of features ‘X’ and the target variable ‘Y’. We can factorize the joint distribution as the product of the marginal of ‘X’ and the conditional of ‘Y’ given ‘X’. This simplifies the risk function.</p>
+<p>Assuming we adopt the 0-1 loss function and permit the use of any function <span class="math notranslate nohighlight">\(f\)</span>, the next question arises: What exactly is this optimal <span class="math notranslate nohighlight">\(f^*\)</span>?</p>
+<p>The risk function involves an expectation over the joint distribution of features X and the target variable Y. We can factorize the joint distribution as the product of the marginal of X and the conditional of Y given X. This simplifies the risk function.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\text{Risk}[f] &amp; =  \mathbb{E}_{X, Y} L(f(X), Y) =  \int_{\mathcal{X}}  \int_{\mathcal{Y}} L(y, f(x)) p(x, y) dy dx \\
 &amp;= \int_{\mathcal{X}}  \int_{\mathcal{Y}} L(y, f(x)) p(y | x ) p(x)   dy dx \\
 &amp;= \int_{\mathcal{X}} \Big [ \textcolor{blue}{\int_{\mathcal{Y}} L(y, f(x)) p(y| x)  dy} \Big ] p(x) d x\end{split}\]</div>
 <p>where</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(p(x)\)</span> is the marginal distribution function of ‘X’;</p></li>
-<li><p><span class="math notranslate nohighlight">\(p(y | x)\)</span> is the conditional distribution function of ‘Y’ given ‘X=x’;</p></li>
-<li><p><span class="math notranslate nohighlight">\(p(x) p(y|x)\)</span> is the joint distribution function of (X, Y).</p></li>
+<li><p><span class="math notranslate nohighlight">\(p(x)\)</span> is the marginal distribution function of <span class="math notranslate nohighlight">\(X\)</span>;</p></li>
+<li><p><span class="math notranslate nohighlight">\(p(y | x)\)</span> is the conditional distribution function of <span class="math notranslate nohighlight">\(Y\)</span> given <span class="math notranslate nohighlight">\(X=x\)</span>;</p></li>
+<li><p><span class="math notranslate nohighlight">\(p(x) p(y|x)\)</span> is the joint distribution function of <span class="math notranslate nohighlight">\((X, Y)\)</span>.</p></li>
 </ul>
 <p>The challenge of finding the optimal <span class="math notranslate nohighlight">\(f^*\)</span> that minimizes the risk function can be broken down into a series of subproblems.</p>
 <ol class="arabic simple">
-<li><p>The inner integration (in blue) gives us the expected loss at a specific ‘x’.</p></li>
-<li><p>The outer integration then calculates the average of these expectations over all possible values of ‘X’.</p></li>
+<li><p>The inner integration (in blue) gives us the expected loss at a specific <span class="math notranslate nohighlight">\(x\)</span>.</p></li>
+<li><p>The outer integration then calculates the average of these expectations over all possible values of <span class="math notranslate nohighlight">\(X\)</span>.</p></li>
 </ol>
 <p>This implies that if we find an <span class="math notranslate nohighlight">\(f\)</span> that minimizes the expected loss at each specific ‘x’, its average expected loss (i.e., the risk) will also be minimized.</p>
 <p>Since ‘Y’ is a discrete random variable taking only two possible values. The inside expectation integral transforms into a summation due to the discrete nature of ‘Y’. The distribution of ‘Y’ given ‘X=x’ follows a Bernoulli distribution with parameter <span class="math notranslate nohighlight">\(P(Y=1|X=x) := \eta(x)\)</span>.</p>
