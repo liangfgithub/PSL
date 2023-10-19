@@ -29,7 +29,7 @@ In practice, the estimation of :math:`(\pi_k, \mu_k)` can be carried out similar
 In the discriminant function, what matters is :math:`\hat{\Sigma}^{-1}`. A concern arises if :math:`\hat{\Sigma}` is not invertible. The rank of :math:`\hat{\Sigma}` is at most n-K. Thus, this situation can arise when the dimensionality 'p' is substantial. 
 
 
-To address non-invertibility, we can employ the same trick used in QDA. By adding a small constant :math:`\epsilon` times the identity matrix to :math:`\hat{Sigma}`, we ensure its invertibility. 
+To address non-invertibility, we can employ the same trick used in QDA. By adding a small constant :math:`\epsilon` times the identity matrix to :math:`\hat{\Sigma}`, we ensure its invertibility. 
 
 
 Alternatively, one can compute the generalized inverse of the matrix. The generalized inverse essentially ignores dimensions where the matrix is singular, allowing us to calculate the inverse only for the dimensions where it is possible. 
@@ -52,7 +52,9 @@ Let's start by assuming that :math:`\Sigma` is an identity matrix, which simplif
 	d_k (x) =  \| x-\mu_k \|^2  -2  \log \pi_k. 
 
 
-Without loss of generality, let's assume the average of the K centers is the origin. This choice stems from the fact that what truly matters is the relative distances between data points, and we have the flexibility to designate the origin's location arbitrarily. Consequently, the K class centers, :math:`(\mu_1, \dots, \mu_K)`, form a (K-1)-dimensional subspace. This leads us to substitute the first term, :math:`\| x-\mu_k \|^2`, in the original p-dimensional space, with a squared distance calculated  within the lower-dimensional (K-1)-dimensional subspace. This transformation naturally induces dimension reduction, effectively reducing the initial dimensionality denoted as p to (K-1).
+Without loss of generality, let's assume the average of the K centers is the origin. This choice stems from the fact that what truly matters is the relative distances between data points, and we have the flexibility to designate the origin's location arbitrarily. 
+
+Consequently, the K class centers, :math:`(\mu_1, \dots, \mu_K)`, form a (K-1)-dimensional subspace. This leads us to substitute the first term, :math:`\| x-\mu_k \|^2`, in the original p-dimensional space, with a squared distance calculated  within the lower-dimensional (K-1)-dimensional subspace. This transformation naturally induces dimension reduction, effectively reducing the initial dimensionality denoted as p to (K-1).
 
 But why is this feasible? We can denote the subspace defined by the K centers as :math:`\mathcal{A}`. For any p-dimensional vector :math:`x`, we can decompose it as a sum of two orthogonal vectors: 
 
@@ -64,10 +66,10 @@ Here, :math:`x_1` belongs to the (K-1)-dimensional subspace, :math:`\mathcal{A}`
 .. math::
 	\| x-\mu_k \|^2 = \| x_1 + x_2 - \mu_k\|^2 = \| x_1  - \mu_k\|^2 + \|x_2\|^2. 
 
-Notably, for any :math:`x`, the term :math:`\|x_2\|^2` remains constant. Given that our primary concern is determining which 'k' yields the largest :math:`d_k` for any :math:`x`, we can safely disregard :math:`\|x_2\|^2`.  As a result, we can perform LDA exclusively within this reduced (K - 1)-dimensional space.
+Notably, for any :math:`x`, the term :math:`\|x_2\|^2` remains constant. Given that our primary concern is determining which 'k' yields the largest :math:`d_k` for any :math:`x`, we can safely disregard :math:`\|x_2\|^2`.  As a result, we can perform LDA exclusively within this reduced (K-1)-dimensional space.
 
 
-For instance, consider a special case where K equals two, representing a binary classification problem with an original dimensionality p of two. Even though the data exists in a two-dimensional space, we can perform classification by projecting all data points onto the x-coordinate and determining their proximity to the respective centers to make decisions. This example illustrates how LDA naturally reduces the dimensionality from the original 'p' to K minus one, which, in this extreme case, results in just one dimension.
+For instance, consider a special case where K equals two, representing a binary classification problem with an original dimensionality p of two. Even though the data exists in a two-dimensional space, we can perform classification by projecting all data points onto the x-coordinate and determining their proximity to the respective centers to make decisions. This example illustrates how LDA naturally reduces the dimensionality from the original 'p' to (K-1), which, in the case of binary classification, results in just one dimension.
 
 .. image:: ../images/w9_LDA_reduced_1.png
 	:scale: 75 %
@@ -84,7 +86,9 @@ Consider a scenario with a tilted, ellipsoid-shaped contour plot of data clouds.
 .. image:: ../images/w9_LDA_reduced_2.png
 	:scale: 75 %
 
+Risk of Overfitting
+-----------------------------
 
-However, it's essential to recognize that each of the 'K minus one' dimensions learned from LDA is, in fact, a linear combination of all the original p dimensions. This implies that overfitting can occur when p is significantly larger than K. In such cases, while the LDA projection may seem to provide excellent separation in the low-dimensional space during training, it may not generalize well to test data; see our code page. 
+However, it's essential to recognize that each of the (K-1) dimensions learned from LDA is, in fact, a linear combination of all the original p dimensions. This implies that overfitting can occur when p is significantly larger than K. In such cases, while the LDA projection may seem to provide excellent separation in the low-dimensional space during training, it may not generalize well to test data; see our code page. 
 
 
