@@ -11,7 +11,7 @@ We estimate the margins of Y and the conditional distribution of X given Y and c
 
 Discriminant Analysis is conceptually straightforward and is effective for low-dimensional problems, particularly QDA and LDA. However, it may not be the most efficient method for building classifiers. 
 
-Let's take a closer look at binary LDA, where k can take only two different values, and the discriminant function or decision function is a linear function of X with coefficients determined by :math:`(\Sigma, \mu_k, \pi_k)`.  
+Let's take a closer look at binary LDA, where k can take only two different values, and the discriminant function or decision function is a linear function of :math:`x` with coefficients determined by :math:`(\Sigma, \mu_k, \pi_k)`.  
 
 .. math::
 	d_k (x) =   - 2 x^t \Sigma^{-1} \mu_k +  \mu_k^T \Sigma^{-1} \mu_k -2  \log \pi_k 
