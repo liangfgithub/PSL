@@ -100,7 +100,6 @@ In this specific example, the projection results in a clear separation between t
 In conclusion, it's essential to be aware of the potential for overfitting in FDA and similar methods, where seemingly impressive separation may be driven by high-dimensional features rather than meaningful patterns in the data.
 
 
-
 To address this problem, there are two common remedies:
 
 - L1 Penalty:
@@ -109,5 +108,12 @@ To address this problem, there are two common remedies:
 - Assume Independence:
 	Assume that the p-dimensional density function is composed of independent components. This implies that the covariance matrix (sigma) becomes diagonal. This approach is known as Naive Bayes and can help address high-dimensional overfitting.
 
+R/Python Code
+-------------------
+
+
+*  Rcode: [`Rcode_W9_LDA_QDA <https://liangfgithub.github.io/Rcode_W9_LDA_QDA.html>`_]
+
+*  Python: [`Python_W9_LDA_QDA <https://liangfgithub.github.io/Python_W9_LDA_QDA.html>`_] 
 
 
