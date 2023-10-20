@@ -38,6 +38,9 @@ To help understand B and W, consider that every :math:`x_i` can be represented a
  	x_n &= \textcolor{magenta}{x_n - \mu_{y_n}} + \textcolor{blue}{\mu_{y_n}}
 
 
+Generalized Eigenvalue Problem
+----------------------------------------
+
 Maximize the ratio can be turned into a generalized eigenvalue problem. This problem involves maximizing a quadratic function of B subject to a quadratic constraint on :math:`\mathbf{a}`. 
 
 .. image:: ../images/w9_FDA_genEigen_1.png
@@ -50,9 +53,20 @@ The solution :math:`\mathbf{b}` yields the first eigenvector of the matrix. By r
 .. image:: ../images/w9_FDA_genEigen_2.png
 	:scale: 70 %
 
-A key distinction between :math:`\mathbf{b}` vectors and :math:`\mathbf{a}` vectors lies in their orthogonality. B vectors are eigenvectors and are orthogonal and normalized, with a norm of one. In contrast, a vectors are derived from b vectors through a transformation and are no longer orthogonal to each other. Additionally, their norms are not necessarily one; they can be considered as being orthogonal in a new space defined by the W matrix, where inner products between the vectors are calculated accordingly.
+A key distinction between :math:`\mathbf{b}` vectors and :math:`\mathbf{a}` vectors lies in their orthogonality. 
+
+- :math:`\mathbf{b}` vectors are eigenvectors and are orthogonal and normalized, with a norm of one. 
+- In contrast, :math:`\mathbf{a}` vectors are derived from :math:`\mathbf{b}` vectors through a transformation and are no longer orthogonal to each other. Additionally, their norms are not necessarily one; they can be considered as being orthogonal in a new space defined by the W matrix, where inner products between the vectors are calculated accordingly.
+
 
 In summary, Fisher's Discriminant Analysis (FDA) involves formulating and solving a generalized eigenvalue decomposition problem to find K-1 directions that lead to well-separated data when projected. Notably, these K-1 directions span the same subspace as the one obtained in reduced-rank Linear Discriminant Analysis (LDA), providing a valuable connection between the two techniques. This alignment becomes particularly apparent when within-class covariance is identity. In such cases, the eigenvectors of B correspond to the space where class centers lie after removing the mean, establishing the equivalence between FDA and LDA in this scenario.
+
+Supervised Dimension Reduction
+-------------------------------------
+
+FDA qualifies as a supervised dimension reduction algorithm since it leverages label information, denoted as Y. This differs from Principal Component Analysis (PCA), which is an unsupervised dimension reduction method. In PCA, if you change the labels or add irrelevant high-pigment labels to Y, the PCA directions remain unaffected.
+
+It's worth noting that FDA, originally designed for classification problems, can also be applied to regression. In regression, the response variable Y is continuous, unlike the discrete labels used in classification. However, you can discretize Y, for instance, by dividing it into quantiles. These quantile-based labels can then be employed for supervised dimension reduction using FDA. A similar algorithm is called SIR (Sliced Inverse Regression).
 
 
 LDA vs. FDA
@@ -67,12 +81,6 @@ Let's take a moment to compare Linear Discriminant Analysis (LDA) and Fisher's D
 An intriguing aspect of these methods is that LDA imposes strict assumptions about the normality of features, while FDA formulates the problem more generally without making specific distributional assumptions. But it turns out that normality assumptions are implicitly embedded in FDA. This implicit inclusion of normality stems from FDA's reliance on second moments of covariance matrices and centers of the data, which is a characteristic of normal distributions. The parameters of normal distributions involve only means and covariances. In FDA, the within-class covariance matrix assumes that the covariance structure is the same across different classes, which matches the assumption in LDA. 
 
 Despite their differences, FDA and LDA share a similarity: the subspaces they produce are equivalent. In fact, in software like R, there isn't a specific FDA command; you can extract FDA directions from LDA outputs.
-
-Now, let's delve further into dimension reduction algorithms.
-
-FDA qualifies as a supervised dimension reduction algorithm since it leverages label information, denoted as Y. This differs from Principal Component Analysis (PCA), which is an unsupervised dimension reduction method. In PCA, if you change the labels or add irrelevant high-pigment labels to Y, the PCA directions remain unaffected.
-
-It's worth noting that FDA, originally designed for classification problems, can also be applied to regression. In regression, the response variable Y is continuous, unlike the discrete labels used in classification. However, you can discretize Y, for instance, by dividing it into quantiles. These quantile-based labels can then be employed for supervised dimension reduction using FDA. A similar algorithm is called SIR (Sliced Inverse Regression).
 
 
 Risk of Overfitting
