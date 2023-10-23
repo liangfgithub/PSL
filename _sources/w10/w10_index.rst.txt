@@ -1,24 +1,17 @@
 Logistic Regression
 ====================================
 
-Setup 
---------------------------------------
 
-MLE
---------------------------------------
 
-Seperable Data
---------------------------------------
+.. toctree::
+   :maxdepth: 1
 
-Logistic Regression in R
---------------------------------------
+   w10_1_setup.rst
+   w10_2_mle.rst
+   w10_3_seperable.rst
+   w10_4_code.rst
+   w10_5_varsel.rst
+   w10_6_sampling.rst
+   w10_7_nonlinear.rst
 
-Variable Selection
---------------------------------------
 
-Retrospective Sampling Data
---------------------------------------
-
-Nonlinear Logistic Regression
---------------------------------------
- 

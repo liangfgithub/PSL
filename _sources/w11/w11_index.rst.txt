@@ -1,18 +1,14 @@
 Support Vector Machine
 ====================================
 
-The eparable case
---------------------------------------
 
-The non-separable case
---------------------------------------
+.. toctree::
+   :maxdepth: 1
 
-Practical Issues
---------------------------------------
-
-Nonlinear SVMs
---------------------------------------
-
-Summary
---------------------------------------
+   w11_1_separable_case.rst
+   w11_2_non_separable_case.rst
+   w11_3_practical_issues.rst
+   w11_4_nonlinear.rst
+   w11_5_summ.rst
  
+
