@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>13. Recommender System &mdash; PSL_Book 0.1 documentation</title>
+  <title>12.1. Classification Trees &mdash; PSL_Book 0.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,7 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="12.4. Boosting" href="../w12/w12_4_boosting.html" /> 
+    <link rel="next" title="12.2. Impurity Measure" href="w12_2_impurity.html" />
+    <link rel="prev" title="12. Classification Trees and Boosting" href="w12_index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -53,15 +54,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../w9/w9_index.html">9. Discriminant Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../w10/w10_index.html">10. Logistic Regression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../w11/w11_index.html">11. Support Vector Machine</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../w12/w12_index.html">12. Classification Trees and Boosting</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">13. Recommender System</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#introduction">13.1. Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#content-based-recommendation">13.2. Content-based recommendation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#collaborative-filtering">13.3. Collaborative filtering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#latent-factor-model">13.4. Latent factor model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#challenges-and-future-directions">13.5. Challenges and future directions</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="w12_index.html">12. Classification Trees and Boosting</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">12.1. Classification Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w12_2_impurity.html">12.2. Impurity Measure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w12_3_adaboost.html">12.3. AdaBoost</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w12_4_boosting.html">12.4. Boosting</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../w13/w13_index.html">13. Recommender System</a></li>
 </ul>
 
         </div>
@@ -78,7 +78,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active"><span class="section-number">13. </span>Recommender System</li>
+          <li class="breadcrumb-item"><a href="w12_index.html"><span class="section-number">12. </span>Classification Trees and Boosting</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">12.1. </span>Classification Trees</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -87,30 +88,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="recommender-system">
-<h1><span class="section-number">13. </span>Recommender System<a class="headerlink" href="#recommender-system" title="Link to this heading"></a></h1>
-<section id="introduction">
-<h2><span class="section-number">13.1. </span>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
-</section>
-<section id="content-based-recommendation">
-<h2><span class="section-number">13.2. </span>Content-based recommendation<a class="headerlink" href="#content-based-recommendation" title="Link to this heading"></a></h2>
-</section>
-<section id="collaborative-filtering">
-<h2><span class="section-number">13.3. </span>Collaborative filtering<a class="headerlink" href="#collaborative-filtering" title="Link to this heading"></a></h2>
-</section>
-<section id="latent-factor-model">
-<h2><span class="section-number">13.4. </span>Latent factor model<a class="headerlink" href="#latent-factor-model" title="Link to this heading"></a></h2>
-</section>
-<section id="challenges-and-future-directions">
-<h2><span class="section-number">13.5. </span>Challenges and future directions<a class="headerlink" href="#challenges-and-future-directions" title="Link to this heading"></a></h2>
-</section>
+  <section id="classification-trees">
+<h1><span class="section-number">12.1. </span>Classification Trees<a class="headerlink" href="#classification-trees" title="Link to this heading"></a></h1>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../w12/w12_4_boosting.html" class="btn btn-neutral float-left" title="12.4. Boosting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="w12_index.html" class="btn btn-neutral float-left" title="12. Classification Trees and Boosting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="w12_2_impurity.html" class="btn btn-neutral float-right" title="12.2. Impurity Measure" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

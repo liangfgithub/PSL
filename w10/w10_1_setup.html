@@ -16,6 +16,7 @@
         <script src="../_static/documentation_options.js?v=2709fde1"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -93,6 +94,32 @@
              
   <section id="setup">
 <h1><span class="section-number">10.1. </span>Setup<a class="headerlink" href="#setup" title="Link to this heading"></a></h1>
+<p>As we have learned before, in the binary case, the best classifier depends on</p>
+<div class="math notranslate nohighlight">
+\[\eta(x)= P(Y=1 | X=x).\]</div>
+<p>One type of approaches for classification is to directly model or estimate <span class="math notranslate nohighlight">\(\eta(x)\)</span>. Since <span class="math notranslate nohighlight">\(\eta(x)\)</span> is constrained to between $0$ and $1$, as it represents a probability. Therefore, it’s challenging to model <span class="math notranslate nohighlight">\(\eta(x)\)</span> directly with a linear model because linear models are unconstrained. Instead, we model its transformation (or referred to as a <strong>link function</strong>) with a linear model:</p>
+<div class="math notranslate nohighlight">
+\[g(\eta(x)) = x^t \beta.\]</div>
+<p>Here, for simplicity, we incorporate the intercept into <span class="math notranslate nohighlight">\(x\)</span>, so <span class="math notranslate nohighlight">\(\beta\)</span> represents all the coefficients, including the intercept.</p>
+<p>In logistic regression, we use the so-called <strong>logit</strong> link function, which is equal to</p>
+<div class="math notranslate nohighlight">
+\[\text{logit}(\eta(x)) = \log \frac{\eta(x)}{1 - \eta(x)}.\]</div>
+<p>This transformation ensures that the logit value is unconstrained:</p>
+<ul class="simple">
+<li><p>when <span class="math notranslate nohighlight">\(\eta(x) = 0.5,\)</span> the ratio inside the log is 1, resulting in a logit of 0.</p></li>
+<li><p>When <span class="math notranslate nohighlight">\(\eta(x) &gt; 0.5,\)</span> the ratio is greater than 1, yielding a positive logit ranging from 0 to infinity.</p></li>
+<li><p>When <span class="math notranslate nohighlight">\(\eta(x) &lt; 0.5,\)</span> the ratio is less than 1, resulting in a logit ranging from -infinity to 0.</p></li>
+</ul>
+<p>At each data point, we have</p>
+<ul class="simple">
+<li><p>a p-dimensional feature vector <span class="math notranslate nohighlight">\(x_i\)</span>,</p></li>
+<li><p>a binary outcome <span class="math notranslate nohighlight">\(y_i\)</span>, and</p></li>
+<li><p>the corresponding probability <span class="math notranslate nohighlight">\(\eta(x_i).\)</span></p></li>
+</ul>
+<p>The unknown parameter <span class="math notranslate nohighlight">\(\beta\)</span> is embedded within the eta function. The challenge now is how to estimate <span class="math notranslate nohighlight">\(\eta\)</span> (or equivalently, <span class="math notranslate nohighlight">\(\beta\)</span>).</p>
+<p>Following our usual approach, the next step is to design a loss function to quantify the agreement between the observed  <span class="math notranslate nohighlight">\(y_i\)</span> and the estimated <span class="math notranslate nohighlight">\(\eta(x_i)\)</span>.</p>
+<p>While one might consider using the L2 loss <span class="math notranslate nohighlight">\((y - \eta(x))^2\)</span>, it has some limitations. Specifically, it tends to be too flat for training because the quantity <span class="math notranslate nohighlight">\((y - \eta(x))\)</span> is typically less than 1. Squaring it further reduces the scale of the loss, resulting in small gradients, making training difficult and potentially leading to getting stuck at certain points.</p>
+<p>Instead, we opt for the log-likelihood as our loss function.</p>
 </section>
 
 

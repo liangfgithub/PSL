@@ -1,17 +1,14 @@
 Classification Trees and Boosting
 ====================================
 
-Classification Trees
---------------------------------------
 
 
-Impurity Measure
---------------------------------------
+.. toctree::
+   :maxdepth: 1
 
-
-AdaBoost
---------------------------------------
-
-Boosting
---------------------------------------
+   w12_1_class_tree.rst
+   w12_2_impurity.rst
+   w12_3_adaboost.rst
+   w12_4_boosting.rst
+ 
 

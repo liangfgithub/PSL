@@ -1,3 +1,43 @@
 
 MLE
 ====================================
+
+Let's  start with is the Logit of :math:`\eta`:
+
+.. math::
+	\log \frac{\eta(x)}{1-\eta(x)} = x^t \beta
+
+
+Then express :math:`\eta` and :math:`1 - \eta` in terms of :math:`\beta`:
+
+.. math::
+	P(Y=1|X = x) & = \eta(x) = \frac{\exp(x^t \beta)}{1+\exp(x^t \beta)} \\
+	P(Y=0 | X=x) & = 1 - \eta(x)  = \frac{1}{1+\exp(x^t \beta)} 
+
+We unify the expressions above for both Y=1 and Y=0 into a single form, using the sigmoid function, denoted as :math:`\sigma(z) = e^z / (1 + e^z),` where :math:`z` is shorthand for :math:`x^t \beta`. 
+
+.. math::
+	P(Y = y | X = x) &=  \sigma(z)^y (1 - \sigma(z))^{1-y} \\
+	 		\sigma(z) &= \frac{e^z}{1 + e^z}, \quad z = x^t \beta. 
+
+
+Next, we need to find the maximum likelihood estimate (MLE) for :math:`\beta.` We follow the standard approach of setting the gradient of the log-likelihood with respect to :math:`\beta` to zero and solving for :math:`\beta.` 
+
+.. image:: ../images/w10_MLE_1.png
+	:scale: 55 %
+
+
+However, this solution is not in closed form, so we use an iterative algorithm, known as the Newton-Raphson algorithm, to find the root of the derivative.
+
+
+
+During this iterative process, we also need to calculate the second derivative of the log-likelihood, which forms a matrix known as the Hessian matrix. The Hessian matrix is negative semi-definite, indicating that the log-likelihood function is concave. This property simplifies optimization, as any local maximum is also the global maximum.
+
+.. image:: ../images/w10_MLE_2.png
+	:scale: 55 %
+
+
+The MLE  can be obtained by the following **Reweighted LS Algorithm**: 
+
+.. image:: ../images/w10_MLE_alg.png
+	:scale: 60 %

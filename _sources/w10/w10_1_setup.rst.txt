@@ -1,3 +1,42 @@
 
 Setup 
 ====================================
+
+As we have learned before, in the binary case, the best classifier depends on
+
+.. math::
+	\eta(x)= P(Y=1 | X=x).
+
+One type of approaches for classification is to directly model or estimate :math:`\eta(x)`. Since :math:`\eta(x)` is constrained to between $0$ and $1$, as it represents a probability. Therefore, it's challenging to model :math:`\eta(x)` directly with a linear model because linear models are unconstrained. Instead, we model its transformation (or referred to as a **link function**) with a linear model:
+
+.. math::
+	g(\eta(x)) = x^t \beta. 
+
+Here, for simplicity, we incorporate the intercept into :math:`x`, so :math:`\beta` represents all the coefficients, including the intercept.
+
+
+In logistic regression, we use the so-called **logit** link function, which is equal to 
+
+.. math::
+	\text{logit}(\eta(x)) = \log \frac{\eta(x)}{1 - \eta(x)}. 
+
+This transformation ensures that the logit value is unconstrained:
+
+- when :math:`\eta(x) = 0.5,` the ratio inside the log is 1, resulting in a logit of 0. 
+- When :math:`\eta(x) > 0.5,` the ratio is greater than 1, yielding a positive logit ranging from 0 to infinity. 
+- When :math:`\eta(x) < 0.5,` the ratio is less than 1, resulting in a logit ranging from -infinity to 0.
+
+
+At each data point, we have 
+
+- a p-dimensional feature vector :math:`x_i`, 
+- a binary outcome :math:`y_i`, and 
+- the corresponding probability :math:`\eta(x_i).` 
+
+The unknown parameter :math:`\beta` is embedded within the eta function. The challenge now is how to estimate :math:`\eta` (or equivalently, :math:`\beta`).
+
+Following our usual approach, the next step is to design a loss function to quantify the agreement between the observed  :math:`y_i` and the estimated :math:`\eta(x_i)`. 
+
+While one might consider using the L2 loss :math:`(y - \eta(x))^2`, it has some limitations. Specifically, it tends to be too flat for training because the quantity :math:`(y - \eta(x))` is typically less than 1. Squaring it further reduces the scale of the loss, resulting in small gradients, making training difficult and potentially leading to getting stuck at certain points.
+
+Instead, we opt for the log-likelihood as our loss function. 

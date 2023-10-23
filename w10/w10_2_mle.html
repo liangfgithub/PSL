@@ -16,6 +16,7 @@
         <script src="../_static/documentation_options.js?v=2709fde1"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -93,6 +94,24 @@
              
   <section id="mle">
 <h1><span class="section-number">10.2. </span>MLE<a class="headerlink" href="#mle" title="Link to this heading"></a></h1>
+<p>Let’s  start with is the Logit of <span class="math notranslate nohighlight">\(\eta\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\log \frac{\eta(x)}{1-\eta(x)} = x^t \beta\]</div>
+<p>Then express <span class="math notranslate nohighlight">\(\eta\)</span> and <span class="math notranslate nohighlight">\(1 - \eta\)</span> in terms of <span class="math notranslate nohighlight">\(\beta\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}P(Y=1|X = x) &amp; = \eta(x) = \frac{\exp(x^t \beta)}{1+\exp(x^t \beta)} \\
+P(Y=0 | X=x) &amp; = 1 - \eta(x)  = \frac{1}{1+\exp(x^t \beta)}\end{split}\]</div>
+<p>We unify the expressions above for both Y=1 and Y=0 into a single form, using the sigmoid function, denoted as <span class="math notranslate nohighlight">\(\sigma(z) = e^z / (1 + e^z),\)</span> where <span class="math notranslate nohighlight">\(z\)</span> is shorthand for <span class="math notranslate nohighlight">\(x^t \beta\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}P(Y = y | X = x) &amp;=  \sigma(z)^y (1 - \sigma(z))^{1-y} \\
+                \sigma(z) &amp;= \frac{e^z}{1 + e^z}, \quad z = x^t \beta.\end{split}\]</div>
+<p>Next, we need to find the maximum likelihood estimate (MLE) for <span class="math notranslate nohighlight">\(\beta.\)</span> We follow the standard approach of setting the gradient of the log-likelihood with respect to <span class="math notranslate nohighlight">\(\beta\)</span> to zero and solving for <span class="math notranslate nohighlight">\(\beta.\)</span></p>
+<a class="reference internal image-reference" href="../_images/w10_MLE_1.png"><img alt="../_images/w10_MLE_1.png" src="../_images/w10_MLE_1.png" style="width: 502.70000000000005px; height: 328.90000000000003px;" /></a>
+<p>However, this solution is not in closed form, so we use an iterative algorithm, known as the Newton-Raphson algorithm, to find the root of the derivative.</p>
+<p>During this iterative process, we also need to calculate the second derivative of the log-likelihood, which forms a matrix known as the Hessian matrix. The Hessian matrix is negative semi-definite, indicating that the log-likelihood function is concave. This property simplifies optimization, as any local maximum is also the global maximum.</p>
+<a class="reference internal image-reference" href="../_images/w10_MLE_2.png"><img alt="../_images/w10_MLE_2.png" src="../_images/w10_MLE_2.png" style="width: 476.3px; height: 143.0px;" /></a>
+<p>The MLE  can be obtained by the following <strong>Reweighted LS Algorithm</strong>:</p>
+<a class="reference internal image-reference" href="../_images/w10_MLE_alg.png"><img alt="../_images/w10_MLE_alg.png" src="../_images/w10_MLE_alg.png" style="width: 511.2px; height: 301.8px;" /></a>
 </section>
 
 
