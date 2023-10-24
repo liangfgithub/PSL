@@ -1,4 +1,55 @@
-
-
 The Separable case
 ====================================
+
+In Support Vector Machine (SVM), we aim to find a linear decision boundary, but unlike Linear Discriminant Analysis (LDA) and logistic regression, our focus isn't on modeling conditional or joint distributions. Instead, we are directly modeling the decision boundary.
+
+To illustrate this, let's consider a scenario where we have two groups of points, and we want to create a linear decision boundary to separate them. Our goal is to maximize the separation, making the margin between the two groups as wide as possible.
+
+
+To achieve this, we introduce a solid blue line to separate the two groups of points, and we imagine creating parallel dashed lines on either side of it. We extend these dashed lines until they touch the green points on either side, creating a "margin" between them. This margin is essentially an "avenue" that separates the two groups, and we aim to maximize its width.
+
+.. image:: ../images/w11_linear_sep_1.png
+	:scale: 65 %
+
+
+
+To formulate this problem mathematically, we start by representing the linear decision boundary (represented by the solid blue line) using coefficients, such as the slope :math:`\beta` and the intercept :math:`\beta_0.` However, :math:`\beta` and :math:`\beta_0` are not uniquely determined, as we can scale them or flip their signs and still have the same line. To address this, we take the following steps to fix these parameters.
+
+- We set the output labels :math:`y` to be either +1 or -1. If a point belongs to the +1 group, then :math:`y_i (\beta \cdot x_i + \beta_0)` should be positive, while for the -1 group, it should be negative. Here  $\beta \cdot x_i = \beta^t x_i$ represents the Euclidean inner product between two vectors.
+
+- We also need to fix the scale of :math:`\beta` and :math:`\beta_0.` To do this, we parameterize the two dashed lines on either side of the solid blue line as :math:`\beta \cdot x + \beta_0 = 1` and :math:`\beta \cdot x + \beta_0 = -1`. This scaling fixes the magnitude of $\beta$.
+
+.. image:: ../images/w11_linear_sep_2.png
+	:scale: 65 %
+
+Now, we ensure that the scale of our decision boundary is fixed.
+
+Next, our objective is to measure the margin or the width of the "Avenue" between the two groups of points. Note that the distance between the solid and dashed lines is half the width. Recognize that the slope parameter of the line :math:`\beta` is orthogonal to orthogonal to both the solid and dashed lines. 
+
+
+.. image:: ../images/w11_linear_margin.png
+	:scale: 65 %
+
+
+To calculate the width of the Avenue, we can pick a point on a dashed line, denoted as :math:`x`, and another point on the dashed line, denoted as :math:`z`. We then compute the projection of the vector from :math:`x` to :math:`z` onto the direction of :math:`\beta`  to find the magnitude of the red bar, representing half of the Avenue's width.
+
+.. math::
+	(x - z)^t \frac{\beta}{\| \beta\|} = \frac{x^t \beta - z^t \beta}{\| \beta\|} = \frac{1}{\| \beta\|}.
+
+
+This leads us to the conclusion that half of the Avenue's width is equal to :math:`1/\|\beta\|.` Therefore, to maximize the margin, we can equivalently minimize :math:`\|\beta\|^2/2.` 
+
+
+So, our goal becomes an optimization problem (know as the max-margin problem): minimize $\frac{1}{2}|\beta|^2$ subject to certain constraints. These constraints ensure that the data points fall on the correct side of the dashed lines. 
+
+.. math::
+	\min_{\beta, \beta_0 } & \frac{1}{2} \|\beta\|^2  \\
+	\text{subject to } & y_i ( \beta \cdot x_i + \beta_0) - 1 \ge 0,
+
+
+The max-margin problem is a convex optimization problem with a quadratic objective function and linear or affine constraints, making it free from issues related to local optima.
+
+Additionally, the equation above represents the primal problem in SVM. Instead of directly solving the primal problem, we often solve its dual problem. The dual problem yields a set of :math:`\lambda` values, which can be linked to the solutions of the primal problem using the Karush-Kuhn-Tucker (KKT) conditions.
+
+.. image:: ../images/w11_linear_prime_dual.png
+	:scale: 70 %
