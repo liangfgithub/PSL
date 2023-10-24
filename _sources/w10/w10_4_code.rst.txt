@@ -1,2 +1,11 @@
 Logistic Regression in R/Python
 ====================================
+
+
+On our code page, we provide a comprehensive illustration of various aspects related to logistic regression modeling. Specifically, we cover how to fit a logistic regression model, interpret coefficients, compute deviance, make predictions using logit and probability, and perform variable selection.
+
+
+*  Rcode: [`Rcode_W10_LogisticReg <https://liangfgithub.github.io/Rcode_W10_LogisticReg.html>`_]
+
+*  Python: [`Python_W10_LogisticReg <https://liangfgithub.github.io/Python_W10_LogisticReg.html>`_] 
+

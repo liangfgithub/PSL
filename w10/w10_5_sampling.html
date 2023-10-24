@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>10.5. Retrospective Sampling Data &mdash; PSL_Book 0.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=2709fde1"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="10.6. Nonlinear Logistic Regression" href="w10_6_nonlinear.html" />
+    <link rel="prev" title="10.4. Logistic Regression in R/Python" href="w10_4_code.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PSL_Book
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../w1/w1_index.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w2/w2_index.html">2. Linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w3/w3_index.html">3. Variable Selection and Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w4/w4_index.html">4. Regression Trees and Ensemble</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w5/w5_index.html">5. Nonlinear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w6/w6_index.html">6. Clustering Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w7/w7_index.html">7. Latent Structure Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w8/w8_index.html">8. TBA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w9/w9_index.html">9. Discriminant Analysis</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="w10_index.html">10. Logistic Regression</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="w10_1_setup.html">10.1. Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w10_2_mle.html">10.2. MLE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w10_3_seperable.html">10.3. Seperable Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w10_4_code.html">10.4. Logistic Regression in R/Python</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">10.5. Retrospective Sampling Data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#multinomial-logistic-regression">10.5.1. Multinomial Logistic Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nonlinear-logistic-regression">10.5.2. Nonlinear Logistic Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#retrospective-sampling">10.5.3. Retrospective Sampling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-challenge">10.5.4. The Challenge</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="w10_6_nonlinear.html">10.6. Nonlinear Logistic Regression</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../w11/w11_index.html">11. Support Vector Machine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w12/w12_index.html">12. Classification Trees and Boosting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w13/w13_index.html">13. Recommender System</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PSL_Book</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="w10_index.html"><span class="section-number">10. </span>Logistic Regression</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">10.5. </span>Retrospective Sampling Data</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="retrospective-sampling-data">
+<h1><span class="section-number">10.5. </span>Retrospective Sampling Data<a class="headerlink" href="#retrospective-sampling-data" title="Link to this heading"></a></h1>
+<section id="multinomial-logistic-regression">
+<h2><span class="section-number">10.5.1. </span>Multinomial Logistic Regression<a class="headerlink" href="#multinomial-logistic-regression" title="Link to this heading"></a></h2>
+<p>In our discussions thus far, our primary focus has centered on binary logistic regression. However, we should note that its extension to multinomial regression, applicable when dealing with more than two possible outcomes, is relatively straightforward. I recommend this as additional reading material for our students.</p>
+</section>
+<section id="nonlinear-logistic-regression">
+<h2><span class="section-number">10.5.2. </span>Nonlinear Logistic Regression<a class="headerlink" href="#nonlinear-logistic-regression" title="Link to this heading"></a></h2>
+<p>Furthermore, we’ve concentrated predominantly on linear models. It’s worth noting that extending these models to accommodate nonlinearity is not an intricate task. One can achieve this by merely introducing quadratic or cubic terms into the logistic regression framework.</p>
+</section>
+<section id="retrospective-sampling">
+<h2><span class="section-number">10.5.3. </span>Retrospective Sampling<a class="headerlink" href="#retrospective-sampling" title="Link to this heading"></a></h2>
+<p>Now, allow me to address another key issue, one that pertains to retrospective sampling. But what exactly is retrospective sampling? Typically, in machine learning, we assume that our data consists of independently and identically distributed (i.i.d.) samples drawn from a population of interest. However, there are situations where we gather data <strong>retrospectively</strong>.</p>
+<p>To illustrate, consider a study on cancer. Instead of randomly selecting a hundred individuals from the entire population, which would likely result in obtaining all one hundred participants as unknown cancer patients, we must select a significantly larger sample, possibly in the thousands or even millions.</p>
+<p>This method of sampling is highly inefficient. An alternative approach is to select a hundred patients but ensure that they comprise a balanced representation. In this case, we might draw 50 samples from a group of cancer patients and 50 from a control group, representing individuals without cancer. Consequently, our training dataset comprises 50 samples from each category.</p>
+<p>However, when we assess our model’s performance on a test sample, we wish to apply it to the broader population, essentially hoping to predict outcomes for ordinary individuals.</p>
+</section>
+<section id="the-challenge">
+<h2><span class="section-number">10.5.4. </span>The Challenge<a class="headerlink" href="#the-challenge" title="Link to this heading"></a></h2>
+<p>The challenge here arises from the inherent differences between the training and testing datasets. In the general population, we would not expect a perfect 50-50 split between cancer patients and non-cancer patients. This discrepancy between training and testing datasets can pose a significant challenge. Machine learning algorithms fundamentally rely on the assumption that training and testing data originate from the same population or follow the same random process.</p>
+<p>Introduce an indicator variable, denoted as “Z,” to determine whether an individual has been sampled. Consequently, when analyzing retrospective samples, our obtain an estimate of the probability <span class="math notranslate nohighlight">\(P(Y=1 | Z=1, X=x).\)</span> However, our ultimate goal is to learn the probability <span class="math notranslate nohighlight">\(P(Y=1 | X=x),\)</span> without any reliance on Z.</p>
+<p>Fortunately, it is possible to address this discrepancy by using logistic regression.</p>
+<p>Assume this desired probability <span class="math notranslate nohighlight">\(P(Y=1 | X=x)\)</span> can be characterized using a logistic regression model:</p>
+<div class="math notranslate nohighlight">
+\[P(Y=1|X=x) = \frac{ \exp(\alpha + x^t \beta)}{1+ \exp(\alpha + x^t \beta)}.\]</div>
+<p>It’s interesting to note that for logistic regression models, the coefficients estimated from a retrospective sample are almost the same as those obtained from an ordinary random sample except the intercept.</p>
+<a class="reference internal image-reference" href="../_images/w10_sampling.png"><img alt="../_images/w10_sampling.png" src="../_images/w10_sampling.png" style="width: 564.0px; height: 313.2px;" /></a>
+<p>This suggests that despite the differences in sampling methodologies, the fundamental relationships between the features and the outcome (as captured by the coefficients) tend to remain consistent. This finding underscores the robustness of logistic regression in handling retrospective data, with the primary distinction often being the intercept, which can be adjusted to align the model with the characteristics of the broader population.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="w10_4_code.html" class="btn btn-neutral float-left" title="10.4. Logistic Regression in R/Python" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="w10_6_nonlinear.html" class="btn btn-neutral float-right" title="10.6. Nonlinear Logistic Regression" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Feng Liang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
