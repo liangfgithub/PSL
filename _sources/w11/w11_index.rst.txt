@@ -5,10 +5,12 @@ Support Vector Machine
 .. toctree::
    :maxdepth: 1
 
+   w11_0_intro.rst
    w11_1_separable_case.rst
    w11_2_non_separable_case.rst
    w11_3_practical_issues.rst
    w11_4_nonlinear.rst
    w11_5_summ.rst
+   w11_6_appendix.rst
  
 

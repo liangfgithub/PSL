@@ -1,0 +1,5 @@
+Introduction
+==========================
+
+A less technical introduction to SVM: [`lec_W11_SVM_intro.pdf 
+<https://liangfgithub.github.io/Notes/lec_W11_SVM_intro.pdf>`_]
