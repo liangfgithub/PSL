@@ -19,10 +19,17 @@ Continuing this exploration, we set  :math:`\beta_1 = 500, \beta_2 = 500.` Now t
 
 Herein lies the problem: when data are well separated, there is no limit to how large you can make the coefficients to push the probabilities in the desired direction. This causes logistic regression algorithms to fail to converge. In R, for example, you may receive a warning message about non-convergence. 
 
-
 However, it's important to note that this doesn't render the model entirely useless. While there may be multiple coefficient sets, the decision boundary, the line that separates the classes, is still well-defined. In this toy example, despite the coefficients growing exponentially, the decision boundary remains constant, which is the line corresponding to X1+X2=0, or equivalently 10(X1 + X2) = 0 or 500(X1 + X2) = 0.
 
 In summary, logistic regression can encounter convergence issues when dealing with well-separated data because the coefficients may grow without bound in an attempt to maximize the likelihood. While this poses a challenge for inference on the beta parameters, it doesn't necessarily invalidate the model's usefulness for making predictions, as the decision boundary remains consistent.
 
+Can Regularization Help?
+-----------------------------
+
+It's important to clarify that using regularization techniques such as Ridge or Lasso won't resolve the convergence issue encountered in this specific scenario. The problem here is fundamentally different from the typical regularization challenges, such as overfitting in high-dimensional spaces.
+
+For instance, in the two-dimensional toy example, even if we apply L1 or L2 penalties, cross-validation will reveal that the optimal choice for the regularization parameter (lambda) is zero. This underscores that the primary problem isn't related to overfitting and can't be mitigated by adjusting regularization strength.
+
+The root cause of this issue is as follows: when the true classification rule is flawless, meaning that Y=1 with a probability of 1 when :math:`x^t \beta > \beta_0,` the model parameters :math:`(\beta_0, \beta)` become undefined, tending toward positive or negative infinity. 
 
 

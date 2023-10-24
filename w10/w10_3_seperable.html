@@ -56,7 +56,10 @@
 <li class="toctree-l1 current"><a class="reference internal" href="w10_index.html">10. Logistic Regression</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="w10_1_setup.html">10.1. Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w10_2_mle.html">10.2. MLE</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">10.3. Seperable Data</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">10.3. Seperable Data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#can-regularization-help">10.3.1. Can Regularization Help?</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="w10_4_code.html">10.4. R/Python Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w10_5_sampling.html">10.5. Retrospective Sampling Data</a></li>
 </ul>
@@ -102,6 +105,12 @@
 <p>Herein lies the problem: when data are well separated, there is no limit to how large you can make the coefficients to push the probabilities in the desired direction. This causes logistic regression algorithms to fail to converge. In R, for example, you may receive a warning message about non-convergence.</p>
 <p>However, it’s important to note that this doesn’t render the model entirely useless. While there may be multiple coefficient sets, the decision boundary, the line that separates the classes, is still well-defined. In this toy example, despite the coefficients growing exponentially, the decision boundary remains constant, which is the line corresponding to X1+X2=0, or equivalently 10(X1 + X2) = 0 or 500(X1 + X2) = 0.</p>
 <p>In summary, logistic regression can encounter convergence issues when dealing with well-separated data because the coefficients may grow without bound in an attempt to maximize the likelihood. While this poses a challenge for inference on the beta parameters, it doesn’t necessarily invalidate the model’s usefulness for making predictions, as the decision boundary remains consistent.</p>
+<section id="can-regularization-help">
+<h2><span class="section-number">10.3.1. </span>Can Regularization Help?<a class="headerlink" href="#can-regularization-help" title="Link to this heading"></a></h2>
+<p>It’s important to clarify that using regularization techniques such as Ridge or Lasso won’t resolve the convergence issue encountered in this specific scenario. The problem here is fundamentally different from the typical regularization challenges, such as overfitting in high-dimensional spaces.</p>
+<p>For instance, in the two-dimensional toy example, even if we apply L1 or L2 penalties, cross-validation will reveal that the optimal choice for the regularization parameter (lambda) is zero. This underscores that the primary problem isn’t related to overfitting and can’t be mitigated by adjusting regularization strength.</p>
+<p>The root cause of this issue is as follows: when the true classification rule is flawless, meaning that Y=1 with a probability of 1 when <span class="math notranslate nohighlight">\(x^t \beta &gt; \beta_0,\)</span> the model parameters <span class="math notranslate nohighlight">\((\beta_0, \beta)\)</span> become undefined, tending toward positive or negative infinity.</p>
+</section>
 </section>
 
 
