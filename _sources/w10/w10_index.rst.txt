@@ -9,6 +9,5 @@ Logistic Regression
    w10_3_seperable.rst
    w10_4_code.rst
    w10_5_sampling.rst
-   w10_6_nonlinear.rst
 
 

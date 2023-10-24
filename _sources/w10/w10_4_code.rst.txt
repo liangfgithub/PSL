@@ -1,4 +1,4 @@
-Logistic Regression in R/Python
+R/Python Code
 ====================================
 
 
@@ -9,3 +9,9 @@ On our code page, we provide a comprehensive illustration of various aspects rel
 
 *  Python: [`Python_W10_LogisticReg <https://liangfgithub.github.io/Python_W10_LogisticReg.html>`_] 
 
+
+We offer code for the analysis of the Phoneme Dataset (Chap 5.2.3 from ESL), where we model logistic regression coefficients using natural cubic splines.
+
+*  Rcode: [`Rcode_W10_LogisticReg_Phoneme <https://liangfgithub.github.io/Rcode_W10_LogisticReg_Phoneme.html>`_]
+
+*  Python: [`Python_W10_LogisticReg_Phoneme <https://liangfgithub.github.io/Python_W10_LogisticReg_Phoneme.html>`_] 
