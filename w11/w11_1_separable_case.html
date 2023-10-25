@@ -56,7 +56,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../w10/w10_index.html">10. Logistic Regression</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="w11_index.html">11. Support Vector Machine</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="w11_0_intro.html">11.1. Introduction</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">11.2. The Separable case</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">11.2. The Separable case</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-max-margin-problem">11.2.1. The Max-Margin Problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-kkt-conditions">11.2.2. The KKT Conditions</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="w11_2_non_separable_case.html">11.3. The Non-separable case</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w11_3_practical_issues.html">11.4. Practical Issues</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w11_4_nonlinear.html">11.5. Nonlinear SVMs</a></li>
@@ -95,6 +99,8 @@
   <section id="the-separable-case">
 <h1><span class="section-number">11.2. </span>The Separable case<a class="headerlink" href="#the-separable-case" title="Link to this heading"></a></h1>
 <p>In Support Vector Machine (SVM), we aim to find a linear decision boundary, but unlike Linear Discriminant Analysis (LDA) and logistic regression, our focus isn’t on modeling conditional or joint distributions. Instead, we are directly modeling the decision boundary.</p>
+<section id="the-max-margin-problem">
+<h2><span class="section-number">11.2.1. </span>The Max-Margin Problem<a class="headerlink" href="#the-max-margin-problem" title="Link to this heading"></a></h2>
 <p>To illustrate this, let’s consider a scenario where we have two groups of points, and we want to create a linear decision boundary to separate them. Our goal is to maximize the separation, making the margin between the two groups as wide as possible.</p>
 <a class="reference internal image-reference" href="../_images/w11_linear_sep_1.png"><img alt="../_images/w11_linear_sep_1.png" src="../_images/w11_linear_sep_1.png" style="width: 261.3px; height: 176.15px;" /></a>
 <p>To achieve this, we introduce a solid blue line to separate the two groups of points, and we imagine creating parallel dashed lines on either side of it. We extend these dashed lines until they touch the green/red points on either side, creating a “margin” between them. This margin is essentially an “avenue” that separates the two groups, and we aim to maximize its width.</p>
@@ -117,6 +123,49 @@
 <p>The max-margin problem is a convex optimization problem with a quadratic objective function and linear or affine constraints, making it free from issues related to local optima.</p>
 <p>Additionally, the equation above represents the primal problem in SVM. Instead of directly solving the primal problem, we often solve its dual problem. The dual problem yields a set of <span class="math notranslate nohighlight">\(\lambda\)</span> values, which can be linked to the solutions of the primal problem using the Karush-Kuhn-Tucker (KKT) conditions.</p>
 <a class="reference internal image-reference" href="../_images/w11_linear_prime_dual.png"><img alt="../_images/w11_linear_prime_dual.png" src="../_images/w11_linear_prime_dual.png" style="width: 673.4px; height: 334.59999999999997px;" /></a>
+</section>
+<section id="the-kkt-conditions">
+<h2><span class="section-number">11.2.2. </span>The KKT Conditions<a class="headerlink" href="#the-kkt-conditions" title="Link to this heading"></a></h2>
+<p>The Karush-Kuhn-Tucker (KKT) conditions are a set of necessary conditions that characterize the solutions to constrained optimization problems.</p>
+<p>When we want to minimize a function <span class="math notranslate nohighlight">\(f(x),\)</span> we focus on its derivative. Specifically, we look at the negative derivative at a particular point, <span class="math notranslate nohighlight">\(- \frac{\partial f(x)}{\partial x}\)</span>, which indicates a direction along which we can make further reductions in the value of <span class="math notranslate nohighlight">\(f\)</span>.</p>
+<p>First, let’s consider a scenario <strong>without constraints</strong>. We know that at the minimizer, the derivative of
+<span class="math notranslate nohighlight">\(f\)</span> evaluated at that point should be zero. In mathematical terms, this is expressed as <span class="math notranslate nohighlight">\(\frac{\partial f(x)}{\partial x} = 0\)</span>. This condition signifies that there is no direction left to further reduce the value of <span class="math notranslate nohighlight">\(f\)</span>, making it a necessary condition for optimality.</p>
+<p>Next, let’s extend this to situations where we have <strong>equality constraints</strong>. Suppose we minimize <span class="math notranslate nohighlight">\(f(x)\)</span> subject to <span class="math notranslate nohighlight">\(g(x) =  b.\)</span> Here, our <strong>feasible region</strong> is defined by the set of x values that satisfy <span class="math notranslate nohighlight">\(g(x) =  b.\)</span> Suppose x is a solution to this problem. At such a point, the negative derivative of <span class="math notranslate nohighlight">\(f\)</span>, which indicates a direction along which we can further reduce the value of <span class="math notranslate nohighlight">\(f\)</span>, may not necessarily be zero. However, this direction is a “forbidden” one in the sense that moving along it would lead us outside the feasible region, violating the equality constraint. Mathematically, we can express this situation as:
+<span class="math notranslate nohighlight">\(\frac{\partial f}{\partial x} + \lambda \frac{\partial g}{\partial x} = 0,\)</span> where <span class="math notranslate nohighlight">\(\lambda\)</span> can take any real number value.</p>
+<a class="reference internal image-reference" href="../_images/w11_optimize.png"><img alt="../_images/w11_optimize.png" src="../_images/w11_optimize.png" style="width: 383.59999999999997px; height: 198.1px;" /></a>
+<p>Now, consider scenarios with an <strong>inequality constraint</strong>, <span class="math notranslate nohighlight">\(g(x) \ge b.\)</span> Assuming <span class="math notranslate nohighlight">\(g(x)\)</span> is a concave function and <span class="math notranslate nohighlight">\(f(x)\)</span> is smooth, there are two cases to explore. Suppose x is a solution to this problem.</p>
+<ul>
+<li><dl class="simple">
+<dt>Case 1:</dt><dd><p>x is inside the convex feasible region  (interior point): In this case, we can place a small neighborhood around x where the entire neighborhood remains within the feasible region. Then, the derivative <span class="math notranslate nohighlight">\(\frac{\partial f(x)}{\partial x}\)</span> must be zero at this point. This aligns with the idea that there are no directions within the feasible region where <span class="math notranslate nohighlight">\(f\)</span> can be further reduced.</p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Case 2:</dt><dd><p>x lies on the boundary of the convex region (boundary point): Here, the negative derivative <span class="math notranslate nohighlight">\(-\frac{\partial f(x)}{\partial x}\)</span> may not necessarily be zero. However, this direction is a “forbidden” one in the sense that moving along it would decrease the value of <span class="math notranslate nohighlight">\(g\)</span>, leading to <span class="math notranslate nohighlight">\(g(x) &lt; b\)</span> and therefore violating the inequality constraint. Mathematically, we can describe this direction as</p>
+<div class="math notranslate nohighlight">
+\[- \frac{\partial f(x)}{\partial x} = - \lambda \frac{\partial g}{\partial x}, \quad \lambda \ge 0,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\lambda\)</span> must always be non-negative due to the inequality constraint.</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p>The conditions outlined above can be encapsulated in the KKT conditions for optimization with inequality constraints.</p>
+<a class="reference internal image-reference" href="../_images/w11_KKT_general.png"><img alt="../_images/w11_KKT_general.png" src="../_images/w11_KKT_general.png" style="width: 183.39999999999998px; height: 219.79999999999998px;" /></a>
+<p>Specifically, we have four conditions within the red box:</p>
+<ol class="arabic simple">
+<li><p>First Condition: The derivative of the Lagrangian function should be equal to zero. Here the Lagrangian function is defined as</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}L(x, \lambda) &amp; = f(x) - \lambda (g(x) - b) \\
+\frac{\partial}{\partial x} L &amp; = 0 \quad \Longrightarrow \quad \frac{\partial f(x)}{\partial x} =  \lambda \frac{\partial g(x)}{\partial x}.\end{split}\]</div>
+<ol class="arabic simple" start="2">
+<li><p>Second Condition: <span class="math notranslate nohighlight">\(\lambda \ge 0.\)</span></p></li>
+<li><p>Third Condition: The inequality constraints <span class="math notranslate nohighlight">\(g(x) \ge b\)</span> should be satisfied.</p></li>
+<li><p>Fourth Condition (Complementary Slackness): This condition ensures that when the constraint is not active (i.e., Case 1), then the Lagrange multiplier <span class="math notranslate nohighlight">\(\lambda\)</span> should be zero.</p></li>
+</ol>
+<p>To represent the KKT conditions for our SVM problem, we define the Lagrangian function. It involves two sets of arguments: the first set is for the primal problem, which includes the slope <span class="math notranslate nohighlight">\(\beta\)</span> and intercept <span class="math notranslate nohighlight">\(\beta_0\)</span>, and the second set is for the Lagrange multipliers <span class="math notranslate nohighlight">\(\lambda_1\)</span> to <span class="math notranslate nohighlight">\(\lambda_n\)</span>, as we have n inequality constraints. The Lagrangian function and the four KKT conditions for our problem are summarized below.</p>
+<a class="reference internal image-reference" href="../_images/w11_KKT_SVM.png"><img alt="../_images/w11_KKT_SVM.png" src="../_images/w11_KKT_SVM.png" style="width: 509.59999999999997px; height: 213.5px;" /></a>
+</section>
 </section>
 
 

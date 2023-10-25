@@ -3,6 +3,9 @@ The Separable case
 
 In Support Vector Machine (SVM), we aim to find a linear decision boundary, but unlike Linear Discriminant Analysis (LDA) and logistic regression, our focus isn't on modeling conditional or joint distributions. Instead, we are directly modeling the decision boundary.
 
+The Max-Margin Problem
+--------------------------
+
 To illustrate this, let's consider a scenario where we have two groups of points, and we want to create a linear decision boundary to separate them. Our goal is to maximize the separation, making the margin between the two groups as wide as possible.
 
 
@@ -52,3 +55,63 @@ Additionally, the equation above represents the primal problem in SVM. Instead o
 
 .. image:: ../images/w11_linear_prime_dual.png
 	:scale: 70 %
+
+
+The KKT Conditions
+----------------------
+
+The Karush-Kuhn-Tucker (KKT) conditions are a set of necessary conditions that characterize the solutions to constrained optimization problems. 
+
+
+
+When we want to minimize a function :math:`f(x),` we focus on its derivative. Specifically, we look at the negative derivative at a particular point, :math:`- \frac{\partial f(x)}{\partial x}`, which indicates a direction along which we can make further reductions in the value of :math:`f`. 
+
+First, let's consider a scenario **without constraints**. We know that at the minimizer, the derivative of
+:math:`f` evaluated at that point should be zero. In mathematical terms, this is expressed as :math:`\frac{\partial f(x)}{\partial x} = 0`. This condition signifies that there is no direction left to further reduce the value of :math:`f`, making it a necessary condition for optimality.
+
+
+Next, let's extend this to situations where we have **equality constraints**. Suppose we minimize :math:`f(x)` subject to :math:`g(x) =  b.` Here, our **feasible region** is defined by the set of x values that satisfy :math:`g(x) =  b.` Suppose x is a solution to this problem. At such a point, the negative derivative of :math:`f`, which indicates a direction along which we can further reduce the value of :math:`f`, may not necessarily be zero. However, this direction is a "forbidden" one in the sense that moving along it would lead us outside the feasible region, violating the equality constraint. Mathematically, we can express this situation as:
+:math:`\frac{\partial f}{\partial x} + \lambda \frac{\partial g}{\partial x} = 0,` where :math:`\lambda` can take any real number value.
+
+.. image:: ../images/w11_optimize.png
+	:scale: 70 %
+
+
+Now, consider scenarios with an **inequality constraint**, :math:`g(x) \ge b.` Assuming :math:`g(x)` is a concave function and :math:`f(x)` is smooth, there are two cases to explore. Suppose x is a solution to this problem. 
+
+- Case 1:
+	x is inside the convex feasible region  (interior point): In this case, we can place a small neighborhood around x where the entire neighborhood remains within the feasible region. Then, the derivative :math:`\frac{\partial f(x)}{\partial x}` must be zero at this point. This aligns with the idea that there are no directions within the feasible region where :math:`f` can be further reduced. 
+
+- Case 2:
+	x lies on the boundary of the convex region (boundary point): Here, the negative derivative :math:`-\frac{\partial f(x)}{\partial x}` may not necessarily be zero. However, this direction is a "forbidden" one in the sense that moving along it would decrease the value of :math:`g`, leading to :math:`g(x) < b` and therefore violating the inequality constraint. Mathematically, we can describe this direction as 
+
+	.. math::
+		- \frac{\partial f(x)}{\partial x} = - \lambda \frac{\partial g}{\partial x}, \quad \lambda \ge 0, 
+
+	where :math:`\lambda` must always be non-negative due to the inequality constraint. 
+
+The conditions outlined above can be encapsulated in the KKT conditions for optimization with inequality constraints. 
+
+.. image:: ../images/w11_KKT_general.png
+	:scale: 70 %
+
+Specifically, we have four conditions within the red box: 
+
+1. First Condition: The derivative of the Lagrangian function should be equal to zero. Here the Lagrangian function is defined as
+
+.. math::
+	L(x, \lambda) & = f(x) - \lambda (g(x) - b) \\
+	\frac{\partial}{\partial x} L & = 0 \quad \Longrightarrow \quad \frac{\partial f(x)}{\partial x} =  \lambda \frac{\partial g(x)}{\partial x}.
+
+2. Second Condition: :math:`\lambda \ge 0.`
+3. Third Condition: The inequality constraints :math:`g(x) \ge b` should be satisfied.
+4. Fourth Condition (Complementary Slackness): This condition ensures that when the constraint is not active (i.e., Case 1), then the Lagrange multiplier :math:`\lambda` should be zero. 
+
+
+
+To represent the KKT conditions for our SVM problem, we define the Lagrangian function. It involves two sets of arguments: the first set is for the primal problem, which includes the slope :math:`\beta` and intercept :math:`\beta_0`, and the second set is for the Lagrange multipliers :math:`\lambda_1` to :math:`\lambda_n`, as we have n inequality constraints. The Lagrangian function and the four KKT conditions for our problem are summarized below. 
+
+.. image:: ../images/w11_KKT_SVM.png
+	:scale: 70 %
+
+
