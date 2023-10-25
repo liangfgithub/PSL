@@ -114,4 +114,41 @@ To represent the KKT conditions for our SVM problem, we define the Lagrangian fu
 .. image:: ../images/w11_KKT_SVM.png
 	:scale: 70 %
 
+The Duality
+----------------------
+
+Next, let's discuss the duality between the primal and dual problems in optimization. 
+
+We start with the general **primal problem**, where our goal is to minimize a function :math:`f(x)` subject to an inequality constraint of the form :math:`g(x) \geq b.` To establish the duality, we introduce the Lagrangian of this problem: :math:`L(x, \lambda) = f(x) - \lambda (g(x) - b)`. (There is a typo in the image below: the Lagrangian multiplier :math:`\lambda \ge 0`.)
+
+.. image:: ../images/w11_primal_minimax.png
+	:scale: 70 %
+
+The primal problem can be transformed into a minimax problem, which means minimizing with respect to variable :math:`x` and maximizing with respect to the Lagrange multiplier :math:`\lambda`. To understand their equivalence, we analyze what's inside the max operation with respect to :math:`\lambda.` Two cases emerge:
+
+- If :math:`g(x) \geq b,` the expression inside the parentheses is positive. Therefore, we set :math:`\lambda = 0,` which leads to the maximized value being equivalent to :math:`f(x).`
+
+- If :math:`g(x) < b,` the expression inside the parentheses is negative, and the product of a negative value and :math:`(-\lambda)` becomes positive. In this scenario, we aim to maximize :math:`\lambda` as much as possible, driving the value inside the parentheses to infinity. This situation results in the overall maximization value being infinite.
+
+By analyzing these two cases, we conclude that the expression inside the max operation simplifies to :math:`f(x).` Therefore, the primal problem can be reformulated as a minimax problem.
+
+Next, we switch the order of the minimization and maximization, which is mathematically valid for SVM-type convex programming problems. The resulting optimization problem is known as  the **dual problem**:
+
+.. image:: ../images/w11_dual.png
+	:scale: 70 %
+
+
+The primal and dual problems for SVM are summarized below:
+
+.. image:: ../images/w11_linear_prime_dual.png
+	:scale: 70 %
+
+The dual problem presents a significant advantage compared to the primal problem, especially concerning the ease of handling constraints. Another advantage of working with the dual problem is that many :math:`\lambda` values turn out to be zero. This is due to the Complementary Slackness in the KKT conditions, which states that :math:`\lambda` and constraints cannot be simultaneously non-zero. Consequently, only a few :math:`\lambda` values are non-zero, corresponding to support vectors. 
+
+
+Computation Cost
+--------------------
+
+SVM computation revolves around the dual problem, focusing on solving for :math:`\lambda_1` to :math:`\lambda_n.` Consequently, the computational cost of SVM primarily depends on the sample size (n), not the original feature dimension (p). This impiles that even a straightforward SVM model with a relatively low dimensional feature space can demand substantial computational resources when working with a large dataset.
+
 

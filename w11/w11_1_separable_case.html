@@ -59,6 +59,8 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">11.2. The Separable case</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#the-max-margin-problem">11.2.1. The Max-Margin Problem</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#the-kkt-conditions">11.2.2. The KKT Conditions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-duality">11.2.3. The Duality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#computation-cost">11.2.4. Computation Cost</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="w11_2_non_separable_case.html">11.3. The Non-separable case</a></li>
@@ -165,6 +167,27 @@
 </ol>
 <p>To represent the KKT conditions for our SVM problem, we define the Lagrangian function. It involves two sets of arguments: the first set is for the primal problem, which includes the slope <span class="math notranslate nohighlight">\(\beta\)</span> and intercept <span class="math notranslate nohighlight">\(\beta_0\)</span>, and the second set is for the Lagrange multipliers <span class="math notranslate nohighlight">\(\lambda_1\)</span> to <span class="math notranslate nohighlight">\(\lambda_n\)</span>, as we have n inequality constraints. The Lagrangian function and the four KKT conditions for our problem are summarized below.</p>
 <a class="reference internal image-reference" href="../_images/w11_KKT_SVM.png"><img alt="../_images/w11_KKT_SVM.png" src="../_images/w11_KKT_SVM.png" style="width: 509.59999999999997px; height: 213.5px;" /></a>
+</section>
+<section id="the-duality">
+<h2><span class="section-number">11.2.3. </span>The Duality<a class="headerlink" href="#the-duality" title="Link to this heading"></a></h2>
+<p>Next, let’s discuss the duality between the primal and dual problems in optimization.</p>
+<p>We start with the general <strong>primal problem</strong>, where our goal is to minimize a function <span class="math notranslate nohighlight">\(f(x)\)</span> subject to an inequality constraint of the form <span class="math notranslate nohighlight">\(g(x) \geq b.\)</span> To establish the duality, we introduce the Lagrangian of this problem: <span class="math notranslate nohighlight">\(L(x, \lambda) = f(x) - \lambda (g(x) - b)\)</span>. (There is a typo in the image below: the Lagrangian multiplier <span class="math notranslate nohighlight">\(\lambda \ge 0\)</span>.)</p>
+<a class="reference internal image-reference" href="../_images/w11_primal_minimax.png"><img alt="../_images/w11_primal_minimax.png" src="../_images/w11_primal_minimax.png" style="width: 370.29999999999995px; height: 283.5px;" /></a>
+<p>The primal problem can be transformed into a minimax problem, which means minimizing with respect to variable <span class="math notranslate nohighlight">\(x\)</span> and maximizing with respect to the Lagrange multiplier <span class="math notranslate nohighlight">\(\lambda\)</span>. To understand their equivalence, we analyze what’s inside the max operation with respect to <span class="math notranslate nohighlight">\(\lambda.\)</span> Two cases emerge:</p>
+<ul class="simple">
+<li><p>If <span class="math notranslate nohighlight">\(g(x) \geq b,\)</span> the expression inside the parentheses is positive. Therefore, we set <span class="math notranslate nohighlight">\(\lambda = 0,\)</span> which leads to the maximized value being equivalent to <span class="math notranslate nohighlight">\(f(x).\)</span></p></li>
+<li><p>If <span class="math notranslate nohighlight">\(g(x) &lt; b,\)</span> the expression inside the parentheses is negative, and the product of a negative value and <span class="math notranslate nohighlight">\((-\lambda)\)</span> becomes positive. In this scenario, we aim to maximize <span class="math notranslate nohighlight">\(\lambda\)</span> as much as possible, driving the value inside the parentheses to infinity. This situation results in the overall maximization value being infinite.</p></li>
+</ul>
+<p>By analyzing these two cases, we conclude that the expression inside the max operation simplifies to <span class="math notranslate nohighlight">\(f(x).\)</span> Therefore, the primal problem can be reformulated as a minimax problem.</p>
+<p>Next, we switch the order of the minimization and maximization, which is mathematically valid for SVM-type convex programming problems. The resulting optimization problem is known as  the <strong>dual problem</strong>:</p>
+<a class="reference internal image-reference" href="../_images/w11_dual.png"><img alt="../_images/w11_dual.png" src="../_images/w11_dual.png" style="width: 259.0px; height: 108.5px;" /></a>
+<p>The primal and dual problems for SVM are summarized below:</p>
+<a class="reference internal image-reference" href="../_images/w11_linear_prime_dual.png"><img alt="../_images/w11_linear_prime_dual.png" src="../_images/w11_linear_prime_dual.png" style="width: 673.4px; height: 334.59999999999997px;" /></a>
+<p>The dual problem presents a significant advantage compared to the primal problem, especially concerning the ease of handling constraints. Another advantage of working with the dual problem is that many <span class="math notranslate nohighlight">\(\lambda\)</span> values turn out to be zero. This is due to the Complementary Slackness in the KKT conditions, which states that <span class="math notranslate nohighlight">\(\lambda\)</span> and constraints cannot be simultaneously non-zero. Consequently, only a few <span class="math notranslate nohighlight">\(\lambda\)</span> values are non-zero, corresponding to support vectors.</p>
+</section>
+<section id="computation-cost">
+<h2><span class="section-number">11.2.4. </span>Computation Cost<a class="headerlink" href="#computation-cost" title="Link to this heading"></a></h2>
+<p>SVM computation revolves around the dual problem, focusing on solving for <span class="math notranslate nohighlight">\(\lambda_1\)</span> to <span class="math notranslate nohighlight">\(\lambda_n.\)</span> Consequently, the computational cost of SVM primarily depends on the sample size (n), not the original feature dimension (p). This impiles that even a straightforward SVM model with a relatively low dimensional feature space can demand substantial computational resources when working with a large dataset.</p>
 </section>
 </section>
 
