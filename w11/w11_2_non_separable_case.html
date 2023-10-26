@@ -16,6 +16,7 @@
         <script src="../_static/documentation_options.js?v=2709fde1"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -56,7 +57,17 @@
 <li class="toctree-l1 current"><a class="reference internal" href="w11_index.html">11. Support Vector Machine</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="w11_0_intro.html">11.1. Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w11_1_separable_case.html">11.2. The Separable case</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">11.3. The Non-separable case</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">11.3. The Non-separable case</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#overview">11.3.1. Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-soft-margin-problem">11.3.2. The Soft-Margin Problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-kkt-conditions">11.3.3. The KKT Conditions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#support-vectors">Support Vectors</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#the-gamma-parameter">11.3.4. The Gamma Parameter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#loss-penalty">11.3.5. Loss + Penalty</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="w11_3_practical_issues.html">11.4. Practical Issues</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w11_4_nonlinear.html">11.5. Nonlinear SVMs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w11_5_summ.html">11.6. Summary</a></li>
@@ -93,6 +104,64 @@
              
   <section id="the-non-separable-case">
 <h1><span class="section-number">11.3. </span>The Non-separable case<a class="headerlink" href="#the-non-separable-case" title="Link to this heading"></a></h1>
+<section id="overview">
+<h2><span class="section-number">11.3.1. </span>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>So far, we have covered Linear Support Vector Machines (SVM) for separable data. For example, in the image on the left, we have two groups of data points that can be easily separated by a solid blue line. However, what if the data is not separable, meaning there is no single solid blue line that can perfectly separate the two groups? In such cases, we can extend the hard margin formulation in two ways.</p>
+<a class="reference internal image-reference" href="../_images/w11_nonsep_overview.png"><img alt="../_images/w11_nonsep_overview.png" src="../_images/w11_nonsep_overview.png" style="width: 704.0px; height: 382.40000000000003px;" /></a>
+<p>One approach is known as the ‘soft margin,’ where we still aim to create a wide margin between the groups but allow some data points to be on the ‘wrong’ side of the dashed line. This introduces an objective function that balances maximizing the margin and minimizing the errors.</p>
+<p>Another extension is to consider nonlinear decision boundaries. While a linear function may not work for some data configurations, we can explore nonlinear functions. This can be achieved by expanding the feature space to a higher dimension, effectively applying a ‘kernel trick’ without the need to explicitly visit the high-dimensional feature space. Nonlinear SVMs are often referred to as ‘kernel machines.’</p>
+<p>Though these extensions are primarily designed for handling non-separable data, we can still use them for separable data scenarios.</p>
+</section>
+<section id="the-soft-margin-problem">
+<h2><span class="section-number">11.3.2. </span>The Soft-Margin Problem<a class="headerlink" href="#the-soft-margin-problem" title="Link to this heading"></a></h2>
+<p>Now, let’s examine a data configuration (below) where it’s impossible to separate the two groups of data points using a linear function. Nevertheless, we’ll still introduce a wide margin, represented by the white space between the two groups of data points. Some data points, specifically two green points, find themselves on the wrong side of the observed dashed line.</p>
+<a class="reference internal image-reference" href="../_images/w11_nonsep_toy.png"><img alt="../_images/w11_nonsep_toy.png" src="../_images/w11_nonsep_toy.png" style="width: 283.5px; height: 199.5px;" /></a>
+<p>Here’s how we’ll formulate the problem:</p>
+<p>For data points on the correct side of the dashed line, we know they satisfy the condition</p>
+<div class="math notranslate nohighlight">
+\[y_i(\beta \cdot x_i + \beta_0) &gt;= 1.\]</div>
+<p>But for the two green dots on the wrong side, we introduce a <strong>slack variable</strong>, denoted as <span class="math notranslate nohighlight">\(\xi_i \ge 0,\)</span> so they only need to satisfy</p>
+<div class="math notranslate nohighlight">
+\[y_i(\beta \cdot x_i + \beta_0) &gt;= 1 - \xi_i.\]</div>
+<p>These:math:<cite>xi_i</cite> values represent the degree of error, and they non-negative because <span class="math notranslate nohighlight">\(\xi_i\)</span> can’t be less than zero. Consequently, the objective function becomes a combination of two terms: one related to maximizing the margin and the other related to minimizing errors.</p>
+<p>Consequently, the objective function comprises two terms: one focusing on maximizing the margin and another aiming to minimize the errors (measured by <span class="math notranslate nohighlight">\(\xi_i\)</span>). The two terms are weighted by  a tuning parameter, <span class="math notranslate nohighlight">\(\gamma &gt; 0\)</span>, which represents the price we are willing to pay for allowing some data points to be on the wrong side of the margin.</p>
+<a class="reference internal image-reference" href="../_images/w11_nonsep_primal_dual.png"><img alt="../_images/w11_nonsep_primal_dual.png" src="../_images/w11_nonsep_primal_dual.png" style="width: 705.6px; height: 376.8px;" /></a>
+<p>This optimization problem is still convex, with <span class="math notranslate nohighlight">\(\beta, \beta_0,\)</span> and <span class="math notranslate nohighlight">\(\xi_i\)</span> as the parameters of the primal problem. The number of constraints has doubled to <span class="math notranslate nohighlight">\(2n\)</span> due to the introduction of slack variables. The nice property of convex optimization is that any local optimum is a global optimum.</p>
+</section>
+<section id="the-kkt-conditions">
+<h2><span class="section-number">11.3.3. </span>The KKT Conditions<a class="headerlink" href="#the-kkt-conditions" title="Link to this heading"></a></h2>
+<p>The KKT conditions play a critical role in solving this problem. There are four groups of these conditions, each color-coded on the slide above. Let’s go through them one by one.</p>
+<ol class="arabic simple">
+<li><p>The first group deals with taking the derivatives of the Lagrangian function with respect to <span class="math notranslate nohighlight">\(\beta, \beta_0,\)</span> and <span class="math notranslate nohighlight">\(\xi_i\)</span> and setting them to zero. These are similar to the hard margin case.</p></li>
+<li><p>The second group enforces that all Lagrange multipliers (<span class="math notranslate nohighlight">\(\lambda_i\)</span> and <span class="math notranslate nohighlight">\(\eta_i\)</span>) must be non-negative.</p></li>
+<li><p>The third group simply reiterates the primal constraints.</p></li>
+<li><p>The fourth group involves complementary slackness. <span class="math notranslate nohighlight">\(\lambda_i\)</span> and <span class="math notranslate nohighlight">\(\eta_i,\)</span> along with the corresponding constraints, cannot be nonzero simultaneously.</p></li>
+</ol>
+<p>Once these KKT conditions are satisfied, we can solve the dual problem. The dual problem minimizes the Lagrangian function with respect to <span class="math notranslate nohighlight">\(\lambda_i\)</span> and <span class="math notranslate nohighlight">\(\eta_i.\)</span> Interestingly, only <span class="math notranslate nohighlight">\(\lambda_i\)</span> is present in the dual problem because <span class="math notranslate nohighlight">\(\eta_i\)</span> never appears in the expression. This simplification allows us to optimize and solve for <span class="math notranslate nohighlight">\(\lambda_1\)</span> to <span class="math notranslate nohighlight">\(\lambda_n\)</span>.</p>
+<section id="support-vectors">
+<h3>Support Vectors<a class="headerlink" href="#support-vectors" title="Link to this heading"></a></h3>
+<p>Support vectors are crucial in SVM, and they are the data points with nonzero <span class="math notranslate nohighlight">\(\lambda_i\)</span> values. In this soft margin formulation, we can classify data points into three groups:</p>
+<ol class="arabic simple">
+<li><p>Data points on the correct side of the dashed line, where <span class="math notranslate nohighlight">\(\lambda_i =0\)</span>, making them non-support vectors.</p></li>
+<li><p>Data points on the dashed line, where <span class="math notranslate nohighlight">\(\lambda_i\)</span> could be nonzero, indicating potential support vectors.</p></li>
+<li><p>Data points on the wrong side of the dashed line, where <span class="math notranslate nohighlight">\(\eta_i = 0\)</span>, making <span class="math notranslate nohighlight">\(\lambda_i\)</span> nonzero, and they are support vectors.</p></li>
+</ol>
+<p>In summary, this soft margin formulation leads to a solution that depends only on support vectors, which include data points on the dashed lines and those on the wrong side of the dashed lines. For this particular example, there are four support vectors.</p>
+</section>
+</section>
+<section id="the-gamma-parameter">
+<h2><span class="section-number">11.3.4. </span>The Gamma Parameter<a class="headerlink" href="#the-gamma-parameter" title="Link to this heading"></a></h2>
+<p>An additional parameter in the soft margin formulation is <span class="math notranslate nohighlight">\(\gamma\)</span>, which represents the cost of having data points on the wrong side of the dashed line.</p>
+<p>Gamma’s value is specified by the user or can be chosen through cross-validation. It dictates our preference for a wider margin versus reducing classification errors. The larger the <span class="math notranslate nohighlight">\(\gamma,\)</span> the narrower the margin. A higher <span class="math notranslate nohighlight">\(\gamma\)</span> may lead to a more complex model, potentially prone to overfitting.</p>
+<a class="reference internal image-reference" href="../_images/w11_nonsep_cost.png"><img alt="../_images/w11_nonsep_cost.png" src="../_images/w11_nonsep_cost.png" style="width: 644.8000000000001px; height: 220.0px;" /></a>
+<p>In the soft margin formulation, <span class="math notranslate nohighlight">\(\gamma\)</span> is inversely related to the tuning parameter <span class="math notranslate nohighlight">\(\lambda\)</span> used in the dual problem. If we set <span class="math notranslate nohighlight">\(\gamma\)</span> to infinity, we essentially revert to the hard margin formulation, where no data points are allowed on the wrong side of the margin. This means that for non-separable data, there might not be a solution.</p>
+</section>
+<section id="loss-penalty">
+<h2><span class="section-number">11.3.5. </span>Loss + Penalty<a class="headerlink" href="#loss-penalty" title="Link to this heading"></a></h2>
+<p>We can also view the primal problem as a special case of the <strong>Loss + Penalty</strong> framework. The hinge loss function, represented by the blue curve in the graph, measures the margin of our classifier <span class="math notranslate nohighlight">\(f(x) = x^t \beta + \beta_0.\)</span> When <span class="math notranslate nohighlight">\(y_i\)</span> and <span class="math notranslate nohighlight">\(f(x_i)\)</span> have the same sign and the margin is large (far from 0), the hinge loss approaches zero. However, if they have opposite signs, the hinge loss increases. This loss function captures our desire for not just correct classification but also a margin of separation between the classes.</p>
+<a class="reference internal image-reference" href="../_images/w11_SVM_loss_penalty.png"><img alt="../_images/w11_SVM_loss_penalty.png" src="../_images/w11_SVM_loss_penalty.png" style="width: 722.4000000000001px; height: 360.8px;" /></a>
+<p>In the context of SVM, we employ hinge loss over the <span class="math notranslate nohighlight">\(n\)</span> observations, where <span class="math notranslate nohighlight">\(f\)</span> is a linear function defined by parameters <span class="math notranslate nohighlight">\((\beta_0, \beta).\)</span> We also introduce a ridge penalty over beta, represented by gamma (or its reciprocal, new), which controls the trade-off between minimizing the hinge loss and the complexity of the model. A larger gamma leads to a smaller penalty and a more complex model.</p>
+</section>
 </section>
 
 

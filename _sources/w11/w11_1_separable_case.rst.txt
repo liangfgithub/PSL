@@ -209,7 +209,7 @@ SVM computation revolves around the dual problem, focusing on solving for :math:
 Probabilistic Outputs
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Unlike logistic regression or discriminant analysis, SVM directly determines the decision boundary without providing probabilities. However, there is a way to obtain probability outcomes from the distance of a point to the binary decision boundary based on Platt Scaling
+Unlike logistic regression or discriminant analysis, SVM directly determines the decision boundary without providing probabilities. However, there is a way to obtain probability outcomes from the distance of a point to the binary decision boundary based on Platt Scaling:
 
 `A Note on Platt’s Probabilistic Outputs for Support Vector Machines <https://liangfgithub.github.io/ref/SVM_Platt.pdf>`_ (Hsuan-Tien Lin et al., 2007)
 
