@@ -1,21 +1,4 @@
 Recommender System
 ====================================
 
-Introduction
---------------------------------------
-
-
-Content-based recommendation
---------------------------------------
-
-
-Collaborative filtering
---------------------------------------
-
-
-Latent factor model
---------------------------------------
-
-Challenges and future directions
---------------------------------------
-
+- Slides `lec_W13_RecommenderSystem <https://liangfgithub.github.io/Notes/lec_W13_RecommenderSystem.pdf>`_ 

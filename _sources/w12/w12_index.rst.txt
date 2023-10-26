@@ -2,13 +2,5 @@ Classification Trees and Boosting
 ====================================
 
 
-
-.. toctree::
-   :maxdepth: 1
-
-   w12_1_class_tree.rst
-   w12_2_impurity.rst
-   w12_3_adaboost.rst
-   w12_4_boosting.rst
- 
+- Slides `lec_W12_ClassificationTree_Boosting <https://liangfgithub.github.io/Notes/lec_W12_ClassificationTree_Boosting.pdf>`_ 
 
