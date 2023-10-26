@@ -135,7 +135,7 @@ The Lagrangian function and the four KKT conditions for the SVM problem are summ
 	:scale: 70 %
 
 The Duality
-----------------------
+---------------------
 
 Next, let's discuss the duality between the primal and dual problems in optimization. 
 
@@ -179,14 +179,41 @@ For SVM, we can choose to solve either the primal or dual roblem to obtain the s
 
 - The dual  is easier to optimize than the primal, especially when it comes to handling constraints. 
 
-- The dual solution involves Lagrange multipliers :math:`\lambda_i`'s.  Many of these :math:`\lambda_i` values will be zero for data points that are not support vectors. Complementary Slackness in the KKT conditions  ensures that only support vectors have non-zero :math:`\lambda` values. This leads to a sparse solution. 
+- The dual solution involves Lagrange multipliers :math:`\lambda_i`'s.  Many of these :math:`\lambda_i` values will be zero for data points that are not support vectors (data points on the dashed lines). Complementary Slackness in the KKT conditions  ensures that only support vectors have non-zero :math:`\lambda` values. This leads to a sparse solution. 
 
 - The dual formulation of the SVM is advantageous when using kernel functions. The kernel trick allows SVMs to implicitly map data into higher-dimensional feature spaces without explicitly computing the mapping. 
 
 
 Computation Cost
---------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 SVM computation revolves around the dual problem, focusing on solving for :math:`\lambda_1` to :math:`\lambda_n.` Consequently, the computational cost of SVM primarily depends on the sample size (n), not the original feature dimension (p). This impiles that even a straightforward SVM model with a relatively low dimensional feature space can demand substantial computational resources when working with a large dataset.
+
+
+
+Summary
+-----------------------
+
+Let me provide a refined summary of our discussion regarding **linear SVMs for separable cases**.
+
+To recap, we've been exploring linear SVMs in scenarios where data points can be cleanly separated by a linear function within the feature space X. This separability implies that multiple suitable linear functions could exist. Our goal has been to find the optimal linear function, or decision boundary, that **maximizes the margin** between two groups of data points.
+
+Formally, this problem can be framed as a constrained optimization task. The constraints ensure that data points from both groups are correctly positioned on the respective sides of the decision boundary. However, instead of directly solving this constrained optimization problem, we've been addressing the **dual problem**, a pivotal concept in SVMs.
+
+In the dual problem, the objective is to find the Lagrange multipliers (lambda values) associated with the original constraints. Importantly, due to a fundamental property called the **Complementary Slackness**, many of these lambda values will be zero. This condition, which is part of the Karush-Kuhn-Tucker (KKT) conditions, dictates that :math:`\lambda_i` and the constraint cannot both be nonzero simultaneously. Therefore, only data points located on the dashed lines exhibit nonzero :math:`\lambda_i` values. These special data points are referred to as **support vectors**.
+
+Prediction
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Solving for the :math:`\lambda_i` values in the dual problem allows us to retrieve the parameters of the primal problem, specifically the slope :math:`\beta` and the intercept :math:`\beta_0` of the optimal linear decision boundary. 
+
+We will use the two equations colored in pink in the KKT conditions. The first equality can help us to solve for :math:`\beta`. 
+
+.. math::
+	\beta = \sum \lambda_i y_i x_i = \sum_{i \in \textcolor{red}{N_s}} \lambda_i y_i x_i,
+
+where :math:`N_s` represents the set of support vectors. Pick any support vector; since it's on the dashed line, it must satisfy the equality :math:`y_i ( \beta \cdot x_i + \beta_0) - 1 =0.` Thus we can solve for the intercept :math:`\beta_0`. For computational stability, it is common to compute multiple :math:`\beta_0` values based on different support vectors and then average them. This helps mitigate slight variations that may occur in practice. 
+
+When it comes to making predictions for new data points, we simply evaluate the linear equation, involving :math:`(\beta, \beta_0)`, and the new feature vector :math:`x^*`, and examine the sign of the result. The sign determines whether we predict the new feature to belong to one class (+1) or the other class (-1).
 
 

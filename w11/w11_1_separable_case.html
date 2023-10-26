@@ -65,8 +65,14 @@
 <li class="toctree-l4"><a class="reference internal" href="#kkt-conditions-for-svm">KKT Conditions for SVM</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#the-duality">11.2.3. The Duality</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#computation-cost">11.2.4. Computation Cost</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-duality">11.2.3. The Duality</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#computation-cost">Computation Cost</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#summary">11.2.4. Summary</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#prediction">Prediction</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="w11_2_non_separable_case.html">11.3. The Non-separable case</a></li>
@@ -117,7 +123,7 @@
 <li><p>We set the output labels <span class="math notranslate nohighlight">\(y\)</span> to be either +1 or -1. Then require <span class="math notranslate nohighlight">\(y_i (\beta \cdot x_i + \beta_0)\)</span> should always be positive. Here  <span class="math notranslate nohighlight">\(\beta \cdot x_i = \beta^t x_i\)</span> represents the Euclidean inner product between two vectors.</p></li>
 <li><p>We also need to fix the scale of <span class="math notranslate nohighlight">\(\beta\)</span> and <span class="math notranslate nohighlight">\(\beta_0.\)</span> To do this, we parameterize the two dashed lines on either side of the solid blue line as <span class="math notranslate nohighlight">\(\beta \cdot x + \beta_0 = 1\)</span> and <span class="math notranslate nohighlight">\(\beta \cdot x + \beta_0 = -1\)</span>. This scaling fixes the magnitude of <span class="math notranslate nohighlight">\(\beta.\)</span></p></li>
 </ul>
-<a class="reference internal image-reference" href="../_images/w11_linear_sep_2.png"><img alt="../_images/w11_linear_sep_2.png" src="../_images/w11_linear_sep_2.png" style="width: 266.5px; height: 182.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/w11_linear_sep_2.png"><img alt="../_images/w11_linear_sep_2.png" src="../_images/w11_linear_sep_2.png" style="width: 245.70000000000002px; height: 155.35px;" /></a>
 <p>Next, our objective is to measure the margin or the width of the Avenue between the two groups of points. Note that the distance between the solid and dashed lines is half the width. Recognize that the slope parameter of the line <span class="math notranslate nohighlight">\(\beta\)</span> is orthogonal to both the solid and dashed lines.</p>
 <a class="reference internal image-reference" href="../_images/w11_linear_margin.png"><img alt="../_images/w11_linear_margin.png" src="../_images/w11_linear_margin.png" style="width: 300.3px; height: 176.8px;" /></a>
 <p>To calculate the width of the Avenue, we can pick a point on a dashed line, denoted as <span class="math notranslate nohighlight">\(z\)</span>, and another point on the solid line, denoted as <span class="math notranslate nohighlight">\(x\)</span>. We then compute the projection of the vector from <span class="math notranslate nohighlight">\(x\)</span> to <span class="math notranslate nohighlight">\(z\)</span> onto the direction of <span class="math notranslate nohighlight">\(\beta\)</span>  to find the magnitude of the red bar, representing half of the Avenue’s width.</p>
@@ -216,13 +222,29 @@
 <p>For SVM, we can choose to solve either the primal or dual roblem to obtain the same optimal solution. In practice, solving the dual problem is often preferred for various reasons.</p>
 <ul class="simple">
 <li><p>The dual  is easier to optimize than the primal, especially when it comes to handling constraints.</p></li>
-<li><p>The dual solution involves Lagrange multipliers <span class="math notranslate nohighlight">\(\lambda_i\)</span>’s.  Many of these <span class="math notranslate nohighlight">\(\lambda_i\)</span> values will be zero for data points that are not support vectors. Complementary Slackness in the KKT conditions  ensures that only support vectors have non-zero <span class="math notranslate nohighlight">\(\lambda\)</span> values. This leads to a sparse solution.</p></li>
+<li><p>The dual solution involves Lagrange multipliers <span class="math notranslate nohighlight">\(\lambda_i\)</span>’s.  Many of these <span class="math notranslate nohighlight">\(\lambda_i\)</span> values will be zero for data points that are not support vectors (data points on the dashed lines). Complementary Slackness in the KKT conditions  ensures that only support vectors have non-zero <span class="math notranslate nohighlight">\(\lambda\)</span> values. This leads to a sparse solution.</p></li>
 <li><p>The dual formulation of the SVM is advantageous when using kernel functions. The kernel trick allows SVMs to implicitly map data into higher-dimensional feature spaces without explicitly computing the mapping.</p></li>
 </ul>
-</section>
 <section id="computation-cost">
-<h2><span class="section-number">11.2.4. </span>Computation Cost<a class="headerlink" href="#computation-cost" title="Link to this heading"></a></h2>
+<h3>Computation Cost<a class="headerlink" href="#computation-cost" title="Link to this heading"></a></h3>
 <p>SVM computation revolves around the dual problem, focusing on solving for <span class="math notranslate nohighlight">\(\lambda_1\)</span> to <span class="math notranslate nohighlight">\(\lambda_n.\)</span> Consequently, the computational cost of SVM primarily depends on the sample size (n), not the original feature dimension (p). This impiles that even a straightforward SVM model with a relatively low dimensional feature space can demand substantial computational resources when working with a large dataset.</p>
+</section>
+</section>
+<section id="summary">
+<h2><span class="section-number">11.2.4. </span>Summary<a class="headerlink" href="#summary" title="Link to this heading"></a></h2>
+<p>Let me provide a refined summary of our discussion regarding <strong>linear SVMs for separable cases</strong>.</p>
+<p>To recap, we’ve been exploring linear SVMs in scenarios where data points can be cleanly separated by a linear function within the feature space X. This separability implies that multiple suitable linear functions could exist. Our goal has been to find the optimal linear function, or decision boundary, that <strong>maximizes the margin</strong> between two groups of data points.</p>
+<p>Formally, this problem can be framed as a constrained optimization task. The constraints ensure that data points from both groups are correctly positioned on the respective sides of the decision boundary. However, instead of directly solving this constrained optimization problem, we’ve been addressing the <strong>dual problem</strong>, a pivotal concept in SVMs.</p>
+<p>In the dual problem, the objective is to find the Lagrange multipliers (lambda values) associated with the original constraints. Importantly, due to a fundamental property called the <strong>Complementary Slackness</strong>, many of these lambda values will be zero. This condition, which is part of the Karush-Kuhn-Tucker (KKT) conditions, dictates that <span class="math notranslate nohighlight">\(\lambda_i\)</span> and the constraint cannot both be nonzero simultaneously. Therefore, only data points located on the dashed lines exhibit nonzero <span class="math notranslate nohighlight">\(\lambda_i\)</span> values. These special data points are referred to as <strong>support vectors</strong>.</p>
+<section id="prediction">
+<h3>Prediction<a class="headerlink" href="#prediction" title="Link to this heading"></a></h3>
+<p>Solving for the <span class="math notranslate nohighlight">\(\lambda_i\)</span> values in the dual problem allows us to retrieve the parameters of the primal problem, specifically the slope <span class="math notranslate nohighlight">\(\beta\)</span> and the intercept <span class="math notranslate nohighlight">\(\beta_0\)</span> of the optimal linear decision boundary.</p>
+<p>We will use the two equations colored in pink in the KKT conditions. The first equality can help us to solve for <span class="math notranslate nohighlight">\(\beta\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\beta = \sum \lambda_i y_i x_i = \sum_{i \in \textcolor{red}{N_s}} \lambda_i y_i x_i,\]</div>
+<p>where <span class="math notranslate nohighlight">\(N_s\)</span> represents the set of support vectors. Pick any support vector; since it’s on the dashed line, it must satisfy the equality <span class="math notranslate nohighlight">\(y_i ( \beta \cdot x_i + \beta_0) - 1 =0.\)</span> Thus we can solve for the intercept <span class="math notranslate nohighlight">\(\beta_0\)</span>. For computational stability, it is common to compute multiple <span class="math notranslate nohighlight">\(\beta_0\)</span> values based on different support vectors and then average them. This helps mitigate slight variations that may occur in practice.</p>
+<p>When it comes to making predictions for new data points, we simply evaluate the linear equation, involving <span class="math notranslate nohighlight">\((\beta, \beta_0)\)</span>, and the new feature vector <span class="math notranslate nohighlight">\(x^*\)</span>, and examine the sign of the result. The sign determines whether we predict the new feature to belong to one class (+1) or the other class (-1).</p>
+</section>
 </section>
 </section>
 
