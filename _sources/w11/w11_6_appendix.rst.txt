@@ -1,2 +1,7 @@
 Appendix
 =====================
+
+
+- `lec_W11_appendix_SVM.pdf <https://liangfgithub.github.io/Notes/lec_W11_appendix_SVM.pdf>`_ 
+
+- `lec_W11_appendix_RKHS.pdf <https://liangfgithub.github.io/Notes/lec_W11_appendix_RKHS.pdf>`_ 

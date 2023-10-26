@@ -20,7 +20,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="11.4. Practical Issues" href="w11_3_practical_issues.html" />
+    <link rel="next" title="11.4. Nonlinear SVMs" href="w11_4_nonlinear.html" />
     <link rel="prev" title="11.2. The Separable case" href="w11_1_separable_case.html" /> 
 </head>
 
@@ -58,7 +58,7 @@
 <li class="toctree-l2"><a class="reference internal" href="w11_0_intro.html">11.1. Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w11_1_separable_case.html">11.2. The Separable case</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">11.3. The Non-separable case</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#overview">11.3.1. Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#non-separable-data">11.3.1. Non-separable Data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#the-soft-margin-problem">11.3.2. The Soft-Margin Problem</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#the-kkt-conditions">11.3.3. The KKT Conditions</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#support-vectors">Support Vectors</a></li>
@@ -68,10 +68,8 @@
 <li class="toctree-l3"><a class="reference internal" href="#loss-penalty">11.3.5. Loss + Penalty</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="w11_3_practical_issues.html">11.4. Practical Issues</a></li>
-<li class="toctree-l2"><a class="reference internal" href="w11_4_nonlinear.html">11.5. Nonlinear SVMs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="w11_5_summ.html">11.6. Summary</a></li>
-<li class="toctree-l2"><a class="reference internal" href="w11_6_appendix.html">11.7. Appendix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w11_4_nonlinear.html">11.4. Nonlinear SVMs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w11_6_appendix.html">11.5. Appendix</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../w12/w12_index.html">12. Classification Trees and Boosting</a></li>
@@ -104,8 +102,8 @@
              
   <section id="the-non-separable-case">
 <h1><span class="section-number">11.3. </span>The Non-separable case<a class="headerlink" href="#the-non-separable-case" title="Link to this heading"></a></h1>
-<section id="overview">
-<h2><span class="section-number">11.3.1. </span>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<section id="non-separable-data">
+<h2><span class="section-number">11.3.1. </span>Non-separable Data<a class="headerlink" href="#non-separable-data" title="Link to this heading"></a></h2>
 <p>So far, we have covered Linear Support Vector Machines (SVM) for separable data. For example, in the image on the left, we have two groups of data points that can be easily separated by a solid blue line. However, what if the data is not separable, meaning there is no single solid blue line that can perfectly separate the two groups? In such cases, we can extend the hard margin formulation in two ways.</p>
 <a class="reference internal image-reference" href="../_images/w11_nonsep_overview.png"><img alt="../_images/w11_nonsep_overview.png" src="../_images/w11_nonsep_overview.png" style="width: 704.0px; height: 382.40000000000003px;" /></a>
 <p>One approach is known as the ‘soft margin,’ where we still aim to create a wide margin between the groups but allow some data points to be on the ‘wrong’ side of the dashed line. This introduces an objective function that balances maximizing the margin and minimizing the errors.</p>
@@ -160,7 +158,7 @@
 <h2><span class="section-number">11.3.5. </span>Loss + Penalty<a class="headerlink" href="#loss-penalty" title="Link to this heading"></a></h2>
 <p>We can also view the primal problem as a special case of the <strong>Loss + Penalty</strong> framework. The hinge loss function, represented by the blue curve in the graph, measures the margin of our classifier <span class="math notranslate nohighlight">\(f(x) = x^t \beta + \beta_0.\)</span> When <span class="math notranslate nohighlight">\(y_i\)</span> and <span class="math notranslate nohighlight">\(f(x_i)\)</span> have the same sign and the margin is large (far from 0), the hinge loss approaches zero. However, if they have opposite signs, the hinge loss increases. This loss function captures our desire for not just correct classification but also a margin of separation between the classes.</p>
 <a class="reference internal image-reference" href="../_images/w11_SVM_loss_penalty.png"><img alt="../_images/w11_SVM_loss_penalty.png" src="../_images/w11_SVM_loss_penalty.png" style="width: 722.4000000000001px; height: 360.8px;" /></a>
-<p>In the context of SVM, we employ hinge loss over the <span class="math notranslate nohighlight">\(n\)</span> observations, where <span class="math notranslate nohighlight">\(f\)</span> is a linear function defined by parameters <span class="math notranslate nohighlight">\((\beta_0, \beta).\)</span> We also introduce a ridge penalty over beta, represented by gamma (or its reciprocal, new), which controls the trade-off between minimizing the hinge loss and the complexity of the model. A larger gamma leads to a smaller penalty and a more complex model.</p>
+<p>In the context of SVM, we employ hinge loss over the <span class="math notranslate nohighlight">\(n\)</span> observations, where <span class="math notranslate nohighlight">\(f\)</span> is a linear function defined by parameters <span class="math notranslate nohighlight">\((\beta_0, \beta).\)</span> We also introduce a ridge penalty over beta, represented by gamma (or its reciprocal, <span class="math notranslate nohighlight">\(\nv\)</span>), which controls the trade-off between minimizing the hinge loss and the complexity of the model. A larger <span class="math notranslate nohighlight">\(\gamma\)</span> leads to a smaller penalty <span class="math notranslate nohighlight">\(\nv\)</span> and a more complex model.</p>
 </section>
 </section>
 
@@ -169,7 +167,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="w11_1_separable_case.html" class="btn btn-neutral float-left" title="11.2. The Separable case" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="w11_3_practical_issues.html" class="btn btn-neutral float-right" title="11.4. Practical Issues" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="w11_4_nonlinear.html" class="btn btn-neutral float-right" title="11.4. Nonlinear SVMs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

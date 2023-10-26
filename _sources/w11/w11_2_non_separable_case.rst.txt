@@ -2,8 +2,8 @@
 The Non-separable case
 ====================================
 
-Overview
----------------------
+Non-separable Data
+------------------------------------------
 
 So far, we have covered Linear Support Vector Machines (SVM) for separable data. For example, in the image on the left, we have two groups of data points that can be easily separated by a solid blue line. However, what if the data is not separable, meaning there is no single solid blue line that can perfectly separate the two groups? In such cases, we can extend the hard margin formulation in two ways.
 
@@ -97,5 +97,5 @@ We can also view the primal problem as a special case of the **Loss + Penalty** 
 .. image:: ../images/w11_SVM_loss_penalty.png
 	:scale: 80 %
 
-In the context of SVM, we employ hinge loss over the :math:`n` observations, where :math:`f` is a linear function defined by parameters :math:`(\beta_0, \beta).` We also introduce a ridge penalty over beta, represented by gamma (or its reciprocal, new), which controls the trade-off between minimizing the hinge loss and the complexity of the model. A larger gamma leads to a smaller penalty and a more complex model.
+In the context of SVM, we employ hinge loss over the :math:`n` observations, where :math:`f` is a linear function defined by parameters :math:`(\beta_0, \beta).` We also introduce a ridge penalty over beta, represented by gamma (or its reciprocal, :math:`\nv`), which controls the trade-off between minimizing the hinge loss and the complexity of the model. A larger :math:`\gamma` leads to a smaller penalty :math:`\nv` and a more complex model.
 

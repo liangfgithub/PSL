@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>11.5. Nonlinear SVMs &mdash; PSL_Book 0.1 documentation</title>
+  <title>11.4. Nonlinear SVMs &mdash; PSL_Book 0.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -16,11 +16,12 @@
         <script src="../_static/documentation_options.js?v=2709fde1"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="11.6. Summary" href="w11_5_summ.html" />
-    <link rel="prev" title="11.4. Practical Issues" href="w11_3_practical_issues.html" /> 
+    <link rel="next" title="11.5. Appendix" href="w11_6_appendix.html" />
+    <link rel="prev" title="11.3. The Non-separable case" href="w11_2_non_separable_case.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -57,10 +58,18 @@
 <li class="toctree-l2"><a class="reference internal" href="w11_0_intro.html">11.1. Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w11_1_separable_case.html">11.2. The Separable case</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w11_2_non_separable_case.html">11.3. The Non-separable case</a></li>
-<li class="toctree-l2"><a class="reference internal" href="w11_3_practical_issues.html">11.4. Practical Issues</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">11.5. Nonlinear SVMs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="w11_5_summ.html">11.6. Summary</a></li>
-<li class="toctree-l2"><a class="reference internal" href="w11_6_appendix.html">11.7. Appendix</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">11.4. Nonlinear SVMs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#linear-svm-recap">11.4.1. Linear SVM Recap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#embedding">11.4.2. Embedding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-kernel-function">11.4.3. The Kernel Function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#loss-penalty">11.4.4. Loss + Penalty</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-kernel-machine">11.4.5. The Kernel Machine</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#rkhs">RKHS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="w11_6_appendix.html">11.5. Appendix</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../w12/w12_index.html">12. Classification Trees and Boosting</a></li>
@@ -82,7 +91,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="w11_index.html"><span class="section-number">11. </span>Support Vector Machine</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">11.5. </span>Nonlinear SVMs</li>
+      <li class="breadcrumb-item active"><span class="section-number">11.4. </span>Nonlinear SVMs</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -92,15 +101,73 @@
            <div itemprop="articleBody">
              
   <section id="nonlinear-svms">
-<h1><span class="section-number">11.5. </span>Nonlinear SVMs<a class="headerlink" href="#nonlinear-svms" title="Link to this heading"></a></h1>
+<h1><span class="section-number">11.4. </span>Nonlinear SVMs<a class="headerlink" href="#nonlinear-svms" title="Link to this heading"></a></h1>
+<section id="linear-svm-recap">
+<h2><span class="section-number">11.4.1. </span>Linear SVM Recap<a class="headerlink" href="#linear-svm-recap" title="Link to this heading"></a></h2>
+<p>Before discussing the extension from a linear SVM to a non-linear SVM, let’s briefly review the linear SVM, which we have covered extensively. In the linear SVM, we start with our primal problem, which involves terms like the slope <span class="math notranslate nohighlight">\(\beta\)</span>, intercept <span class="math notranslate nohighlight">\(\beta_0\)</span>, and the regularization parameter <span class="math notranslate nohighlight">\(\gamma.\)</span> We solve the dual problem with the Lagrangian multipliers <span class="math notranslate nohighlight">\(\lambda_1\)</span> to <span class="math notranslate nohighlight">\(\lambda_n.\)</span> The original parameters <span class="math notranslate nohighlight">\(\beta\)</span> and <span class="math notranslate nohighlight">\(\beta_0\)</span> can be found using the KKT condition, and they depend on a small set of support vectors.</p>
+<a class="reference internal image-reference" href="../_images/w11_linear_nonlinear_SVM.png"><img alt="../_images/w11_linear_nonlinear_SVM.png" src="../_images/w11_linear_nonlinear_SVM.png" style="width: 741.0px; height: 414.0px;" /></a>
+<p>Interestingly, in practice,  there’s no need for explicit calculations of  <span class="math notranslate nohighlight">\(\beta\)</span> and  <span class="math notranslate nohighlight">\(\beta_0\)</span>. During the prediction phase, as depicted in the slide above, we find that the values of <span class="math notranslate nohighlight">\(\lambda_1\)</span> to <span class="math notranslate nohighlight">\(\lambda_n\)</span> suffice for making accurate predictions.</p>
+</section>
+<section id="embedding">
+<h2><span class="section-number">11.4.2. </span>Embedding<a class="headerlink" href="#embedding" title="Link to this heading"></a></h2>
+<p>Now, let’s move on to nonlinear extensions, which can crate more flexible classifiers with nonlinear decision boundaries. We’ve done nonlinear extension before when we discussed regression models: to extend to nonlinear functions, all we need to do is adding nonlinear terms as new features. This way, we can continue using our linear SVM.</p>
+<p>To do this, we first embed data points into a higher-dimensional feature space,</p>
+<div class="math notranslate nohighlight">
+\[\Phi : \mathcal{X} \rightarrow \mathcal{F}, \quad \Phi(x) = (\phi_1(x), \phi_2(x), \dots ),\]</div>
+<p>and then apply the linear SVM in this feature space <span class="math notranslate nohighlight">\(\mathcal{F},\)</span> since a linear function of in this new feature space results in a nonlinear function of the original input x.</p>
+</section>
+<section id="the-kernel-function">
+<h2><span class="section-number">11.4.3. </span>The Kernel Function<a class="headerlink" href="#the-kernel-function" title="Link to this heading"></a></h2>
+<p>What’s fascinating is that we don’t even need to compute the mapping from  <span class="math notranslate nohighlight">\(\mathcal{X}\)</span> to <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> explicitly. Since all calculations are based on inner products, we only need to know how to compute the inner product in the <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> space. This can be achieved by evaluating the kernel function, denoted as K.</p>
+<div class="math notranslate nohighlight">
+\[K_{\Phi}(x_i, x) = \langle \Phi(x) , \Phi(x_i) \rangle.\]</div>
+<p>Note that I haven’t written the inner product as <span class="math notranslate nohighlight">\(\Phi(x)^t \Phi(x_i)\)</span> since the feature space <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> might be infinite dimensional, not a finite dimensional Euclidean space. For instance, the mapped feature <span class="math notranslate nohighlight">\(\Phi(x)\)</span> could be a function.</p>
+<p>This technique is commonly known as the <strong>Kernel Trick</strong>. It allows us to compute the inner product as a function in the original input space <span class="math notranslate nohighlight">\(\mathcal{X}\)</span> without explicitly calculating the mapping <span class="math notranslate nohighlight">\(\Phi(x)\)</span> into the higher-dimensional feature space. This technique can also be used in various algorithms that rely solely on inner products, such as kernel Principal Component Analysis (PCA).</p>
+<p>The bivariate function K represents the similarity between two data points, extending the concept beyond the ordinary Euclidean inner product. Regarding the choice of kernel function, you have several options. Polynomial kernels, Gaussian kernels, and others can be used, as long as they satisfy certain mathematical conditions like the Mercer condition. The Mercer condition ensures that the bivariate kernel function <span class="math notranslate nohighlight">\(K(x, z)\)</span> is symmetric and semi-positive definite, thus yields an inner product in some feature space.</p>
+</section>
+<section id="loss-penalty">
+<h2><span class="section-number">11.4.4. </span>Loss + Penalty<a class="headerlink" href="#loss-penalty" title="Link to this heading"></a></h2>
+<p>Let’s delve into the details presented on this mathematical slide below.</p>
+<a class="reference internal image-reference" href="../_images/w11_convex_penalty.png"><img alt="../_images/w11_convex_penalty.png" src="../_images/w11_convex_penalty.png" style="width: 712.5px; height: 399.75px;" /></a>
+<p>On the left side, we see both the primal and the dual representations, along with the prediction rule for linear SVM.</p>
+<p>Moving to the upper right side, we revisit the primal problem, which we previously discussed as a combination of loss and penalty terms. In this formulation, the loss is represented by the hinge loss, while the penalty is a ridge penalty to the slope parameter <span class="math notranslate nohighlight">\(\beta.\)</span></p>
+<p>Now, the question arises: Given that in practice, we often bypass the need to explicitly calculate the primal and instead solve for the dual, can we establish a loss + penalty framework in terms of the dual parameters <span class="math notranslate nohighlight">\(\lambda_1, \dots, \lambda_n\)</span>?</p>
+<p>Indeed, this is achievable, as both the linear function <span class="math notranslate nohighlight">\(f\)</span> and the <span class="math notranslate nohighlight">\(\beta\)</span> parameter can be expressed in terms of <span class="math notranslate nohighlight">\(\lambda_1, \dots, \lambda_n\)</span>.</p>
+<p>The same principle extends to nonlinear SVMs that involve a kernel function K. In this case, we discover that the primal function <span class="math notranslate nohighlight">\(f\)</span> can be expressed as a linear combination of kernel functions. These coefficients, denoted as <span class="math notranslate nohighlight">\(\alpha_i\)</span> in the slide, are <span class="math notranslate nohighlight">\(\lambda_i\)</span> multiplied by <span class="math notranslate nohighlight">\(y_i.\)</span></p>
+<p>So, we can reformulate the nonlinear SVM as a loss + penalty framework in terms of the coefficients <span class="math notranslate nohighlight">\(\alpha\)</span>’s. However, there’s a twist:The penalty is not the ordinary L2 ridge penalty. Instead, it’s a generalized ridge penalty that incorporates the K matrix in the middle.</p>
+</section>
+<section id="the-kernel-machine">
+<h2><span class="section-number">11.4.5. </span>The Kernel Machine<a class="headerlink" href="#the-kernel-machine" title="Link to this heading"></a></h2>
+<p>Now, let’s explore SVM from a different perspective, one that I like to refer to as a “kernel machine.”</p>
+<p>Consider this: We’re on a mission to predict whether individuals like the new iPhone. We have features like age, income level, ethnic background, and more. However, we don’t want to use these features directly as inputs. Instead, we’ll establish a similarity measure between any two individuals among the n training samples.</p>
+<p>Think of this “kernel machine” as an extension of the k-Nearest Neighbors (kNN) approach. Each individual in the training set essentially becomes a feature in this context, a representative sample. In this new perspective, we measure how similar each individual is to one another using a bivariate function K. This function takes two inputs, with one of them fixed at a specific data point, <span class="math notranslate nohighlight">\(x_i\)</span>. This process results in a fresh set of n features.</p>
+<a class="reference internal image-reference" href="../_images/w11_kernel_machine.png"><img alt="../_images/w11_kernel_machine.png" src="../_images/w11_kernel_machine.png" style="width: 732.75px; height: 396.0px;" /></a>
+<p>If we represent everything in matrix form, our design matrix takes the shape of an n-by-n matrix. The key task at hand is to learn the coefficients alpha. We achieve this by estimating the coefficients alpha using a Loss + Penalty framework, with the loss function being the hinge loss and the penalty applied to alpha taking this form of a generalized ridge penalty.</p>
+<p>Now, the model I’ve just described aligns precisely with the concept of a nonlinear SVM.</p>
+<p>However, there are two subtle conditions that SVM imposes but appear more flexible within this new “kernel machine” model.</p>
+<ul class="simple">
+<li><p>First, the ridge penalty on the coefficients alpha. Can we explore alternative penalties, such as Lasso? Wouldn’t this potentially lead to a sparser solution?</p></li>
+<li><p>Second, the condition on the bivariate function K. In traditional SVM, the kernel function is expected to satisfy the Mercer condition, which implies that the n-by-n design matrix should be semi-positive definite. This requirement seems unique; most other regression or classification models don’t impose such conditions on the design matrix.</p></li>
+</ul>
+<p>Absolutely, from a practical perspective, loosening these conditions is indeed acceptable. It allows us to construct our “kernel machine” with more flexibility, using the similarity function that best suits our problem and experimenting with different penalty functions. While the resulting model may not fit the traditional definition of a Support Vector Machine (SVM), it can still serve as a valuable supervised learning model.</p>
+<section id="rkhs">
+<h3>RKHS<a class="headerlink" href="#rkhs" title="Link to this heading"></a></h3>
+<p>Next, let’s consider the intriguing question: What happens if our selected kernel function satisfies the Mercer condition, and we consistently employ that specific ridge-type penalty during training? How do these choices impact our kernel model, and what do we gain from these two requirements?</p>
+<p>Imagine this scenario: Today, we build a model based on a training set with n = 200 samples. However, tomorrow, we might gather more data, increasing our sample size to n = 300. This necessitates the creation of a new model, which entails estimating 300 coefficients. This dynamic nature raises questions about the function space we’re exploring, and it becomes contingent on the dataset we’re working with.</p>
+<p>What’s particularly fascinating about the Mercer condition is that it leads us to a fixed functional space, independent of the data itself, known as a “reproducing kernel Hilbert space” (RKHS). This space can be extensive, even infinite-dimensional. When we formulate our objective function using the specific ridge-type penalty, regardless of the choice of the loss function, and apply this penalty within the RKHS, the resulting minimizer always takes on the following finite form:</p>
+<div class="math notranslate nohighlight">
+\[\alpha_1 K(x_1, x) + \cdots + \alpha_n K(x_i, x) + \alpha_0\]</div>
+<p>In essence, this implies that although the function space can be infinite-dimensional, the minimizer of our objective function must ultimately adopt a finite representation, involving n coefficients. This concept bears resemblance to what we encounter with smoothing splines, offering a connection between these mathematical frameworks.</p>
+</section>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="w11_3_practical_issues.html" class="btn btn-neutral float-left" title="11.4. Practical Issues" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="w11_5_summ.html" class="btn btn-neutral float-right" title="11.6. Summary" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="w11_2_non_separable_case.html" class="btn btn-neutral float-left" title="11.3. The Non-separable case" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="w11_6_appendix.html" class="btn btn-neutral float-right" title="11.5. Appendix" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
