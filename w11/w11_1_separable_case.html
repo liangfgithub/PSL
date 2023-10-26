@@ -58,7 +58,13 @@
 <li class="toctree-l2"><a class="reference internal" href="w11_0_intro.html">11.1. Introduction</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">11.2. The Separable case</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#the-max-margin-problem">11.2.1. The Max-Margin Problem</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#the-kkt-conditions">11.2.2. The KKT Conditions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-kkt-conditions">11.2.2. The KKT Conditions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#optimization-without-constraints">Optimization Without Constraints</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#optimization-with-equality-constraints">Optimization With Equality Constraints</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#optimization-with-inequality-constraints">Optimization With Inequality Constraints</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#kkt-conditions-for-svm">KKT Conditions for SVM</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#the-duality">11.2.3. The Duality</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#computation-cost">11.2.4. Computation Cost</a></li>
 </ul>
@@ -108,7 +114,7 @@
 <p>To achieve this, we introduce a solid blue line to separate the two groups of points, and we imagine creating parallel dashed lines on either side of it. We extend these dashed lines until they touch the green/red points on either side, creating a “margin” between them. This margin is essentially an “avenue” that separates the two groups, and we aim to maximize its width.</p>
 <p>To formulate this problem mathematically, we start by representing the linear decision boundary (represented by the solid blue line) using coefficients, such as the slope <span class="math notranslate nohighlight">\(\beta\)</span> and the intercept <span class="math notranslate nohighlight">\(\beta_0.\)</span> However, <span class="math notranslate nohighlight">\(\beta\)</span> and <span class="math notranslate nohighlight">\(\beta_0\)</span> are not uniquely determined, as we can scale them or flip their signs and still have the same line. To address this, we take the following steps to fix these parameters.</p>
 <ul class="simple">
-<li><p>We set the output labels <span class="math notranslate nohighlight">\(y\)</span> to be either +1 or -1. Then <span class="math notranslate nohighlight">\(y_i (\beta \cdot x_i + \beta_0)\)</span> should always be positive. Here  <span class="math notranslate nohighlight">\(\beta \cdot x_i = \beta^t x_i\)</span> represents the Euclidean inner product between two vectors.</p></li>
+<li><p>We set the output labels <span class="math notranslate nohighlight">\(y\)</span> to be either +1 or -1. Then require <span class="math notranslate nohighlight">\(y_i (\beta \cdot x_i + \beta_0)\)</span> should always be positive. Here  <span class="math notranslate nohighlight">\(\beta \cdot x_i = \beta^t x_i\)</span> represents the Euclidean inner product between two vectors.</p></li>
 <li><p>We also need to fix the scale of <span class="math notranslate nohighlight">\(\beta\)</span> and <span class="math notranslate nohighlight">\(\beta_0.\)</span> To do this, we parameterize the two dashed lines on either side of the solid blue line as <span class="math notranslate nohighlight">\(\beta \cdot x + \beta_0 = 1\)</span> and <span class="math notranslate nohighlight">\(\beta \cdot x + \beta_0 = -1\)</span>. This scaling fixes the magnitude of <span class="math notranslate nohighlight">\(\beta.\)</span></p></li>
 </ul>
 <a class="reference internal image-reference" href="../_images/w11_linear_sep_2.png"><img alt="../_images/w11_linear_sep_2.png" src="../_images/w11_linear_sep_2.png" style="width: 266.5px; height: 182.0px;" /></a>
@@ -118,24 +124,38 @@
 <div class="math notranslate nohighlight">
 \[(x - z)^t \frac{\beta}{\| \beta\|} = \frac{x^t \beta - z^t \beta}{\| \beta\|} = \frac{1}{\| \beta\|}.\]</div>
 <p>This leads us to the conclusion that half of the Avenue’s width is equal to <span class="math notranslate nohighlight">\(1/\|\beta\|.\)</span> Therefore, to maximize the margin, we can equivalently minimize <span class="math notranslate nohighlight">\(\|\beta\|^2/2.\)</span></p>
-<p>So, our goal becomes an optimization problem (know as the max-margin problem) subject to certain constraints. These constraints ensure that the data points fall on the correct side of the dashed lines.</p>
+<p>So, our goal becomes an optimization problem (know as the <strong>max-margin</strong> problem) subject to certain constraints. These constraints ensure that the data points fall on the correct side of the dashed lines.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\min_{\beta, \beta_0 } &amp; \frac{1}{2} \|\beta\|^2  \\
 \text{subject to } &amp; y_i ( \beta \cdot x_i + \beta_0) - 1 \ge 0,\end{split}\]</div>
 <p>The max-margin problem is a convex optimization problem with a quadratic objective function and linear or affine constraints, making it free from issues related to local optima.</p>
 <p>Additionally, the equation above represents the primal problem in SVM. Instead of directly solving the primal problem, we often solve its dual problem. The dual problem yields a set of <span class="math notranslate nohighlight">\(\lambda\)</span> values, which can be linked to the solutions of the primal problem using the Karush-Kuhn-Tucker (KKT) conditions.</p>
-<a class="reference internal image-reference" href="../_images/w11_linear_prime_dual.png"><img alt="../_images/w11_linear_prime_dual.png" src="../_images/w11_linear_prime_dual.png" style="width: 673.4px; height: 334.59999999999997px;" /></a>
 </section>
 <section id="the-kkt-conditions">
 <h2><span class="section-number">11.2.2. </span>The KKT Conditions<a class="headerlink" href="#the-kkt-conditions" title="Link to this heading"></a></h2>
 <p>The Karush-Kuhn-Tucker (KKT) conditions are a set of necessary conditions that characterize the solutions to constrained optimization problems.</p>
 <p>When we want to minimize a function <span class="math notranslate nohighlight">\(f(x),\)</span> we focus on its derivative. Specifically, we look at the negative derivative at a particular point, <span class="math notranslate nohighlight">\(- \frac{\partial f(x)}{\partial x}\)</span>, which indicates a direction along which we can make further reductions in the value of <span class="math notranslate nohighlight">\(f\)</span>.</p>
-<p>First, let’s consider a scenario <strong>without constraints</strong>. We know that at the minimizer, the derivative of
+<section id="optimization-without-constraints">
+<h3>Optimization Without Constraints<a class="headerlink" href="#optimization-without-constraints" title="Link to this heading"></a></h3>
+<p>First, let’s consider a scenario without constraints. We know that at the minimizer, the derivative of
 <span class="math notranslate nohighlight">\(f\)</span> evaluated at that point should be zero. In mathematical terms, this is expressed as <span class="math notranslate nohighlight">\(\frac{\partial f(x)}{\partial x} = 0\)</span>. This condition signifies that there is no direction left to further reduce the value of <span class="math notranslate nohighlight">\(f\)</span>, making it a necessary condition for optimality.</p>
-<p>Next, let’s extend this to situations where we have <strong>equality constraints</strong>. Suppose we minimize <span class="math notranslate nohighlight">\(f(x)\)</span> subject to <span class="math notranslate nohighlight">\(g(x) =  b.\)</span> Here, our <strong>feasible region</strong> is defined by the set of x values that satisfy <span class="math notranslate nohighlight">\(g(x) =  b.\)</span> Suppose x is a solution to this problem. At such a point, the negative derivative of <span class="math notranslate nohighlight">\(f\)</span>, which indicates a direction along which we can further reduce the value of <span class="math notranslate nohighlight">\(f\)</span>, may not necessarily be zero. However, this direction is a “forbidden” one in the sense that moving along it would lead us outside the feasible region, violating the equality constraint. Mathematically, we can express this situation as:
+</section>
+<section id="optimization-with-equality-constraints">
+<h3>Optimization With Equality Constraints<a class="headerlink" href="#optimization-with-equality-constraints" title="Link to this heading"></a></h3>
+<p>Next, let’s extend this to situations where we have an equality constraint:</p>
+<div class="math notranslate nohighlight">
+\[\min_x  f(x), \quad \text{subject to }  g(x) =  b.\]</div>
+<p>Here, our <strong>feasible region</strong> is defined by the set of x values that satisfy <span class="math notranslate nohighlight">\(g(x) =  b.\)</span></p>
+<p>Suppose x is a solution to this problem. At such a point, the negative derivative of <span class="math notranslate nohighlight">\(f\)</span>, which indicates a direction along which we can further reduce the value of <span class="math notranslate nohighlight">\(f\)</span>, may not necessarily be zero. However, this non-zero direction must be a “forbidden” one in the sense that moving along it would lead us outside the feasible region, violating the equality constraint. Mathematically, we can express this situation as:
 <span class="math notranslate nohighlight">\(\frac{\partial f}{\partial x} + \lambda \frac{\partial g}{\partial x} = 0,\)</span> where <span class="math notranslate nohighlight">\(\lambda\)</span> can take any real number value.</p>
 <a class="reference internal image-reference" href="../_images/w11_optimize.png"><img alt="../_images/w11_optimize.png" src="../_images/w11_optimize.png" style="width: 383.59999999999997px; height: 198.1px;" /></a>
-<p>Now, consider scenarios with an <strong>inequality constraint</strong>, <span class="math notranslate nohighlight">\(g(x) \ge b.\)</span> Assuming <span class="math notranslate nohighlight">\(g(x)\)</span> is a concave function and <span class="math notranslate nohighlight">\(f(x)\)</span> is smooth, there are two cases to explore. Suppose x is a solution to this problem.</p>
+</section>
+<section id="optimization-with-inequality-constraints">
+<h3>Optimization With Inequality Constraints<a class="headerlink" href="#optimization-with-inequality-constraints" title="Link to this heading"></a></h3>
+<p>Now, consider scenarios with an inequality constraint:</p>
+<div class="math notranslate nohighlight">
+\[\min_x  f(x), \quad \text{subject to }  g(x) =  b.\]</div>
+<p>Assuming <span class="math notranslate nohighlight">\(g(x)\)</span> is a concave function and <span class="math notranslate nohighlight">\(f(x)\)</span> is smooth, there are two cases to explore. Suppose x is a solution to this problem.</p>
 <ul>
 <li><dl class="simple">
 <dt>Case 1:</dt><dd><p>x is inside the convex feasible region  (interior point): In this case, we can place a small neighborhood around x where the entire neighborhood remains within the feasible region. Then, the derivative <span class="math notranslate nohighlight">\(\frac{\partial f(x)}{\partial x}\)</span> must be zero at this point. This aligns with the idea that there are no directions within the feasible region where <span class="math notranslate nohighlight">\(f\)</span> can be further reduced.</p>
@@ -163,10 +183,14 @@
 <ol class="arabic simple" start="2">
 <li><p>Second Condition: <span class="math notranslate nohighlight">\(\lambda \ge 0.\)</span></p></li>
 <li><p>Third Condition: The inequality constraints <span class="math notranslate nohighlight">\(g(x) \ge b\)</span> should be satisfied.</p></li>
-<li><p>Fourth Condition (Complementary Slackness): This condition ensures that when the constraint is not active (i.e., Case 1), then the Lagrange multiplier <span class="math notranslate nohighlight">\(\lambda\)</span> should be zero.</p></li>
+<li><p>Fourth Condition (Complementary Slackness): This condition ensures that when the constraint is not active, i.e., <span class="math notranslate nohighlight">\(g(x) - b \ne 0,\)</span> then the Lagrange multiplier <span class="math notranslate nohighlight">\(\lambda\)</span> should be zero (Case 1).</p></li>
 </ol>
-<p>To represent the KKT conditions for our SVM problem, we define the Lagrangian function. It involves two sets of arguments: the first set is for the primal problem, which includes the slope <span class="math notranslate nohighlight">\(\beta\)</span> and intercept <span class="math notranslate nohighlight">\(\beta_0\)</span>, and the second set is for the Lagrange multipliers <span class="math notranslate nohighlight">\(\lambda_1\)</span> to <span class="math notranslate nohighlight">\(\lambda_n\)</span>, as we have n inequality constraints. The Lagrangian function and the four KKT conditions for our problem are summarized below.</p>
+</section>
+<section id="kkt-conditions-for-svm">
+<h3>KKT Conditions for SVM<a class="headerlink" href="#kkt-conditions-for-svm" title="Link to this heading"></a></h3>
+<p>The Lagrangian function and the four KKT conditions for the SVM problem are summarized below. The Lagrangian function involves two sets of arguments: the first set is for the primal problem, which includes the slope <span class="math notranslate nohighlight">\(\beta\)</span> and intercept <span class="math notranslate nohighlight">\(\beta_0\)</span>, and the second set is for the Lagrange multipliers <span class="math notranslate nohighlight">\(\lambda_1\)</span> to <span class="math notranslate nohighlight">\(\lambda_n\)</span>, as we have <span class="math notranslate nohighlight">\(n\)</span> inequality constraints.</p>
 <a class="reference internal image-reference" href="../_images/w11_KKT_SVM.png"><img alt="../_images/w11_KKT_SVM.png" src="../_images/w11_KKT_SVM.png" style="width: 509.59999999999997px; height: 213.5px;" /></a>
+</section>
 </section>
 <section id="the-duality">
 <h2><span class="section-number">11.2.3. </span>The Duality<a class="headerlink" href="#the-duality" title="Link to this heading"></a></h2>
@@ -179,11 +203,22 @@
 <li><p>If <span class="math notranslate nohighlight">\(g(x) &lt; b,\)</span> the expression inside the parentheses is negative, and the product of a negative value and <span class="math notranslate nohighlight">\((-\lambda)\)</span> becomes positive. In this scenario, we aim to maximize <span class="math notranslate nohighlight">\(\lambda\)</span> as much as possible, driving the value inside the parentheses to infinity. This situation results in the overall maximization value being infinite.</p></li>
 </ul>
 <p>By analyzing these two cases, we conclude that the expression inside the max operation simplifies to <span class="math notranslate nohighlight">\(f(x).\)</span> Therefore, the primal problem can be reformulated as a minimax problem.</p>
-<p>Next, we switch the order of the minimization and maximization, which is mathematically valid for SVM-type convex programming problems. The resulting optimization problem is known as  the <strong>dual problem</strong>:</p>
+<p>Next, we switch the order of the minimization and maximization, the resulting optimization problem is known as  the <strong>dual problem</strong>:</p>
 <a class="reference internal image-reference" href="../_images/w11_dual.png"><img alt="../_images/w11_dual.png" src="../_images/w11_dual.png" style="width: 259.0px; height: 108.5px;" /></a>
+<p>Usually, the dual problem provides a lower bound on the primal problem (known as weak duality):</p>
+<div class="math notranslate nohighlight">
+\[\max_\lambda \min_x L(x, \lambda) \le \min_x \max_\lambda L(x, \lambda).\]</div>
+<p>But for SVM-type convex programming problems, strong duality holds, which means the optimal value of the primal roblem is equal to the optimal value of the dual:</p>
+<div class="math notranslate nohighlight">
+\[\max_\lambda \min_x L(x, \lambda) = \min_x \max_\lambda L(x, \lambda).\]</div>
 <p>The primal and dual problems for SVM are summarized below:</p>
 <a class="reference internal image-reference" href="../_images/w11_linear_prime_dual.png"><img alt="../_images/w11_linear_prime_dual.png" src="../_images/w11_linear_prime_dual.png" style="width: 673.4px; height: 334.59999999999997px;" /></a>
-<p>The dual problem presents a significant advantage compared to the primal problem, especially concerning the ease of handling constraints. Another advantage of working with the dual problem is that many <span class="math notranslate nohighlight">\(\lambda\)</span> values turn out to be zero. This is due to the Complementary Slackness in the KKT conditions, which states that <span class="math notranslate nohighlight">\(\lambda\)</span> and constraints cannot be simultaneously non-zero. Consequently, only a few <span class="math notranslate nohighlight">\(\lambda\)</span> values are non-zero, corresponding to support vectors.</p>
+<p>For SVM, we can choose to solve either the primal or dual roblem to obtain the same optimal solution. In practice, solving the dual problem is often preferred for various reasons.</p>
+<ul class="simple">
+<li><p>The dual  is easier to optimize than the primal, especially when it comes to handling constraints.</p></li>
+<li><p>The dual solution involves Lagrange multipliers <span class="math notranslate nohighlight">\(\lambda_i\)</span>’s.  Many of these <span class="math notranslate nohighlight">\(\lambda_i\)</span> values will be zero for data points that are not support vectors. Complementary Slackness in the KKT conditions  ensures that only support vectors have non-zero <span class="math notranslate nohighlight">\(\lambda\)</span> values. This leads to a sparse solution.</p></li>
+<li><p>The dual formulation of the SVM is advantageous when using kernel functions. The kernel trick allows SVMs to implicitly map data into higher-dimensional feature spaces without explicitly computing the mapping.</p></li>
+</ul>
 </section>
 <section id="computation-cost">
 <h2><span class="section-number">11.2.4. </span>Computation Cost<a class="headerlink" href="#computation-cost" title="Link to this heading"></a></h2>
