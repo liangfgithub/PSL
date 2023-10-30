@@ -97,5 +97,5 @@ We can also view the primal problem as a special case of the **Loss + Penalty** 
 .. image:: ../images/w11_SVM_loss_penalty.png
 	:scale: 80 %
 
-In the context of SVM, we employ hinge loss over the :math:`n` observations, where :math:`f` is a linear function defined by parameters :math:`(\beta_0, \beta).` We also introduce a ridge penalty over beta, represented by gamma (or its reciprocal, :math:`\nv`), which controls the trade-off between minimizing the hinge loss and the complexity of the model. A larger :math:`\gamma` leads to a smaller penalty :math:`\nv` and a more complex model.
+In the context of SVM, we employ hinge loss over the :math:`n` observations, where :math:`f` is a linear function defined by parameters :math:`(\beta_0, \beta).` We also introduce a ridge penalty over beta, represented by gamma (or its reciprocal, :math:`\nu`), which controls the trade-off between minimizing the hinge loss and the complexity of the model. A larger :math:`\gamma` leads to a smaller penalty :math:`\nu` and a more complex model.
 
