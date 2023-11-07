@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>12.2. Impurity Measures &mdash; PSL_Book 0.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=2709fde1"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="12.3. Misclassification Rate vs. Entropy" href="w12_3_compare.html" />
+    <link rel="prev" title="12.1. Introduction" href="w12_1_intro.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PSL_Book
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../w1/w1_index.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w2/w2_index.html">2. Linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w3/w3_index.html">3. Variable Selection and Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w4/w4_index.html">4. Regression Trees and Ensemble</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w5/w5_index.html">5. Nonlinear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w6/w6_index.html">6. Clustering Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w7/w7_index.html">7. Latent Structure Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w8/w8_index.html">8. TBA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w9/w9_index.html">9. Discriminant Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w10/w10_index.html">10. Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w11/w11_index.html">11. Support Vector Machine</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="w12_index.html">12. Classification Trees and Boosting</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="w12_1_intro.html">12.1. Introduction</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">12.2. Impurity Measures</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">12.2.1. Impurity Measures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#goodness-of-split-criterion">12.2.2. Goodness-of-split Criterion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#choice-of-impurity-measures">12.2.3. Choice of Impurity Measures</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="w12_3_compare.html">12.3. Misclassification Rate vs. Entropy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w12_4_aAaboost.html">12.4. AdaBoosting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../w13/w13_index.html">13. Recommender System</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PSL_Book</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="w12_index.html"><span class="section-number">12. </span>Classification Trees and Boosting</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">12.2. </span>Impurity Measures</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="impurity-measures">
+<h1><span class="section-number">12.2. </span>Impurity Measures<a class="headerlink" href="#impurity-measures" title="Link to this heading"></a></h1>
+<p>In the context of classification trees, the selection of a suitable goodness-of-split criterion is a critical consideration. Typically, we rely on a concept known as the “gain” of an impurity measure. But what exactly is this impurity measure?</p>
+<section id="id1">
+<h2><span class="section-number">12.2.1. </span>Impurity Measures<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>The impurity measure is a function <span class="math notranslate nohighlight">\(I(p_1, \dots, p_K)\)</span> defined over a probability distribution representing K classes. For instance, if K equals three, we work with a probability vector  <span class="math notranslate nohighlight">\((p_1, p_2, p_3).\)</span> These values represent the probabilities of occurrence for each of the three classes.</p>
+<p>The impurity measure quantifies the “impurity” or randomness of the distribution. It reaches its maximum value when all classes are equally likely and its minimum when only one class is certain (i.e., <span class="math notranslate nohighlight">\(p_j\)</span> equals one for one class). Importantly, the impurity measure is always symmetric because it operates on probabilities, making it independent of class labels’ order.</p>
+<ul class="simple">
+<li><p>maximum occurs at <span class="math notranslate nohighlight">\((1/K, \dots, 1/K)\)</span> (the most impure node);</p></li>
+<li><p>minimum occurs at <span class="math notranslate nohighlight">\(p_j = 1\)</span> (the purest node)</p></li>
+<li><p>symmetric function of <span class="math notranslate nohighlight">\(p_1, \dots, p_K\)</span>, i.e., permutation of <span class="math notranslate nohighlight">\(p_j\)</span> does not affect <span class="math notranslate nohighlight">\(I(\cdot).\)</span></p></li>
+</ul>
+<p>Ideally, in classification, we aim for nodes to be as pure as possible, which corresponds to a small impurity measure. In this regard, the impurity measure serves a purpose akin to the residual sum of squares in regression.</p>
+</section>
+<section id="goodness-of-split-criterion">
+<h2><span class="section-number">12.2.2. </span>Goodness-of-split Criterion<a class="headerlink" href="#goodness-of-split-criterion" title="Link to this heading"></a></h2>
+<p>Once we have defined the impurity measure, we can derive the goodness-of-split criterion, denoted as</p>
+<div class="math notranslate nohighlight">
+\[\Phi(j,s) = i(t) - \big [ p_R \cdot i(t_R)  + p_L \cdot i(t_L)  \big ]\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}i(t) &amp;=  I(p_t(1), \dots, p_t(K)) \\
+p_t(j) &amp;= \text{ frequency of class $j$ at node $t$}\end{split}\]</div>
+<p>When we split a node into left and right nodes, we evaluate the impurity measure at the parent node (original node t) based on the empirical distribution of frequencies across the K classes. We also calculate the impurity measure at the left and right nodes if no split is applied.</p>
+<p>However, unlike the residual sum of squares, the impurity measure is not cumulative; it represents a quantity at the distribution level. Therefore, we must compute a <strong>weighted sum</strong> to determine <span class="math notranslate nohighlight">\(\Phi\)</span>, where <span class="math notranslate nohighlight">\(p_R\)</span> represents the proportion of samples in the right node and <span class="math notranslate nohighlight">\(p_L\)</span> represents the proportion in the left node.</p>
+<p>The criteria <span class="math notranslate nohighlight">\(\Phi,\)</span> representing the gain of the impurity measure, is computed as the difference between i) the impurity measure when no split is applied and ii) the weighted sum of impurity measures in the left and right nodes after a split.</p>
+</section>
+<section id="choice-of-impurity-measures">
+<h2><span class="section-number">12.2.3. </span>Choice of Impurity Measures<a class="headerlink" href="#choice-of-impurity-measures" title="Link to this heading"></a></h2>
+<p>The choice of impurity measure for classification trees includes:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\text{Misclassification Rate } &amp; :  1- \max_j p_j \\
+\text{ Entropy (Deviance) } &amp; : - \sum_{j=1}^K p_j \log p_j \\
+\text{Gini index } &amp; : \sum_{j=1}^K p_j(1-p_j) = 1- \sum_j p_j^2\end{split}\]</div>
+<ol class="arabic simple">
+<li><dl class="simple">
+<dt>Misclassification Rate:</dt><dd><p>In this measure, majority voting is used, and the class corresponding to the maximum <span class="math notranslate nohighlight">\(p_j\)</span> is considered correct. The misclassification rate is computed as 1 minus the maximum <span class="math notranslate nohighlight">\(p_j\)</span>. This measure is symmetric and attains its maximum with equally likely classes and its minimum when only one class exists.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Entropy:</dt><dd><p>Entropy is a popular impurity measure that quantifies the randomness of a distribution. It is commonly used in various fields such as coding theory, communication, and physics to describe the uncertainty or randomness in a discrete distribution over K classes. Like misclassification rate, entropy also reaches its maximum at a uniform distribution and its minimum at a deterministic distribution. Entropy is often favored when growing the tree, as it encourages the creation of pure nodes, which facilitates pruning in later stages.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Gini Index:</dt><dd><p>The Gini index is another widely used impurity measure. It shares similarities with entropy in terms of performance. The choice between Gini index and entropy often depends on the specific application and preference. In practice, entropy is commonly used due to its connection with likelihood for a multinomial distribution.</p>
+</dd>
+</dl>
+</li>
+</ol>
+<p>It’s important to note that entropy is a strictly concave function, which means it strongly favors splits leading to pure nodes. This characteristic makes entropy a suitable choice during the initial tree construction phase, where achieving purity is desirable. Subsequently, when pruning the tree, one may switch to using either the misclassification rate or entropy, depending on the ultimate classification goal.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="w12_1_intro.html" class="btn btn-neutral float-left" title="12.1. Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="w12_3_compare.html" class="btn btn-neutral float-right" title="12.3. Misclassification Rate vs. Entropy" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Feng Liang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

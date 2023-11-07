@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>12. Classification Trees and Boosting &mdash; PSL_Book 0.1 documentation</title>
+  <title>12.1. Introduction &mdash; PSL_Book 0.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -16,11 +16,12 @@
         <script src="../_static/documentation_options.js?v=2709fde1"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="12.1. Introduction" href="w12_1_intro.html" />
-    <link rel="prev" title="11.5. Appendix" href="../w11/w11_6_appendix.html" /> 
+    <link rel="next" title="12.2. Impurity Measures" href="w12_2_measures.html" />
+    <link rel="prev" title="12. Classification Trees and Boosting" href="w12_index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -54,8 +55,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../w9/w9_index.html">9. Discriminant Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../w10/w10_index.html">10. Logistic Regression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../w11/w11_index.html">11. Support Vector Machine</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">12. Classification Trees and Boosting</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="w12_1_intro.html">12.1. Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="w12_index.html">12. Classification Trees and Boosting</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">12.1. Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w12_2_measures.html">12.2. Impurity Measures</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w12_3_compare.html">12.3. Misclassification Rate vs. Entropy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w12_4_aAaboost.html">12.4. AdaBoosting</a></li>
@@ -78,7 +79,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active"><span class="section-number">12. </span>Classification Trees and Boosting</li>
+          <li class="breadcrumb-item"><a href="w12_index.html"><span class="section-number">12. </span>Classification Trees and Boosting</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">12.1. </span>Introduction</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -87,24 +89,48 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="classification-trees-and-boosting">
-<h1><span class="section-number">12. </span>Classification Trees and Boosting<a class="headerlink" href="#classification-trees-and-boosting" title="Link to this heading"></a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="w12_1_intro.html">12.1. Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="w12_2_measures.html">12.2. Impurity Measures</a></li>
-<li class="toctree-l1"><a class="reference internal" href="w12_3_compare.html">12.3. Misclassification Rate vs. Entropy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="w12_4_aAaboost.html">12.4. AdaBoosting</a></li>
+  <section id="introduction">
+<h1><span class="section-number">12.1. </span>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h1>
+<p>Just as in our previous discussion about regression trees, when it comes to classification trees, we must also focus on three ess</p>
+<ol class="arabic simple">
+<li><dl class="simple">
+<dt>Where to Split:</dt><dd><p>This involves deciding on the variable (denoted as <span class="math notranslate nohighlight">\(j\)</span>) and the split value (<span class="math notranslate nohighlight">\(s\)</span>) that divides our data into two parts, based on whether <span class="math notranslate nohighlight">\(X_j &lt; s\)</span> or not.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>When to Stop:</dt><dd><p>As previously discussed, the general strategy is to initially construct a large tree and then employ a pruning process based on a loss plus penalty criteria. This strategy helps prevent overfitting. For more details on the algorithm and specifics, you can refer to our code page for both classification and regression trees.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>How to Predict at Each Leaf Node:</dt><dd><p>Depending on whether we are dealing with regression or classification, we adopt different approaches for making predictions at leaf nodes.</p>
+<ul class="simple">
+<li><p>For regression, at each leaf node, we calculate the average Y value based on the training samples within that node. This average is then used to make predictions for any future samples that fall into the same node.</p></li>
+<li><p>For classification, we apply a similar concept. When a leaf node contains observations from K classes, we can either use majority voting or predict based on the observed class frequencies (probabilities) for any future observations assigned to that node.</p></li>
 </ul>
-</div>
+</dd>
+</dl>
+</li>
+</ol>
+<p>Regarding the selection of where to split: we evaluate the quality of a split using a <strong>goodness-of-split criterion</strong>.</p>
+<p>In the context of regression, this often involves calculating the reduction in residual sum of squares. Specifically, we consider a node T.
+- If we don’t split it, we predict all samples within that node using their average, allowing us to compute the corresponding residual sum of squares.
+- If we decide to split the data into left and right groups, we make separate predictions for the observations on each side, calculating their respective means and the corresponding residual sum of squares. The difference between these sums of squares serves as our goodness-of-split criterion for regression. A larger difference indicates a better split.</p>
+<p>The process of searching for the best split follows a basic greedy algorithm:</p>
+<ul class="simple">
+<li><p>Starting at the root, we systematically evaluate all possible variables and split values. It’s worth noting that for each variable, there are at most n-1 possible split values (where n is the number of data points).</p></li>
+<li><p>For each combination of variable and split value, we calculate the goodness-of-split criterion and select the split that yields the largest or best value.</p></li>
+<li><p>After identifying the best split, we apply it to divide the data into two parts: the left and right nodes. This procedure is then repeated recursively for each of these two nodes.</p></li>
+</ul>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../w11/w11_6_appendix.html" class="btn btn-neutral float-left" title="11.5. Appendix" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="w12_1_intro.html" class="btn btn-neutral float-right" title="12.1. Introduction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="w12_index.html" class="btn btn-neutral float-left" title="12. Classification Trees and Boosting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="w12_2_measures.html" class="btn btn-neutral float-right" title="12.2. Impurity Measures" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

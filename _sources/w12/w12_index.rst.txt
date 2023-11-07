@@ -2,5 +2,13 @@ Classification Trees and Boosting
 ====================================
 
 
-- Slides `lec_W12_ClassificationTree_Boosting <https://liangfgithub.github.io/Notes/lec_W12_ClassificationTree_Boosting.pdf>`_ 
+.. toctree::
+   :maxdepth: 1
+
+   w12_1_intro.rst
+   w12_2_measures.rst
+   w12_3_compare.rst
+   w12_4_aAaboost.rst
+ 
+
 

@@ -1,0 +1,31 @@
+Introduction
+==========================
+
+Just as in our previous discussion about regression trees, when it comes to classification trees, we must also focus on three ess
+
+1. Where to Split: 
+	This involves deciding on the variable (denoted as :math:`j`) and the split value (:math:`s`) that divides our data into two parts, based on whether :math:`X_j < s` or not.
+
+2. When to Stop: 
+	As previously discussed, the general strategy is to initially construct a large tree and then employ a pruning process based on a loss plus penalty criteria. This strategy helps prevent overfitting. For more details on the algorithm and specifics, you can refer to our code page for both classification and regression trees.
+
+3. How to Predict at Each Leaf Node: 
+	Depending on whether we are dealing with regression or classification, we adopt different approaches for making predictions at leaf nodes.
+	
+	- For regression, at each leaf node, we calculate the average Y value based on the training samples within that node. This average is then used to make predictions for any future samples that fall into the same node.
+	- For classification, we apply a similar concept. When a leaf node contains observations from K classes, we can either use majority voting or predict based on the observed class frequencies (probabilities) for any future observations assigned to that node.
+
+
+Regarding the selection of where to split: we evaluate the quality of a split using a **goodness-of-split criterion**. 
+
+In the context of regression, this often involves calculating the reduction in residual sum of squares. Specifically, we consider a node T. 
+- If we don't split it, we predict all samples within that node using their average, allowing us to compute the corresponding residual sum of squares.
+- If we decide to split the data into left and right groups, we make separate predictions for the observations on each side, calculating their respective means and the corresponding residual sum of squares. The difference between these sums of squares serves as our goodness-of-split criterion for regression. A larger difference indicates a better split.
+
+The process of searching for the best split follows a basic greedy algorithm:
+
+- Starting at the root, we systematically evaluate all possible variables and split values. It's worth noting that for each variable, there are at most n-1 possible split values (where n is the number of data points).
+
+- For each combination of variable and split value, we calculate the goodness-of-split criterion and select the split that yields the largest or best value.
+
+- After identifying the best split, we apply it to divide the data into two parts: the left and right nodes. This procedure is then repeated recursively for each of these two nodes.

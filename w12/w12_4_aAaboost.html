@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>12.4. AdaBoosting &mdash; PSL_Book 0.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=2709fde1"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="13. Recommender System" href="../w13/w13_index.html" />
+    <link rel="prev" title="12.3. Misclassification Rate vs. Entropy" href="w12_3_compare.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PSL_Book
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../w1/w1_index.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w2/w2_index.html">2. Linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w3/w3_index.html">3. Variable Selection and Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w4/w4_index.html">4. Regression Trees and Ensemble</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w5/w5_index.html">5. Nonlinear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w6/w6_index.html">6. Clustering Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w7/w7_index.html">7. Latent Structure Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w8/w8_index.html">8. TBA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w9/w9_index.html">9. Discriminant Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w10/w10_index.html">10. Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w11/w11_index.html">11. Support Vector Machine</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="w12_index.html">12. Classification Trees and Boosting</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="w12_1_intro.html">12.1. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w12_2_measures.html">12.2. Impurity Measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w12_3_compare.html">12.3. Misclassification Rate vs. Entropy</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">12.4. AdaBoosting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-algorithm">12.4.1. The Algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#proof">12.4.2. Proof</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../w13/w13_index.html">13. Recommender System</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PSL_Book</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="w12_index.html"><span class="section-number">12. </span>Classification Trees and Boosting</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">12.4. </span>AdaBoosting</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="adaboosting">
+<h1><span class="section-number">12.4. </span>AdaBoosting<a class="headerlink" href="#adaboosting" title="Link to this heading"></a></h1>
+<p>Many of you are already familiar with how decision trees work, the underlying concepts, and the criteria used to split a tree. You can grow a decision tree, let it reach a certain size, and then apply pruning techniques to obtain your final classification model.</p>
+<p>However, we know that a single  tree often doesn’t perform very well on its own. That’s where ensemble methods come into play, such as Random Forests, which build on the principles we’ve learned about regression trees. Another powerful ensemble method is boosting, and in this discussion, we’ll delve into the concept of boosting.</p>
+<p>Boosting, specifically AdaBoost, was introduced in the context of classification. We’ll explore what AdaBoost does and what we can infer about the final classifier from this boosting algorithm. It’s worth noting that AdaBoost is essentially a <strong>gradient-based</strong> algorithm, aiming to fit the model using an <strong>exponential loss</strong> function.</p>
+<section id="the-algorithm">
+<h2><span class="section-number">12.4.1. </span>The Algorithm<a class="headerlink" href="#the-algorithm" title="Link to this heading"></a></h2>
+<p>When discussing the AdaBoost algorithm, we need to switch to a notation where binary labels are represented as +1 or -1, rather than 1 and 0. The goal of AdaBoost is to combine <strong>weak</strong> classifiers, which are classifiers that don’t need to be exceptionally accurate, as long as they perform slightly better than random guessing. In fact, we can even use classifiers that perform worse than random guessing, meaning their error rate is greater than 50%, because we can simply flip their predictions to improve accuracy.</p>
+<p>The core idea of the algorithm is to iteratively modify the weights assigned to the training data. Let’s outline the algorithm:</p>
+<a class="reference internal image-reference" href="../_images/w12_adaboosting_alg.png"><img alt="../_images/w12_adaboosting_alg.png" src="../_images/w12_adaboosting_alg.png" style="width: 567.6999999999999px; height: 352.79999999999995px;" /></a>
+<p>At each iteration, marked by <span class="math notranslate nohighlight">\(t\)</span>, we update the data weights, select a classifier (which can be chosen randomly), calculate the training error, and determine a weight <span class="math notranslate nohighlight">\(\alpha_t.\)</span> Then, we update the data weights based on the classifier’s performance. The algorithm continues this process for a predefined number of iterations, and at the end, we sum the weighted classifiers, each scaled by <span class="math notranslate nohighlight">\(\alpha_t,\)</span> to form the final classifier.</p>
+<p>To make predictions on new data, we apply this final classifier and check the sign of the output: if it’s positive, we classify as +1, and if it’s negative, we classify as -1.</p>
+</section>
+<section id="proof">
+<h2><span class="section-number">12.4.2. </span>Proof<a class="headerlink" href="#proof" title="Link to this heading"></a></h2>
+<p>Next we demonstrate that the <strong>training error</strong> can be driven to zero as the number of iterations ‘T’ approaches infinity, even when the individual classifiers are weak.</p>
+<p>To prove this, we analyze the upper bound of the training error and show that it decreases with each iteration. The training error is computed using weighted data, which results in values between 0 and 1. By upper-bounding the indicator function used to measure classification error,</p>
+<div class="math notranslate nohighlight">
+\[I (z &lt; 0) &lt; e^{-z}, z \in \mathbb{R},\]</div>
+<p>We can express the training error in terms of exponential loss.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\text{Training-Err}(G_T) &amp;=   \sum_i \frac{1}{n} I  \Big (y_i \ne \text{sign} \big ( \sum_{t=1}^T \alpha_t g_t(x_i) \big ) \Big ) \\
+                 &amp;= \sum_i \frac{1}{n} I  \Big ( \sum_{t=1}^T y_i \alpha_t g_t(x_i) &lt; 0  \Big ) \\
+                &amp; \le   \sum_i \frac{1}{n} \exp \Big ( - \sum_{t=1}^T \alpha_t y_i g_t(x_i) \Big )  \\
+                &amp;\le   \prod_{t=1}^{T} Z_t.\end{split}\]</div>
+<p>The last inequality is due to the following:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp; \sum_{i=1}^n \frac{1}{n}  \exp \Big ( - \sum_{t=1}^T \alpha_t y_i g_t(x_i) \Big ) \\
+=&amp; \sum_i \frac{1}{n} \prod_{t=1}^T \exp \Big ( - \alpha_t y_i g_t(x_i) \Big) \\
+=&amp; \sum_i w^{(1)}_i \prod_{t=1}^T \frac{w_i^{(t+1)}}{w_i^{(t)}} Z_t \\
+=&amp; \sum_i w_i^{(1)} \frac{w_i^{(2)}}{w_i^{(1)}} \cdots   \frac{w_i^{(T)}}{w_i^{(T-1)}}\frac{w_i^{(T+1)}}{w_i^{(T)}} \Big ( \prod_{t=1}^T Z_t \Big ) \\
+=&amp; \Big ( \prod_{t=1}^T Z_t \Big )  \sum_i w_i^{(T+1)} \\
+=&amp;  \prod_{t=1}^T Z_t.\end{split}\]</div>
+<p>Finally, we conclude that the training error decreases as ‘T’ increases, provided that no classifier achieves an error rate exactly equal to 50%:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Z_t &amp;= \sum_i w_i^{(t)} \exp \big (- \alpha_t y_i g_t(x_i) \big ) \\
+&amp;=  \sum_{i:  y_i g_t(x_i) =1} w_i^{(t)} \exp \big (- \alpha_t \big ) + \\
+&amp;   \sum_{i:  y_i g_t(x_i) = -1} w_i^{(t)} \exp \big ( \alpha_t \big )   \\
+&amp;=(1- \epsilon_t) \exp \big ( - \alpha_t \big ) + \epsilon_t \exp \big (\alpha_t \big )  \\
+&amp;= (1-\epsilon_t)  \sqrt{\frac{\epsilon_t}{1-\epsilon_t} } + \epsilon_t \sqrt{\frac{1-\epsilon _t}{\epsilon_t}} \\
+&amp;= 2 \sqrt{\epsilon_t ( 1 - \epsilon_t)} \\
+&amp; &lt;  1.\end{split}\]</div>
+<ul class="simple">
+<li><p>It’s important to note that that the training error of the combined classifier G_T generated by AdaBoost is not guaranteed to be <strong>monotonically decreasing</strong> with respect to the number of iterations. Instead, after each iteration, AdaBoost decreases a specific upper bound on the 0/1 training error. Over the long run, this continual adjustment of weights pushes the training error towards zero.</p></li>
+<li><p>AdaBoost can utilize weak classifiers, denoted by <span class="math notranslate nohighlight">\(g_t(x)\)</span>, even if their error rate is worse than random guessing (i.e., <span class="math notranslate nohighlight">\(\epsilon_t &gt; 1/2\)</span>). In such cases, AdaBoost adapts by assigning a negative weight <span class="math notranslate nohighlight">\(\alpha_t\)</span>, effectively using <span class="math notranslate nohighlight">\(-g_t(x)\)</span> to improve overall performance.</p></li>
+<li><p>The final classifier obtained from AdaBoost may not perform well on test data, as AdaBoost aims to minimize training error, potentially leading to overfitting. Proper regularization or early stopping is often necessary to ensure good generalization to unseen data.</p></li>
+</ul>
+<p>In summary, AdaBoost is a simple yet powerful boosting algorithm that combines weak classifiers to achieve impressive results in classification tasks. It may not always perform well on test data, so careful consideration and fine-tuning are essential when applying it to real-world problems.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="w12_3_compare.html" class="btn btn-neutral float-left" title="12.3. Misclassification Rate vs. Entropy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../w13/w13_index.html" class="btn btn-neutral float-right" title="13. Recommender System" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Feng Liang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
