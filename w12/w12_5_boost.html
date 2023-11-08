@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>12.5. Forward Stagewise Additive Modeling &mdash; PSL_Book 0.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=2709fde1"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="13. Recommender System" href="../w13/w13_index.html" />
+    <link rel="prev" title="12.4. AdaBoosting" href="w12_4_aAaboost.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PSL_Book
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../w1/w1_index.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w2/w2_index.html">2. Linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w3/w3_index.html">3. Variable Selection and Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w4/w4_index.html">4. Regression Trees and Ensemble</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w5/w5_index.html">5. Nonlinear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w6/w6_index.html">6. Clustering Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w7/w7_index.html">7. Latent Structure Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w8/w8_index.html">8. TBA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w9/w9_index.html">9. Discriminant Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w10/w10_index.html">10. Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w11/w11_index.html">11. Support Vector Machine</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="w12_index.html">12. Classification Trees and Boosting</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="w12_1_intro.html">12.1. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w12_2_measures.html">12.2. Impurity Measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w12_3_compare.html">12.3. Misclassification Rate vs. Entropy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w12_4_aAaboost.html">12.4. AdaBoosting</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">12.5. Forward Stagewise Additive Modeling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../w13/w13_index.html">13. Recommender System</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PSL_Book</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="w12_index.html"><span class="section-number">12. </span>Classification Trees and Boosting</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">12.5. </span>Forward Stagewise Additive Modeling</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="forward-stagewise-additive-modeling">
+<h1><span class="section-number">12.5. </span>Forward Stagewise Additive Modeling<a class="headerlink" href="#forward-stagewise-additive-modeling" title="Link to this heading"></a></h1>
+<p>Boosting algorithms, particularly the AdaBoost algorithm, might appear mysterious due to their complex nature. To leverage the concept of boosting in various applications, it’s important to understand the mathematical foundations of boosting, which is fundamentally a form of a greedy algorithm.</p>
+<p>In the context of boosting, we’re essentially looking to combine multiple functions into a stronger model. Consider an <strong>additive model</strong>:</p>
+<div class="math notranslate nohighlight">
+\[f(x) = \alpha_1 g_1(x) + \alpha_2 g_2(x) + \cdots + \alpha_T g_T(x)\]</div>
+<p>where <span class="math notranslate nohighlight">\(g_t(x)\)</span> is a classifier or a regression function.</p>
+<p>It is challenging to optimize this function, since we have to consider not only the alpha values but also optimize the functions g themselves. The approach often used here is <strong>Forward Stagewise Optimization</strong>, which begins with a baseline of no functions, then incrementally adds to the model by optimizing one weight and one function at a time, keeping previously selected elements fixed.</p>
+<a class="reference internal image-reference" href="../_images/w12_forward_additive.png"><img alt="../_images/w12_forward_additive.png" src="../_images/w12_forward_additive.png" style="width: 371.15000000000003px; height: 221.65px;" /></a>
+<p>Boosting algorithms can take various forms, depending on the choice of the base model <span class="math notranslate nohighlight">\(g_t\)</span>, the choice of the loss function <span class="math notranslate nohighlight">\(L(y, f(x)),\)</span> and how optimization is done.</p>
+<p>For instance, with <strong>AdaBoost</strong>, we employ an exponential loss function and, at each stage, we look for the optimal <span class="math notranslate nohighlight">\(\alpha\)</span> and g that minimize this loss. This is relatively straightforward when done sequentially. AdaBoost, specifically, uses this approach along with a mechanism for adjusting the weights of the classifiers based on their performance.</p>
+<a class="reference internal image-reference" href="../_images/w12_exp_loss.png"><img alt="../_images/w12_exp_loss.png" src="../_images/w12_exp_loss.png" style="width: 369.2px; height: 284.7px;" /></a>
+<p>If we dive into the details, at each iteration t in AdaBoost, instead of optimizing over both <span class="math notranslate nohighlight">\(\alpha\)</span> and g, AdaBoost just randomly picks a classifier g_t, and then optimize over <span class="math notranslate nohighlight">\(\alpha\)</span>.</p>
+<p>When doing the optimization with exponential loss, the effect of the previous (t-1) functions becomes updating the weights for each data point. Let <span class="math notranslate nohighlight">\(\epsilon_t\)</span> denote the corresponding weighted empirical error rate, then the optimal <span class="math notranslate nohighlight">\(\alpha\)</span> is in closed form:</p>
+<div class="math notranslate nohighlight">
+\[\alpha_t = \frac{1}{2} \log \frac{1- \epsilon_t}{ \epsilon_t}.\]</div>
+<p>With <strong>regression</strong>, the process is similar but typically involves a square loss function. At the t-th iteration,</p>
+<div class="math notranslate nohighlight">
+\[(y_i - f_{t-1}(x_i) - \alpha g(x))^2 = (r_{it} - \alpha g(x))^2.\]</div>
+<p>The effect of the previous (t-1) functions becomes partial residuals, and the goal is to fit the new function to the current partial residuals <span class="math notranslate nohighlight">\(r_{it}.\)</span></p>
+<p>For many other loss functions, we don’t have such a simple form for the effect of the previous (t-1) functions, then we can approximate <span class="math notranslate nohighlight">\(L(y, f_{t-1}(x) + \alpha g_t(x))\)</span> via, for example Taylor expansion. This approach is central to gradient boosting methods.</p>
+<p>It’s important to note the differences between various boosting algorithms. For example, GBM and XGBoost perform differently in handling the optimization process. GBM directly uses the gradient as the pseudo-residual to fit a regression tree, while XGBoost involves a more complex formulation. Furthermore, there are considerations for handling categorical variables, as seen with CatBoost, which is designed to effectively deal with categorical data without the need for extensive pre-processing like one-hot encoding.</p>
+<p>In summary, while the underlying theory of boosting is crucial for a deep understanding, many practitioners value these algorithms for their ‘black-box’ utility: you configure the base models, select parameters, and let the algorithm do the heavy lifting, yielding powerful predictive models.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="w12_4_aAaboost.html" class="btn btn-neutral float-left" title="12.4. AdaBoosting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../w13/w13_index.html" class="btn btn-neutral float-right" title="13. Recommender System" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Feng Liang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -9,6 +9,8 @@ Classification Trees and Boosting
    w12_2_measures.rst
    w12_3_compare.rst
    w12_4_aAaboost.rst
+   w12_5_boost.rst
+   
  
 
 
