@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>13. Recommender System &mdash; PSL_Book 0.1 documentation</title>
+  <title>13.2. Content-Based Methods &mdash; PSL_Book 0.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="13.1. Introduction" href="w13_1_intro.html" />
-    <link rel="prev" title="12.5. Forward Stagewise Additive Modeling" href="../w12/w12_5_boost.html" /> 
+    <link rel="next" title="13.3. Collaborative Filtering" href="w13_3_CF.html" />
+    <link rel="prev" title="13.1. Introduction" href="w13_1_intro.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -55,9 +55,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../w10/w10_index.html">10. Logistic Regression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../w11/w11_index.html">11. Support Vector Machine</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../w12/w12_index.html">12. Classification Trees and Boosting</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">13. Recommender System</a><ul>
+<li class="toctree-l1 current"><a class="reference internal" href="w13_index.html">13. Recommender System</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="w13_1_intro.html">13.1. Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="w13_2_Content_based.html">13.2. Content-Based Methods</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">13.2. Content-Based Methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w13_3_CF.html">13.3. Collaborative Filtering</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w13_4_CF_details.html">13.4. UBCF and IBCF</a></li>
 </ul>
@@ -78,7 +78,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active"><span class="section-number">13. </span>Recommender System</li>
+          <li class="breadcrumb-item"><a href="w13_index.html"><span class="section-number">13. </span>Recommender System</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">13.2. </span>Content-Based Methods</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -87,24 +88,27 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="recommender-system">
-<h1><span class="section-number">13. </span>Recommender System<a class="headerlink" href="#recommender-system" title="Link to this heading"></a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="w13_1_intro.html">13.1. Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="w13_2_Content_based.html">13.2. Content-Based Methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="w13_3_CF.html">13.3. Collaborative Filtering</a></li>
-<li class="toctree-l1"><a class="reference internal" href="w13_4_CF_details.html">13.4. UBCF and IBCF</a></li>
-</ul>
-</div>
+  <section id="content-based-methods">
+<h1><span class="section-number">13.2. </span>Content-Based Methods<a class="headerlink" href="#content-based-methods" title="Link to this heading"></a></h1>
+<p>Let’s start with content-based methods. These are intuitive by nature.</p>
+<p>As a company, we construct a comprehensive catalog of our products, ensuring we know how to accurately represent each item. Consider movies or articles, for example; each can be depicted by a multi-dimensional feature vector.</p>
+<p>We might describe a movie using features such as its release date, genre, director, and lead actors, and so on. In this way, we construct an <strong>item profile</strong>, visualizing each item as a distinct point within a multi-dimensional feature space, represented here by blue dots.</p>
+<a class="reference internal image-reference" href="../_images/w13_user_item_profile.png"><img alt="../_images/w13_user_item_profile.png" src="../_images/w13_user_item_profile.png" style="width: 247.65px; height: 209.95000000000002px;" /></a>
+<p>In parallel, we construct a <strong>user profile</strong> within the same dimensional framework. How? Some platforms might query you directly about your preferences, asking which movies you enjoy. Others infer this from your viewing history, analyzing and aggregating the attributes of content you’ve recently engaged with. These profiles are weighted, with recent interactions typically holding more weight. The result is a user profile, represented here by yellow squares.</p>
+<p>Now, with both items and users plotted in the same space, we can determine preferences based on proximity. If we have a user surrounded by unwatched items, we recommend the nearest one. It’s a simple yet effective paradigm: map out items and users in a shared space, where closeness equates to preference, allowing us to make tailored recommendations.</p>
+<p>One of the advantages of this method is that it doesn’t require any other user’s data to make a recommendation. t’s efficient—we can start offering recommendations from day one, without waiting for extensive user-item interaction data. This model also shines when promoting new or less popular items; it does not discriminate based on an item’s popularity but rather its features. It caters to users with unique tastes, focusing solely on their preferences to identify ideal matches.</p>
+<p>Furthermore, content-based methods offer a high degree of transparency. We can easily articulate why an item was recommended based on the specific features that align with a user’s interests.</p>
+<p>However, this approach has its limitations. It tends to offer safe, predictable recommendations-essentially offering substitutes rather than complementary items, limiting discovery.</p>
+<p>The most challenging aspect, though, is identifying a robust set of features to adequately represent items. Whether it’s for movies, articles, images, or fashion items, each category demands a carefully crafted approach to feature selection.</p>
+<p>These limitations lead us to consider other technique, like Collaborative Filtering (CF), which we will discuss next.</p>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../w12/w12_5_boost.html" class="btn btn-neutral float-left" title="12.5. Forward Stagewise Additive Modeling" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="w13_1_intro.html" class="btn btn-neutral float-right" title="13.1. Introduction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="w13_1_intro.html" class="btn btn-neutral float-left" title="13.1. Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="w13_3_CF.html" class="btn btn-neutral float-right" title="13.3. Collaborative Filtering" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

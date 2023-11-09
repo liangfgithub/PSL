@@ -1,4 +1,13 @@
 Recommender System
 ====================================
 
-- Slides `lec_W13_RecommenderSystem <https://liangfgithub.github.io/Notes/lec_W13_RecommenderSystem.pdf>`_ 
+
+.. toctree::
+   :maxdepth: 1
+
+   w13_1_intro.rst
+   w13_2_Content_based.rst
+   w13_3_CF.rst
+   w13_4_CF_details.rst
+   w13_5_LatentFactor.rst
+   w13_6_Deep.rst

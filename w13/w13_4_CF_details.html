@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>13.4. UBCF and IBCF &mdash; PSL_Book 0.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=2709fde1"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="13.3. Collaborative Filtering" href="w13_3_CF.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PSL_Book
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../w1/w1_index.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w2/w2_index.html">2. Linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w3/w3_index.html">3. Variable Selection and Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w4/w4_index.html">4. Regression Trees and Ensemble</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w5/w5_index.html">5. Nonlinear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w6/w6_index.html">6. Clustering Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w7/w7_index.html">7. Latent Structure Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w8/w8_index.html">8. TBA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w9/w9_index.html">9. Discriminant Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w10/w10_index.html">10. Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w11/w11_index.html">11. Support Vector Machine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w12/w12_index.html">12. Classification Trees and Boosting</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="w13_index.html">13. Recommender System</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="w13_1_intro.html">13.1. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w13_2_Content_based.html">13.2. Content-Based Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w13_3_CF.html">13.3. Collaborative Filtering</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">13.4. UBCF and IBCF</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ubcf">13.4.1. UBCF</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ibcf">13.4.2. IBCF</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pros-and-cons">13.4.3. Pros and Cons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ibcf-vs-ubcf">13.4.4. IBCF vs UBCF</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PSL_Book</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="w13_index.html"><span class="section-number">13. </span>Recommender System</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">13.4. </span>UBCF and IBCF</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ubcf-and-ibcf">
+<h1><span class="section-number">13.4. </span>UBCF and IBCF<a class="headerlink" href="#ubcf-and-ibcf" title="Link to this heading"></a></h1>
+<section id="ubcf">
+<h2><span class="section-number">13.4.1. </span>UBCF<a class="headerlink" href="#ubcf" title="Link to this heading"></a></h2>
+<p>Let’s examine the operation of user-based and collaborative filtering. In user-based filtering, we first identify similar users. To run this algorithm, we often need to specify the k-nearest neighbors; let’s say k=3.</p>
+<p>Consider a user depicted in orange at the bottom of our dataset.</p>
+<a class="reference internal image-reference" href="../_images/w13_UBCF.png"><img alt="../_images/w13_UBCF.png" src="../_images/w13_UBCF.png" style="width: 495.20000000000005px; height: 352.0px;" /></a>
+<ul class="simple">
+<li><p>Our first step is to employ similarity metrics to ascertain the three nearest neighbors for this user, who are highlighted in blue.</p></li>
+<li><p>Next, we’ll use the ratings from these three users to infer the ratings for the user in orange. This could involve a simple or weighted average; here, we’ve chosen a simple average for illustration.</p></li>
+</ul>
+<p>Now, let’s examine how we derive the rating of 3.5 for the 1st item. We’re unable to use the first user’s rating for this item since it’s absent, but we can average the ratings from the other two users: (3 + 4) / 2 = 3.5. This average becomes our estimated preference for the 1st item for the user in orange.</p>
+<p>Moving on to the 2nd time, only one of the 3-nearest neighbors has a rating, which is 4.0. We take this value directly.</p>
+<p>Similarly, For the 5th item, we average the ratings from the three similar users to predict the preference for the user in orange: (1.0 + 2.0 + 1.0)/3 = 1.3.</p>
+<dl class="simple">
+<dt><strong>Enhancements:</strong></dt><dd><ul class="simple">
+<li><p>We can extend this to weighted averages, using weights based on proximity to the user of interest.</p></li>
+<li><p>In practice, to reduce missing ratings among the k-nearest neighbors,  we can selecting the nearest neighbors who have rated the specific item in question. Consequently, the selected nearest neighbors of users may vary contingent upon the item under consideration.</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="ibcf">
+<h2><span class="section-number">13.4.2. </span>IBCF<a class="headerlink" href="#ibcf" title="Link to this heading"></a></h2>
+<p>For item-based collaborative filtering, we consider similarities between items instead of users.</p>
+<p>Below, a similarity matrix for items is constructed.</p>
+<ul class="simple">
+<li><p>The top three entries in each row are highlighted in bold, since we consider only 3-nearest neighbors.</p></li>
+<li><p>For a test user, represented in orange, who has provided ratings for items 1, 5, and 8, these respective columns are highlighted in blue. These are the items the test user has rated, and their ratings will serve as the foundation for our predictions.</p></li>
+</ul>
+<a class="reference internal image-reference" href="../_images/w13_IBCF.png"><img alt="../_images/w13_IBCF.png" src="../_images/w13_IBCF.png" style="width: 327.59999999999997px; height: 373.09999999999997px;" /></a>
+<p>For the test user in question, the aim is to predict the ratings for the unreviewed items using the known ratings for items 1, 5, and 8. The predicted rating <span class="math notranslate nohighlight">\(\hat{r}_{ai}\)</span> for item <span class="math notranslate nohighlight">\(i\)</span> from user <span class="math notranslate nohighlight">\(a\)</span> is calculated using a weighted average, where the weight is the similarity measure between items:</p>
+<div class="math notranslate nohighlight">
+\[\hat{r}_i = \frac{1}{\sum_{j \in S(i) \cap \{j: r_{aj} \ne ? \}} s_{ij}} \sum_{j \in S(i) \cap \{j: r_{aj} \ne ?\}} s_{ij} r_{aj}\]</div>
+<p>The prediction is missing if the set  <span class="math notranslate nohighlight">\(S(i) \cap \{j: r_{aj} \ne ?\}\)</span> is empty, meaning if none of the similar items have been rated by the user.</p>
+<p>For example, for the 2nd item, since none of its 3-nearest neighbors have been rated by this test user, we cannot generate a prediction for this item.</p>
+<p>To predict the rating for item 3, we evaluate its similarity to items 1, 5, and 8. Suppose its similarity to item 1 is 0, to item 5 is 0.4, and to item 8 is 0.5. These similarity scores are utilized to weight the test user’s ratings for items 5 and 8, which are 4 and 5, respectively. After normalizing these weights (to account for the sum of the similarities), we estimate the rating for item 3 to be 4.6.</p>
+<p>In the case of ties in similarity, we may consider an increased number of neighbors by adjusting the value of k. For instance, if there’s a tie that results in k=3, we would take into account four neighbors instead of three to enhance the prediction accuracy.</p>
+<p>Similar to UBCF, to reduce missing ratings among the k-nearest neighbors, we can employ a strategic selection of nearest neighbors based on available item ratings, which might vary per item. As a solution, we can dynamically adjust the neighbors chosen based on the item in question.</p>
+</section>
+<section id="pros-and-cons">
+<h2><span class="section-number">13.4.3. </span>Pros and Cons<a class="headerlink" href="#pros-and-cons" title="Link to this heading"></a></h2>
+<p>One key advantage of collaborative filtering is that it doesn’t rely on pre-defined features since user interactions become the features, potentially recommending items outside the user’s typical profile.</p>
+<p>However, this method can’t start from day one; it requires a build-up of user-item interaction data. New items without interaction data can’t be recommended,  often referred to as the <strong>cold start</strong> problem.
+There is also a risk of a popularity bias where popular items are recommended to everyone, negating the personalization aspect.</p>
+</section>
+<section id="ibcf-vs-ubcf">
+<h2><span class="section-number">13.4.4. </span>IBCF vs UBCF<a class="headerlink" href="#ibcf-vs-ubcf" title="Link to this heading"></a></h2>
+<p>Both UBCF and IBCF share a common computational challenge: efficiently identifying the nearest neighbors within a vast dataset. Approximation algorithms, clustering techniques, and efficient data structuring are essential to mitigate computational costs.</p>
+<p>The choice between UBCF and IBCF often depends on the specific context and platform. For instance, e-commerce sites and streaming services, such as Amazon and Netflix, have found that IBCF tends to be more effective. This is likely because item similarities are more consistently defined than user similarities, making item similarity a more reliable metric compared to the unpredictability of human preferences.</p>
+<p>IBCF also offers computational advantages. While both UBCF and IBCF must efficiently pinpoint nearest neighbors, IBCF has the benefit of offloading much of its computational load to the offline phase.</p>
+<p>In UBCF, there’s no distinct training phase, and the computational effort is deferred to the prediction stage. At this point, similarities between users are calculated on-the-fly, which can be resource-intensive in real-time.</p>
+<p>On the other hand, IBCF concentrates the bulk of its computation during the training phase. It involves creating and sorting a comprehensive item-to-item similarity matrix. While this upfront computation is intensive, it facilitates a more straightforward prediction phase. However, despite the ease of prediction, the pre-computed similarity matrix requires careful memory management during the prediction phase, ensuring they can be stored and accessed efficiently to generate recommendations.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="w13_3_CF.html" class="btn btn-neutral float-left" title="13.3. Collaborative Filtering" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Feng Liang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>13. Recommender System &mdash; PSL_Book 0.1 documentation</title>
+  <title>13.1. Introduction &mdash; PSL_Book 0.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="13.1. Introduction" href="w13_1_intro.html" />
-    <link rel="prev" title="12.5. Forward Stagewise Additive Modeling" href="../w12/w12_5_boost.html" /> 
+    <link rel="next" title="13.2. Content-Based Methods" href="w13_2_Content_based.html" />
+    <link rel="prev" title="13. Recommender System" href="w13_index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -55,8 +55,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../w10/w10_index.html">10. Logistic Regression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../w11/w11_index.html">11. Support Vector Machine</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../w12/w12_index.html">12. Classification Trees and Boosting</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">13. Recommender System</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="w13_1_intro.html">13.1. Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="w13_index.html">13. Recommender System</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">13.1. Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w13_2_Content_based.html">13.2. Content-Based Methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w13_3_CF.html">13.3. Collaborative Filtering</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w13_4_CF_details.html">13.4. UBCF and IBCF</a></li>
@@ -78,7 +78,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active"><span class="section-number">13. </span>Recommender System</li>
+          <li class="breadcrumb-item"><a href="w13_index.html"><span class="section-number">13. </span>Recommender System</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">13.1. </span>Introduction</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -87,24 +88,31 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="recommender-system">
-<h1><span class="section-number">13. </span>Recommender System<a class="headerlink" href="#recommender-system" title="Link to this heading"></a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="w13_1_intro.html">13.1. Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="w13_2_Content_based.html">13.2. Content-Based Methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="w13_3_CF.html">13.3. Collaborative Filtering</a></li>
-<li class="toctree-l1"><a class="reference internal" href="w13_4_CF_details.html">13.4. UBCF and IBCF</a></li>
+  <section id="introduction">
+<h1><span class="section-number">13.1. </span>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h1>
+<p>In today’s lecture, we’re going to delve into the world of recommender systems. Let’s start with its definition, which you might find on Wikipedia. Whether you call it a recommender system, a recommendation system, a recommender engine, or a recommendation platform, the core function remains consistent: to filter vast amounts of information and present users with options that align with their preferences.</p>
+<a class="reference internal image-reference" href="../_images/w13_RS_wiki.png"><img alt="../_images/w13_RS_wiki.png" src="../_images/w13_RS_wiki.png" style="width: 336.59999999999997px; height: 165.6px;" /></a>
+<p>We live in an age where recommender systems are woven into the fabric of our digital experiences. Visit any e-commerce site—Amazon, Wayfair, Walmart—and you’ll encounter product suggestions tailored to your interests. This extends to entertainment and social platforms as well: Netflix curates our watchlists, YouTube and Google News personalize our feeds, Pinterest enhances our visual discoveries, Spotify selects music for our tastes, Facebook suggests friends, LinkedIn connects us with professional contacts. And let’s not overlook the world of online dating, with platforms like OkCupid, which leverages these systems to suggest potential romantic matches.</p>
+<p>The essence of a recommender system is its ability to provide automated recommendations for items or products that users are likely to be interested in. This is achieved by leveraging historical data—a key element of these systems.</p>
+<p>Now, let’s consider the construction of a recommender system. Historically, we’ve seen non-personalized recommender systems, such as generic top-five lists—for instance, “Top Five Winter Boots for Women” or “Best Cyber Monday Deals.” These recommendations were grounded in either expert knowledge or simple aggregated statistics like best-selling books. The obvious limitation here is the lack of personalization.</p>
+<p>The goal, then, is to develop personalized recommender systems.  We will explore fundamental techniques such as</p>
+<ul class="simple">
+<li><p>content-based methods,</p></li>
+<li><p>collaborative filtering,</p></li>
+<li><p>latent factor models.</p></li>
 </ul>
-</div>
+<p>These methods are categorized based on the type of information they utilize: content-based methods focus on item attributes, while collaborative filtering and latent factor models analyze user-item interaction data.</p>
+<p>As we’ll see, a single method is rarely sufficient; thus, hybrid systems, which integrate multiple approaches, have become the norm. The prominence of such advanced systems can be traced back to the Netflix Prize competition, which significantly contributed to the field before Netflix transitioned to streaming services.</p>
+<p>Nowadays, with streaming, Netflix and similar platforms have access to richer user interaction data: when you start or stop watching a show, whether you resume it, your engagement with recommended content, etc. This wealth of data has led to the integration of numerous recommender systems, enhancing the personalization of content.</p>
+<p>Furthermore, I will touch on the cutting-edge developments in recommender systems, many of which employ deep learning and neural networks. These sophisticated models represent the state-of-the-art in recommendation technology.</p>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../w12/w12_5_boost.html" class="btn btn-neutral float-left" title="12.5. Forward Stagewise Additive Modeling" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="w13_1_intro.html" class="btn btn-neutral float-right" title="13.1. Introduction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="w13_index.html" class="btn btn-neutral float-left" title="13. Recommender System" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="w13_2_Content_based.html" class="btn btn-neutral float-right" title="13.2. Content-Based Methods" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
