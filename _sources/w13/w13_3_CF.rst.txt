@@ -42,10 +42,14 @@ Crucial to collaborative filtering is the notion of similarity. We need to deter
 		\frac{u^t v}{\| u\| \cdot \| v\|}, \quad \text{ where } u, v \text{ are two vectors}
 
 - Centered Cosine Similarity (Pearson Correlation): 
-	A variation of cosine similarity first normalizes around a user's (or item's) average rating by subtracting the mean of the observed values. Only entries from set :math:`S = \{ i: u_i, \ne ?\}` are considered in the calculation, where ? means missing. 
+	A variation of cosine similarity first normalizes around a user's (or item's) average rating by subtracting the mean of the observed values. Only entries from set :math:`S = \{ i: u_i \ne \text{NA} \}` are considered in the calculation.
 
 	.. math::
 		\frac{(u - \bar{u})^t (v - \bar{v})}{\| u - \bar{u} \| \cdot \| v- \bar{v} \|}, \quad \text{ where } u, v \text{ are two vectors}
+
+**Note**:
+	- In the context of cosine-based similarity measures, it's customary to define similarity as (1 + cos)/2, ensuring that the similarity values fall within the non-negative range. 
+	- Be mindful of a potential issue when calculating centered cosine similarity: the denominator :math:`\| u - \bar{u} \|` can become zero, when all non-NA (non-missing) elements of u are constant. 
 
 
 In summary, with a well-constructed R matrix and a thoughtful selection of similarity measures, collaborative filtering  can make educated predictions, catering to the diverse tastes of their audience.

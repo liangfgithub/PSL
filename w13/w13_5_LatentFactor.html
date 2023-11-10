@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>13.2. Content-Based Methods &mdash; PSL_Book 0.1 documentation</title>
+  <title>13.5. Latent Factor Model &mdash; PSL_Book 0.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -16,11 +16,12 @@
         <script src="../_static/documentation_options.js?v=2709fde1"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="13.3. Collaborative Filtering" href="w13_3_CF.html" />
-    <link rel="prev" title="13.1. Introduction" href="w13_1_intro.html" /> 
+    <link rel="next" title="13.6. Challenges and Strategies" href="w13_6_practice.html" />
+    <link rel="prev" title="13.4. UBCF and IBCF" href="w13_4_CF_details.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -57,10 +58,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../w12/w12_index.html">12. Classification Trees and Boosting</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="w13_index.html">13. Recommender System</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="w13_1_intro.html">13.1. Introduction</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">13.2. Content-Based Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w13_2_Content_based.html">13.2. Content-Based Methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w13_3_CF.html">13.3. Collaborative Filtering</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w13_4_CF_details.html">13.4. UBCF and IBCF</a></li>
-<li class="toctree-l2"><a class="reference internal" href="w13_5_LatentFactor.html">13.5. Latent Factor Model</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">13.5. Latent Factor Model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w13_6_practice.html">13.6. Challenges and Strategies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w13_7_deep_RS.html">13.7. Deep Recommender Systems</a></li>
 </ul>
@@ -82,7 +83,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="w13_index.html"><span class="section-number">13. </span>Recommender System</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">13.2. </span>Content-Based Methods</li>
+      <li class="breadcrumb-item active"><span class="section-number">13.5. </span>Latent Factor Model</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -91,27 +92,29 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="content-based-methods">
-<h1><span class="section-number">13.2. </span>Content-Based Methods<a class="headerlink" href="#content-based-methods" title="Link to this heading"></a></h1>
-<p>Let’s start with content-based methods. These are intuitive by nature.</p>
-<p>As a company, we construct a comprehensive catalog of our products, ensuring we know how to accurately represent each item. Consider movies or articles, for example; each can be depicted by a multi-dimensional feature vector.</p>
-<p>We might describe a movie using features such as its release date, genre, director, and lead actors, and so on. In this way, we construct an <strong>item profile</strong>, visualizing each item as a distinct point within a multi-dimensional feature space, represented here by blue dots.</p>
-<a class="reference internal image-reference" href="../_images/w13_user_item_profile.png"><img alt="../_images/w13_user_item_profile.png" src="../_images/w13_user_item_profile.png" style="width: 247.65px; height: 209.95000000000002px;" /></a>
-<p>In parallel, we construct a <strong>user profile</strong> within the same dimensional framework. How? Some platforms might query you directly about your preferences, asking which movies you enjoy. Others infer this from your viewing history, analyzing and aggregating the attributes of content you’ve recently engaged with. These profiles are weighted, with recent interactions typically holding more weight. The result is a user profile, represented here by yellow squares.</p>
-<p>Now, with both items and users plotted in the same space, we can determine preferences based on proximity. If we have a user surrounded by unwatched items, we recommend the nearest one. It’s a simple yet effective paradigm: map out items and users in a shared space, where closeness equates to preference, allowing us to make tailored recommendations.</p>
-<p>One of the advantages of this method is that it doesn’t require any other user’s data to make a recommendation. t’s efficient—we can start offering recommendations from day one, without waiting for extensive user-item interaction data. This model also shines when promoting new or less popular items; it does not discriminate based on an item’s popularity but rather its features. It caters to users with unique tastes, focusing solely on their preferences to identify ideal matches.</p>
-<p>Furthermore, content-based methods offer a high degree of transparency. We can easily articulate why an item was recommended based on the specific features that align with a user’s interests.</p>
-<p>However, this approach has its limitations. It tends to offer safe, predictable recommendations-essentially offering substitutes rather than complementary items, limiting discovery.</p>
-<p>The most challenging aspect, though, is identifying a robust set of features to adequately represent items. Whether it’s for movies, articles, images, or fashion items, each category demands a carefully crafted approach to feature selection.</p>
-<p>These limitations lead us to consider other technique, like Collaborative Filtering (CF), which we will discuss next.</p>
+  <section id="latent-factor-model">
+<h1><span class="section-number">13.5. </span>Latent Factor Model<a class="headerlink" href="#latent-factor-model" title="Link to this heading"></a></h1>
+<p>The latent factor model offers a sophisticated approach to handling the rating matrix R.  The central concept here is the decomposition of this matrix, using Singular Value Decomposition (SVD). Essentially, we express the matrix as a product of two narrower matrices, one is m-by-d representing users (depicted in blue) and the other with is d-by-n representing items (illustrated in pink).</p>
+<a class="reference internal image-reference" href="../_images/w13_SVD.png"><img alt="../_images/w13_SVD.png" src="../_images/w13_SVD.png" style="width: 477.0px; height: 189.0px;" /></a>
+<p>The decomposition of the rating matrix <span class="math notranslate nohighlight">\(R_{m \times n} \approx U_{m \times d} V^t_{d \times n}\)</span> introduces a more compact representation of data. In this framework, the d columns of <span class="math notranslate nohighlight">\(U\)</span> represent user features, while the d columns of <span class="math notranslate nohighlight">\(V\)</span> (or d rows of <span class="math notranslate nohighlight">\(V^t\)</span>) correspond to item features.</p>
+<p>By adopting this decomposition, we effectively embed users and items into a shared d-dimensional space, allowing their preferences to be measured through inner product or similarity metrics.</p>
+<a class="reference internal image-reference" href="../_images/w13_SVD_profile.png"><img alt="../_images/w13_SVD_profile.png" src="../_images/w13_SVD_profile.png" style="width: 259.5px; height: 225.0px;" /></a>
+<p>The classical SVD algorithm is not directly applicable due to the presence of missing entries in the matrix. To address this, we minimize the quadratic loss, but only over the entries that are not missing.  When there are no missing entries, this minimizer would essentially yield the results of an ordinary SVD. However, the adjusted loss function is specifically designed to handle the gaps presented by these missing entries. To further refine this approach and avoid overfitting, penalty terms are incorporated into the loss function. The convex nature of this function makes gradient descent a suitable solution method.</p>
+<div class="math notranslate nohighlight">
+\[\sum_{R_{ij} \ne ?} (R_{ij} - u_i^t v_j)^2 + \lambda_1 \text{Pen}(U) + \lambda_2 \text{Pen}(V)\]</div>
+<p>where <span class="math notranslate nohighlight">\(u_i\)</span>, the i-th row of matrix <span class="math notranslate nohighlight">\(U\)</span>, is the latent vector for user i, and <span class="math notranslate nohighlight">\(v_j\)</span>, the j-th row of matrix <span class="math notranslate nohighlight">\(V\)</span>, is the latent vector for item j.</p>
+<p>After determining these latent vectors, the preference predictions for missing entries are then estimated by computing the inner product of the corresponding d-dimensional vectors for users and items.</p>
+<p>Taking this model further, the introduction of a baseline model helps to correct biases. This involves analyzing the rating matrix <span class="math notranslate nohighlight">\(R_{ij}\)</span> and incorporating both the global average effect and specific effects related to users and items. Similar to the approach used in centered cosine similarity, this baseline model removes user and item effects, refining the latent model’s predictive accuracy.</p>
+<a class="reference internal image-reference" href="../_images/w13_base_model.png"><img alt="../_images/w13_base_model.png" src="../_images/w13_base_model.png" style="width: 428.8px; height: 136.0px;" /></a>
+<p>Integrating these bias terms into the loss function, alongside regularization terms for a and b, facilitates gradient descent optimization. This process is straightforward and enhances the model’s predictive accuracy.</p>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="w13_1_intro.html" class="btn btn-neutral float-left" title="13.1. Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="w13_3_CF.html" class="btn btn-neutral float-right" title="13.3. Collaborative Filtering" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="w13_4_CF_details.html" class="btn btn-neutral float-left" title="13.4. UBCF and IBCF" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="w13_6_practice.html" class="btn btn-neutral float-right" title="13.6. Challenges and Strategies" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

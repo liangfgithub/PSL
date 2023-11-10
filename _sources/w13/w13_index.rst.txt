@@ -10,4 +10,5 @@ Recommender System
    w13_3_CF.rst
    w13_4_CF_details.rst
    w13_5_LatentFactor.rst
-   w13_6_Deep.rst
+   w13_6_practice.rst
+   w13_7_deep_RS.rst

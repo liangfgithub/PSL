@@ -61,6 +61,9 @@
 <li class="toctree-l2"><a class="reference internal" href="w13_2_Content_based.html">13.2. Content-Based Methods</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">13.3. Collaborative Filtering</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w13_4_CF_details.html">13.4. UBCF and IBCF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w13_5_LatentFactor.html">13.5. Latent Factor Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w13_6_practice.html">13.6. Challenges and Strategies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w13_7_deep_RS.html">13.7. Deep Recommender Systems</a></li>
 </ul>
 </li>
 </ul>
@@ -126,13 +129,20 @@
 </dl>
 </li>
 <li><dl>
-<dt>Centered Cosine Similarity (Pearson Correlation):</dt><dd><p>A variation of cosine similarity first normalizes around a user’s (or item’s) average rating by subtracting the mean of the observed values. Only entries from set <span class="math notranslate nohighlight">\(S = \{ i: u_i, \ne ?\}\)</span> are considered in the calculation, where ? means missing.</p>
+<dt>Centered Cosine Similarity (Pearson Correlation):</dt><dd><p>A variation of cosine similarity first normalizes around a user’s (or item’s) average rating by subtracting the mean of the observed values. Only entries from set <span class="math notranslate nohighlight">\(S = \{ i: u_i \ne \text{NA} \}\)</span> are considered in the calculation.</p>
 <div class="math notranslate nohighlight">
 \[\frac{(u - \bar{u})^t (v - \bar{v})}{\| u - \bar{u} \| \cdot \| v- \bar{v} \|}, \quad \text{ where } u, v \text{ are two vectors}\]</div>
 </dd>
 </dl>
 </li>
 </ul>
+<dl class="simple">
+<dt><strong>Note</strong>:</dt><dd><ul class="simple">
+<li><p>In the context of cosine-based similarity measures, it’s customary to define similarity as (1 + cos)/2, ensuring that the similarity values fall within the non-negative range.</p></li>
+<li><p>Be mindful of a potential issue when calculating centered cosine similarity: the denominator <span class="math notranslate nohighlight">\(\| u - \bar{u} \|\)</span> can become zero, when all non-NA (non-missing) elements of u are constant.</p></li>
+</ul>
+</dd>
+</dl>
 <p>In summary, with a well-constructed R matrix and a thoughtful selection of similarity measures, collaborative filtering  can make educated predictions, catering to the diverse tastes of their audience.</p>
 </section>
 

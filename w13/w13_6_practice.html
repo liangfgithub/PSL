@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>13.2. Content-Based Methods &mdash; PSL_Book 0.1 documentation</title>
+  <title>13.6. Challenges and Strategies &mdash; PSL_Book 0.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="13.3. Collaborative Filtering" href="w13_3_CF.html" />
-    <link rel="prev" title="13.1. Introduction" href="w13_1_intro.html" /> 
+    <link rel="next" title="13.7. Deep Recommender Systems" href="w13_7_deep_RS.html" />
+    <link rel="prev" title="13.5. Latent Factor Model" href="w13_5_LatentFactor.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -57,11 +57,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../w12/w12_index.html">12. Classification Trees and Boosting</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="w13_index.html">13. Recommender System</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="w13_1_intro.html">13.1. Introduction</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">13.2. Content-Based Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w13_2_Content_based.html">13.2. Content-Based Methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w13_3_CF.html">13.3. Collaborative Filtering</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w13_4_CF_details.html">13.4. UBCF and IBCF</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w13_5_LatentFactor.html">13.5. Latent Factor Model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="w13_6_practice.html">13.6. Challenges and Strategies</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">13.6. Challenges and Strategies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w13_7_deep_RS.html">13.7. Deep Recommender Systems</a></li>
 </ul>
 </li>
@@ -82,7 +82,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="w13_index.html"><span class="section-number">13. </span>Recommender System</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">13.2. </span>Content-Based Methods</li>
+      <li class="breadcrumb-item active"><span class="section-number">13.6. </span>Challenges and Strategies</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -91,27 +91,52 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="content-based-methods">
-<h1><span class="section-number">13.2. </span>Content-Based Methods<a class="headerlink" href="#content-based-methods" title="Link to this heading"></a></h1>
-<p>Let’s start with content-based methods. These are intuitive by nature.</p>
-<p>As a company, we construct a comprehensive catalog of our products, ensuring we know how to accurately represent each item. Consider movies or articles, for example; each can be depicted by a multi-dimensional feature vector.</p>
-<p>We might describe a movie using features such as its release date, genre, director, and lead actors, and so on. In this way, we construct an <strong>item profile</strong>, visualizing each item as a distinct point within a multi-dimensional feature space, represented here by blue dots.</p>
-<a class="reference internal image-reference" href="../_images/w13_user_item_profile.png"><img alt="../_images/w13_user_item_profile.png" src="../_images/w13_user_item_profile.png" style="width: 247.65px; height: 209.95000000000002px;" /></a>
-<p>In parallel, we construct a <strong>user profile</strong> within the same dimensional framework. How? Some platforms might query you directly about your preferences, asking which movies you enjoy. Others infer this from your viewing history, analyzing and aggregating the attributes of content you’ve recently engaged with. These profiles are weighted, with recent interactions typically holding more weight. The result is a user profile, represented here by yellow squares.</p>
-<p>Now, with both items and users plotted in the same space, we can determine preferences based on proximity. If we have a user surrounded by unwatched items, we recommend the nearest one. It’s a simple yet effective paradigm: map out items and users in a shared space, where closeness equates to preference, allowing us to make tailored recommendations.</p>
-<p>One of the advantages of this method is that it doesn’t require any other user’s data to make a recommendation. t’s efficient—we can start offering recommendations from day one, without waiting for extensive user-item interaction data. This model also shines when promoting new or less popular items; it does not discriminate based on an item’s popularity but rather its features. It caters to users with unique tastes, focusing solely on their preferences to identify ideal matches.</p>
-<p>Furthermore, content-based methods offer a high degree of transparency. We can easily articulate why an item was recommended based on the specific features that align with a user’s interests.</p>
-<p>However, this approach has its limitations. It tends to offer safe, predictable recommendations-essentially offering substitutes rather than complementary items, limiting discovery.</p>
-<p>The most challenging aspect, though, is identifying a robust set of features to adequately represent items. Whether it’s for movies, articles, images, or fashion items, each category demands a carefully crafted approach to feature selection.</p>
-<p>These limitations lead us to consider other technique, like Collaborative Filtering (CF), which we will discuss next.</p>
+  <section id="challenges-and-strategies">
+<h1><span class="section-number">13.6. </span>Challenges and Strategies<a class="headerlink" href="#challenges-and-strategies" title="Link to this heading"></a></h1>
+<ol class="arabic simple">
+<li><dl class="simple">
+<dt>Computational Efficiency:</dt><dd><p>To efficiently identify similar items or users, pre-clustering is often employed. By clustering users first, we can limit the search for the closest user to within a specific cluster, which significantly reduces computational costs.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Combining Multiple Systems:</dt><dd><p>In practice, a blend of different recommender systems is commonly used. For example, Amazon might display the top deals of the week, best products in a certain category, and items you showed interest in previously. This combination approach caters to a range of user preferences and behaviors.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Contextual Information:</dt><dd><p>Modern recommendation systems also consider contextual information, such as location, time, and the device used (e.g., iPhone, computer, or iPad). These factors can influence the recommendations, as the context in which a user browses can affect their choices.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Evaluating Recommender Systems:</dt><dd><ul class="simple">
+<li><p>Evaluation often involves viewing this as a prediction problem. Root Mean Square Error (RMSE) is a popular metric, but it has limitations. For instance, we’re more interested in higher ratings (like 4 or 5) that indicate a user’s strong interest in an item. Therefore, metrics like Precision&#64;K , which measure the accuracy of the top ‘K’ recommended items, can be more relevant.</p></li>
+<li><p>Another consideration is the balance between accuracy and diversity. While accurate predictions are desired, there’s also a need for diversity to ensure a broad range of items are recommended.</p></li>
+<li><p>The concept of serendipity, where users discover items they didn’t know they would like, is also valuable.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Incorporating User Feedback:</dt><dd><p>It’s crucial to distinguish whether a user is not interested in an item or simply unaware of it. Monitoring clicks on recommendations is one way to gather this feedback.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Challenges in Recommendation Systems:</dt><dd><p>Scalability and dealing with sparse data are significant challenges. The “cold start” problem of how to recommend new items or cater to new users remains a complex issue without a one-size-fits-all solution.</p>
+</dd>
+</dl>
+</li>
+</ol>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="w13_1_intro.html" class="btn btn-neutral float-left" title="13.1. Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="w13_3_CF.html" class="btn btn-neutral float-right" title="13.3. Collaborative Filtering" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="w13_5_LatentFactor.html" class="btn btn-neutral float-left" title="13.5. Latent Factor Model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="w13_7_deep_RS.html" class="btn btn-neutral float-right" title="13.7. Deep Recommender Systems" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

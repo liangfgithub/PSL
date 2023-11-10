@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>13.2. Content-Based Methods &mdash; PSL_Book 0.1 documentation</title>
+  <title>13.7. Deep Recommender Systems &mdash; PSL_Book 0.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,8 +19,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="13.3. Collaborative Filtering" href="w13_3_CF.html" />
-    <link rel="prev" title="13.1. Introduction" href="w13_1_intro.html" /> 
+    <link rel="prev" title="13.6. Challenges and Strategies" href="w13_6_practice.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -57,12 +56,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../w12/w12_index.html">12. Classification Trees and Boosting</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="w13_index.html">13. Recommender System</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="w13_1_intro.html">13.1. Introduction</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">13.2. Content-Based Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w13_2_Content_based.html">13.2. Content-Based Methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w13_3_CF.html">13.3. Collaborative Filtering</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w13_4_CF_details.html">13.4. UBCF and IBCF</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w13_5_LatentFactor.html">13.5. Latent Factor Model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w13_6_practice.html">13.6. Challenges and Strategies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="w13_7_deep_RS.html">13.7. Deep Recommender Systems</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">13.7. Deep Recommender Systems</a></li>
 </ul>
 </li>
 </ul>
@@ -82,7 +81,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="w13_index.html"><span class="section-number">13. </span>Recommender System</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">13.2. </span>Content-Based Methods</li>
+      <li class="breadcrumb-item active"><span class="section-number">13.7. </span>Deep Recommender Systems</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -91,27 +90,26 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="content-based-methods">
-<h1><span class="section-number">13.2. </span>Content-Based Methods<a class="headerlink" href="#content-based-methods" title="Link to this heading"></a></h1>
-<p>Let’s start with content-based methods. These are intuitive by nature.</p>
-<p>As a company, we construct a comprehensive catalog of our products, ensuring we know how to accurately represent each item. Consider movies or articles, for example; each can be depicted by a multi-dimensional feature vector.</p>
-<p>We might describe a movie using features such as its release date, genre, director, and lead actors, and so on. In this way, we construct an <strong>item profile</strong>, visualizing each item as a distinct point within a multi-dimensional feature space, represented here by blue dots.</p>
-<a class="reference internal image-reference" href="../_images/w13_user_item_profile.png"><img alt="../_images/w13_user_item_profile.png" src="../_images/w13_user_item_profile.png" style="width: 247.65px; height: 209.95000000000002px;" /></a>
-<p>In parallel, we construct a <strong>user profile</strong> within the same dimensional framework. How? Some platforms might query you directly about your preferences, asking which movies you enjoy. Others infer this from your viewing history, analyzing and aggregating the attributes of content you’ve recently engaged with. These profiles are weighted, with recent interactions typically holding more weight. The result is a user profile, represented here by yellow squares.</p>
-<p>Now, with both items and users plotted in the same space, we can determine preferences based on proximity. If we have a user surrounded by unwatched items, we recommend the nearest one. It’s a simple yet effective paradigm: map out items and users in a shared space, where closeness equates to preference, allowing us to make tailored recommendations.</p>
-<p>One of the advantages of this method is that it doesn’t require any other user’s data to make a recommendation. t’s efficient—we can start offering recommendations from day one, without waiting for extensive user-item interaction data. This model also shines when promoting new or less popular items; it does not discriminate based on an item’s popularity but rather its features. It caters to users with unique tastes, focusing solely on their preferences to identify ideal matches.</p>
-<p>Furthermore, content-based methods offer a high degree of transparency. We can easily articulate why an item was recommended based on the specific features that align with a user’s interests.</p>
-<p>However, this approach has its limitations. It tends to offer safe, predictable recommendations-essentially offering substitutes rather than complementary items, limiting discovery.</p>
-<p>The most challenging aspect, though, is identifying a robust set of features to adequately represent items. Whether it’s for movies, articles, images, or fashion items, each category demands a carefully crafted approach to feature selection.</p>
-<p>These limitations lead us to consider other technique, like Collaborative Filtering (CF), which we will discuss next.</p>
+  <section id="deep-recommender-systems">
+<h1><span class="section-number">13.7. </span>Deep Recommender Systems<a class="headerlink" href="#deep-recommender-systems" title="Link to this heading"></a></h1>
+<p>Let’s delve into some of the recent developments in recommender systems. These advancements are primarily rooted in deep learning, which you can think of as a black-box approach where you input data and receive predictions. Under the hood, these models employ gradient descent to estimate various parameters.</p>
+<p>There are two key extensions for recommender systems using neural networks. The first involves using deep learning to create latent features for items or users. <strong>Spotify</strong>, for example, employed a factor model to obtain multi-dimensional feature vectors for their music. They wanted to see if they could directly construct these latent vectors for music without relying on user data. For this, they framed it as a regression problem, used mean square error as the evaluation metric, and trained a network to transform input audio into these 40-dimensional vectors. This is how they embedded information for their music. Once you have item features, you can similarly create user features.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://sander.ai/2014/08/05/spotify-cnns.html">Recommending music on Spotify with deep learning (Link)</a></p></li>
+</ul>
+<p>Another approach is to employ autoencoders for nonlinear embedding. Autoencoders take an input, pass it through a series of layers, and try to reconstruct the original input. By minimizing the mean square error between the input and the reconstructed output, you can train a neural network. Once this network is established, you can use the lower-dimensional representation generated by the autoencoder for your original input.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://towardsdatascience.com/deep-autoencoders-for-collaborative-filtering-6cf8d25bbf1d">Deep Autoencoders For Collaborative Filtering (Link)</a></p></li>
+</ul>
+<p>Moving on, there are two-stage recommender systems. First, there’s a filtering stage where a vast catalog is narrowed down to a smaller set of items, typically around 50. Then, a ranking algorithm is employed to determine the preferences of the user for these 50 items, assigning them probabilities or numeric values. The top-ranked items are recommended to the user. This two-stage process often involves simple matching in the filtering stage and more complex models in the ranking stage, where user information is used.</p>
+<p>One popular model for the ranking stage, developed by Google, is the <a class="reference external" href="https://blog.research.google/2016/06/wide-deep-learning-better-together-with.html">Deep and Wide Model (Link)</a>. It combines a deep neural network, which can learn complex relationships, with a wide model, essentially a simple logistic regression model that excels at remembering specific item-user interactions. This hybrid model strikes a balance between generalization and memorization, making it versatile not just for recommender systems but also for various classification tasks.</p>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="w13_1_intro.html" class="btn btn-neutral float-left" title="13.1. Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="w13_3_CF.html" class="btn btn-neutral float-right" title="13.3. Collaborative Filtering" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="w13_6_practice.html" class="btn btn-neutral float-left" title="13.6. Challenges and Strategies" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
