@@ -42,14 +42,18 @@ Crucial to collaborative filtering is the notion of similarity. We need to deter
 		\frac{u^t v}{\| u\| \cdot \| v\|}, \quad \text{ where } u, v \text{ are two vectors}
 
 - Centered Cosine Similarity (Pearson Correlation): 
-	A variation of cosine similarity first normalizes around a user's (or item's) average rating by subtracting the mean of the observed values. Only entries from set :math:`S = \{ i: u_i \ne \text{NA} \}` are considered in the calculation.
-
+	A variation of cosine similarity first normalizes around a user's (or item's) average rating by subtracting the mean of the observed values. 
+	
 	.. math::
 		\frac{(u - \bar{u})^t (v - \bar{v})}{\| u - \bar{u} \| \cdot \| v- \bar{v} \|}, \quad \text{ where } u, v \text{ are two vectors}
 
-**Note**:
-	- In the context of cosine-based similarity measures, it's customary to define similarity as (1 + cos)/2, ensuring that the similarity values fall within the non-negative range. 
-	- Be mindful of a potential issue when calculating centered cosine similarity: the denominator :math:`\| u - \bar{u} \|` can become zero, when all non-NA (non-missing) elements of u are constant. 
+When working with **cosine-based** similarity measures, it's important to consider a couple of **Key Issues**:
+
+- The measures are computed based on the shared, non-missing elements between two entities. For example, for users u and v, the calculation relies on ratings for items that they have both rated. This implies that in the calculation the length of vector u can vary depending on whether we are computing the similarity between u and v1 or the similarity between u and v2. This behavior aligns with the `pairwise.complete.obs <https://search.r-project.org/CRAN/refmans/DescTools/html/Cor.html>`_ method in the R command cor. However, some may find such computed similarity less comparable or reasonable. For instance, it's common to obtain a correlation of 1 between two users if they have rated only one shared item.
+
+- It's important to recognize that cosines (or correlation coefficients) fall within the range [-1, 1], while similarity measures are typically expected to be within the range [0, 1]. To bridge this gap, it's customary to define similarity as (1 + cos)/2.
+
+- Additionally, when calculating centered cosine similarity, it's crucial to be mindful of a potential issue related to the denominator: :math:`\| u - \bar{u} \|.` This denominator can become zero when all non-NA (non-missing) elements of u are constant.
 
 
 In summary, with a well-constructed R matrix and a thoughtful selection of similarity measures, collaborative filtering  can make educated predictions, catering to the diverse tastes of their audience.
