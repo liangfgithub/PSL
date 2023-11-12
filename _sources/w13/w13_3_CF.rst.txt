@@ -47,11 +47,18 @@ Crucial to collaborative filtering is the notion of similarity. We need to deter
 	.. math::
 		\frac{(u - \bar{u})^t (v - \bar{v})}{\| u - \bar{u} \| \cdot \| v- \bar{v} \|}, \quad \text{ where } u, v \text{ are two vectors}
 
-When working with **cosine-based** similarity measures, it's important to consider a couple of **Key Issues**:
+When working with **cosine-based** similarity measures, it’s important to consider a couple of **Key Issues**:
 
-- The measures are computed based on the shared, non-missing elements between two entities. For example, for users u and v, the calculation relies on ratings for items that they have both rated. This implies that in the calculation the length of vector u can vary depending on whether we are computing the similarity between u and v1 or the similarity between u and v2. This behavior aligns with the `pairwise.complete.obs <https://search.r-project.org/CRAN/refmans/DescTools/html/Cor.html>`_ method in the R command cor. However, some may find such computed similarity less comparable or reasonable. For instance, it's common to obtain a correlation of 1 between two users if they have rated only one shared item.
+- Cosines (or correlation coefficients) fall within the range [-1, 1], while similarity measures are typically expected to be within the range [0, 1]. To bridge this gap, it's customary to define similarity as (1 + cos)/2.
 
-- It's important to recognize that cosines (or correlation coefficients) fall within the range [-1, 1], while similarity measures are typically expected to be within the range [0, 1]. To bridge this gap, it's customary to define similarity as (1 + cos)/2.
+- The measures are computed based on the shared, non-missing elements between two entities. For example, for users u and v, the calculation relies on ratings for items that they have both rated. This implies that in the calculation the length of vector u can vary depending on whether we are computing the similarity between u and v1 or the similarity between u and v2. It's worth noting that  it's common to obtain a similarity of 1 between two users if they have rated only one shared item.
+
+
+When it comes to **Centered Cosine** similarity, 
+
+- one approach is to confine all calculations, including centering, to the shared, non-missing elements between two entities This aligns with the `pairwise.complete.obs <https://search.r-project.org/CRAN/refmans/DescTools/html/Cor.html>`_ method in the R command cor. However, some may find such computed similarity less comparable or reasonable. 
+
+- An alternative approach for calculating Centered Cosine similarity involves first centering each user's ratings to eliminate user bias and then computing the cosine similarity. For example, if user u has rated 10 movies, and 3 of those movies are also rated by user v, the calculation during the centering stage takes into account all 10 ratings, whereas the cosine calculation considers only the shared 3 ratings. In contrast, in the centered cosine similarity calculation mentioned above, all computations, including centering, are restricted to the three shared ratings.
 
 - Additionally, when calculating centered cosine similarity, it's crucial to be mindful of a potential issue related to the denominator: :math:`\| u - \bar{u} \|.` This denominator can become zero when all non-NA (non-missing) elements of u are constant.
 
