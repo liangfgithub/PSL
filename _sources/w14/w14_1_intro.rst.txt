@@ -1,0 +1,48 @@
+Introduction
+========================
+
+Before delving into the topic of neural networks, let's begin with a overview of how how machine learning operates. Machine learning primarily encompasses supervised learning, which involves tasks like regression or classification.
+
+Imagine you have a task at hand, say predicting house prices (that's regression) or identifying cats and dogs in images (that's classification). Here's how we tackle it:
+
+- Step 1: Collecting Data
+
+We start by gathering data, like prices of houses and details about them or lots of pictures of cats and dogs. Let's consider a scenario where we've gathered a set of 'n' data samples, denoted as 'x_i,' each representing a 'p'-dimensional feature vector. Alongside these features, we have 'y_i,' which serves as the target or response variable. In regression tasks, 'y_i' assumes continuous values, whereas in classification tasks, it takes on categorical values. We have 'n' such pairs to work with.
+
+
+- Step 2: Defining Function Space
+
+The next step involves defining a function space. Here, 'f' becomes the key player—a function that takes 'x' as input along with a set of parameters. The output of this function, 'f(x_i, w),' serves as our prediction for 'y_i.' The parameter 'w' can take various values, collectively forming a function space.
+
+
+- Step 3: Choosing a Loss Function
+
+Then, we pick a loss function to measure how "unhappy" we are with our predictions. This function measures the disparity between y_i' and 'f(x_i, w)', telling us how far off our predictions are from the real values. We sum up these losses across all 'n' observations to create our objective function.
+
+
+
+- Step 4: Optimize the Objective Function
+
+This objective function is a function of the unknown parameter 'w' and serves as the cornerstone of our learning task. Our goal is to minimize this function, which brings us to the last step—selecting an optimizer. The optimizer is our tool for navigating the objective function's landscape and finding the best parameter 'w' that makes our predictions as close as possible to the real values. 
+
+
+It's important to note that the very first step—data collection—is often beyond our control. The data is frequently provided to us, and we have limited influence over how it was collected. Now, as we move forward, we'll delve into each of these steps in more detail.
+
+
+
+
+One common one is called "gradient descent." Imagine you're on a hill, and you want to reach the lowest point. You take small steps downhill, and the steepness of the hill (the gradient) guides you.
+With each step, you adjust the parameters ('w') to make your predictions better.
+You repeat this process until you're as close as possible to the best 'w' that minimizes the loss function.
+
+
+There are challenges, though. Picking the right step size (learning rate) is crucial. If it's too big, you might overshoot the best point; if it's too small, you'll take forever to get there.
+Also, sometimes you can get stuck in local minima, which are not the best solutions. To deal with this, you might need to try different starting points or advanced techniques.
+
+
+Stochastic Gradient Descent (SGD)
+---------------------------------------
+
+When dealing with lots of data, doing the calculations for every single data point can be super slow. Here's where Stochastic Gradient Descent (SGD) comes in. Instead of using all data, you randomly pick a subset (a mini-batch) and calculate your gradients based on that. It introduces some randomness but can speed things up. 
+
+So, in a nutshell, machine learning involves gathering data, creating a function to make predictions, selecting a way to measure errors, and using optimization (like gradient descent) to find the best parameters. Keep in mind that it's not always a smooth ride; you might need some tricks to get to the best solutions, especially with complex problems.

@@ -1,0 +1,10 @@
+Introduction to Deep Learning
+====================================
+
+
+.. toctree::
+   :maxdepth: 1
+
+   w14_1_intro.rst
+   w14_2_CNN.rst
+   w14_3_VAE.rst

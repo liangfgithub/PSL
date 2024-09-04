@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Introduction &mdash; PSL_Book 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=2709fde1"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PSL_Book
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../w1/w1_index.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w2/w2_index.html">2. Linear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w3/w3_index.html">3. Variable Selection and Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w4/w4_index.html">4. Regression Trees and Ensemble</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w5/w5_index.html">5. Nonlinear Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w6/w6_index.html">6. Clustering Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w7/w7_index.html">7. Latent Structure Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w8/w8_index.html">8. TBA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w9/w9_index.html">9. Discriminant Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w10/w10_index.html">10. Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w11/w11_index.html">11. Support Vector Machine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w12/w12_index.html">12. Classification Trees and Boosting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../w13/w13_index.html">13. Recommender System</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PSL_Book</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Introduction</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h1>
+<p>Before delving into the topic of neural networks, let’s begin with a overview of how how machine learning operates. Machine learning primarily encompasses supervised learning, which involves tasks like regression or classification.</p>
+<p>Imagine you have a task at hand, say predicting house prices (that’s regression) or identifying cats and dogs in images (that’s classification). Here’s how we tackle it:</p>
+<ul class="simple">
+<li><p>Step 1: Collecting Data</p></li>
+</ul>
+<p>We start by gathering data, like prices of houses and details about them or lots of pictures of cats and dogs. Let’s consider a scenario where we’ve gathered a set of ‘n’ data samples, denoted as ‘x_i,’ each representing a ‘p’-dimensional feature vector. Alongside these features, we have ‘y_i,’ which serves as the target or response variable. In regression tasks, ‘y_i’ assumes continuous values, whereas in classification tasks, it takes on categorical values. We have ‘n’ such pairs to work with.</p>
+<ul class="simple">
+<li><p>Step 2: Defining Function Space</p></li>
+</ul>
+<p>The next step involves defining a function space. Here, ‘f’ becomes the key player—a function that takes ‘x’ as input along with a set of parameters. The output of this function, ‘f(x_i, w),’ serves as our prediction for ‘y_i.’ The parameter ‘w’ can take various values, collectively forming a function space.</p>
+<ul class="simple">
+<li><p>Step 3: Choosing a Loss Function</p></li>
+</ul>
+<p>Then, we pick a loss function to measure how “unhappy” we are with our predictions. This function measures the disparity between y_i’ and ‘f(x_i, w)’, telling us how far off our predictions are from the real values. We sum up these losses across all ‘n’ observations to create our objective function.</p>
+<ul class="simple">
+<li><p>Step 4: Optimize the Objective Function</p></li>
+</ul>
+<p>This objective function is a function of the unknown parameter ‘w’ and serves as the cornerstone of our learning task. Our goal is to minimize this function, which brings us to the last step—selecting an optimizer. The optimizer is our tool for navigating the objective function’s landscape and finding the best parameter ‘w’ that makes our predictions as close as possible to the real values.</p>
+<p>It’s important to note that the very first step—data collection—is often beyond our control. The data is frequently provided to us, and we have limited influence over how it was collected. Now, as we move forward, we’ll delve into each of these steps in more detail.</p>
+<p>One common one is called “gradient descent.” Imagine you’re on a hill, and you want to reach the lowest point. You take small steps downhill, and the steepness of the hill (the gradient) guides you.
+With each step, you adjust the parameters (‘w’) to make your predictions better.
+You repeat this process until you’re as close as possible to the best ‘w’ that minimizes the loss function.</p>
+<p>There are challenges, though. Picking the right step size (learning rate) is crucial. If it’s too big, you might overshoot the best point; if it’s too small, you’ll take forever to get there.
+Also, sometimes you can get stuck in local minima, which are not the best solutions. To deal with this, you might need to try different starting points or advanced techniques.</p>
+<section id="stochastic-gradient-descent-sgd">
+<h2>Stochastic Gradient Descent (SGD)<a class="headerlink" href="#stochastic-gradient-descent-sgd" title="Link to this heading"></a></h2>
+<p>When dealing with lots of data, doing the calculations for every single data point can be super slow. Here’s where Stochastic Gradient Descent (SGD) comes in. Instead of using all data, you randomly pick a subset (a mini-batch) and calculate your gradients based on that. It introduces some randomness but can speed things up.</p>
+<p>So, in a nutshell, machine learning involves gathering data, creating a function to make predictions, selecting a way to measure errors, and using optimization (like gradient descent) to find the best parameters. Keep in mind that it’s not always a smooth ride; you might need some tricks to get to the best solutions, especially with complex problems.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Feng Liang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

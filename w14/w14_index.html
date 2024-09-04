@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>6. Clustering Analysis &mdash; PSL_Book 0.1 documentation</title>
+  <title>Introduction to Deep Learning &mdash; PSL_Book 0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
 
@@ -18,12 +18,9 @@
         <script src="../_static/documentation_options.js?v=2709fde1"></script>
         <script src="../_static/doctools.js?v=9a2dae69"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="6.1. Distance Measures" href="w6_1_distance.html" />
-    <link rel="prev" title="5.5. Local Regression" href="../w5/w5_5_local_reg.html" /> 
+    <link rel="search" title="Search" href="../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,20 +42,13 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../w1/w1_index.html">1. Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../w2/w2_index.html">2. Linear Regression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../w3/w3_index.html">3. Variable Selection and Regularization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../w4/w4_index.html">4. Regression Trees and Ensemble</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../w5/w5_index.html">5. Nonlinear Regression</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">6. Clustering Analysis</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="w6_1_distance.html">6.1. Distance Measures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="w6_2_kmeans.html">6.2. K-means and K-medoids</a></li>
-<li class="toctree-l2"><a class="reference internal" href="w6_3_choice_of_k.html">6.3. Choice of K</a></li>
-<li class="toctree-l2"><a class="reference internal" href="w6_4_hcluster.html">6.4. Hierarchical Clustering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="w6_5_code.html">6.5. R/Python Code</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../w6/w6_index.html">6. Clustering Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../w7/w7_index.html">7. Latent Structure Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../w8/w8_index.html">8. TBA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../w9/w9_index.html">9. Discriminant Analysis</a></li>
@@ -82,7 +72,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active"><span class="section-number">6. </span>Clustering Analysis</li>
+      <li class="breadcrumb-item active">Introduction to Deep Learning</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -91,15 +81,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="clustering-analysis">
-<h1><span class="section-number">6. </span>Clustering Analysis<a class="headerlink" href="#clustering-analysis" title="Link to this heading"></a></h1>
+  <section id="introduction-to-deep-learning">
+<h1>Introduction to Deep Learning<a class="headerlink" href="#introduction-to-deep-learning" title="Link to this heading"></a></h1>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="w6_1_distance.html">6.1. Distance Measures</a></li>
-<li class="toctree-l1"><a class="reference internal" href="w6_2_kmeans.html">6.2. K-means and K-medoids</a></li>
-<li class="toctree-l1"><a class="reference internal" href="w6_3_choice_of_k.html">6.3. Choice of K</a></li>
-<li class="toctree-l1"><a class="reference internal" href="w6_4_hcluster.html">6.4. Hierarchical Clustering</a></li>
-<li class="toctree-l1"><a class="reference internal" href="w6_5_code.html">6.5. R/Python Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="w14_1_intro.html">Introduction</a></li>
 </ul>
 </div>
 </section>
@@ -107,10 +93,7 @@
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../w5/w5_5_local_reg.html" class="btn btn-neutral float-left" title="5.5. Local Regression" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="w6_1_distance.html" class="btn btn-neutral float-right" title="6.1. Distance Measures" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+          <footer>
 
   <hr/>
 

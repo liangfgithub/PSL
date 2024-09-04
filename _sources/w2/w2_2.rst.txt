@@ -82,7 +82,7 @@ The definition of R-squared is given by a ratio where the numerator represents t
 .. math::
 	R^2  = \frac{\sum (\hat{y}_i - \bar{\mathbf{y}})^2}{\sum (y_i - \bar{\mathbf{y}})^2} \ =  \frac{\| \hat{\mathbf{y}} - \bar{\mathbf{y}} \|^2}{\| \mathbf{y} - \bar{\mathbf{y}} \|^2} 
 
-Note that since y = y-hat + r and the mean of the residual vector r is zero, the mean of y and the mean of y-hat are the same (i.e., y-bar). If we divide the numerator and denominator of the R-squared ratio by (n-1), it becomes clear that R-square equates to the variance of the fitted values (y-hat) relative to the variance of the original data (y). This understanding leads us to interpret R-suare as the fraction of the variance in Y explained by X because y-hat is determined by X. 
+Note that since y = y-hat + r and the mean of the residual vector r is zero, the mean of y and the mean of y-hat are the same (i.e., y-bar). If we divide the numerator and denominator of the R-squared ratio by (n-1), it becomes clear that R-square equates to the variance of the fitted values (y-hat) relative to the variance of the original data (y). This understanding leads us to interpret R-square as the fraction of the variance in Y explained by X because y-hat is determined by X. 
 
 
 Geometric Interpretation
