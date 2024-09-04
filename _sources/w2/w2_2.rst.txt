@@ -108,7 +108,7 @@ R-square can be alternatively expressed as FSS/TSS or (1 - RSS/TSS)
 	& = \frac{\| \mathbf{y} - \bar{\mathbf{y}} \|^2 - \| \mathbf{r} \|^2}{\| \mathbf{y} - \bar{\mathbf{y}} \|^2}  = 1 -  \frac{\text{RSS}}{\text{TSS}}	
 
 
-Additionally, R-squarae can be described as the **squared correlation** between y and y-hat in multiple linear regression, and between y and x in simple linear regression. This is why R-square values always lie between 0 and 1.
+Additionally, R-square can be described as the **squared correlation** between y and y-hat in multiple linear regression, and between y and x in simple linear regression. This is why R-square values always lie between 0 and 1.
 
 
 Invariance Properties of R-square
